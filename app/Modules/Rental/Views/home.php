@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Royal Rental</title>
+    <title>Nexus Rental</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
 <div class="page-shell">
     <nav id="mainNav" class="main-nav">
         <div class="container nav-inner">
-            <a href="#" class="brand">Royal Rental</a>
+            <a href="#" class="brand">Nexus Rental</a>
             <button id="mobileMenuButton" class="menu-button" type="button">Menu <i class="fa fa-bars"></i></button>
             <div class="desktop-menu">
                 <ul>
@@ -45,7 +45,7 @@
     <section id="playstation" class="section section-black">
         <div class="container">
             <div class="section-wrap">
-                <h2>Royal Rental Playstation <br>Lantai 1</h2>
+                <h2>Nexus Rental Playstation <br>Lantai 1</h2>
                 <div class="facility-grid">
                     <?php foreach ($playstationCards as $card): ?>
                         <div class="facility-card">
@@ -134,7 +134,7 @@
                             <div class="social-links">
                                 <a href="#"><i class="fa fa-facebook-official"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="mailto:royalrentalps@gmail.com"><i class="fa fa-envelope"></i></a>
+                                <a href="mailto:nexusrentalps@gmail.com"><i class="fa fa-envelope"></i></a>
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
         </div>
     </section>
 
-    <footer><div class="container"><p>Copyright &copy; Royal Rental 2026</p></div></footer>
+    <footer><div class="container"><p>Copyright &copy; Nexus Rental 2026</p></div></footer>
 </div>
 <script src="/assets/js/rental.js?v=4"></script>
 </body>

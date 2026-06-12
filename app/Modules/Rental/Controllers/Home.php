@@ -13,7 +13,7 @@ class Home extends BaseController
             ['icon' => 'fa-gamepad', 'title' => 'Game PS 4 Terbaru'],
             ['image' => '/images/Martz90-Circle-Addon2-Playstation.ico', 'title' => 'Terdapat 9 console PS 4'],
             ['icon' => 'fa-television', 'title' => 'TV 32 ~ 50 inch'],
-            ['icon' => 'fa-wifi', 'title' => 'free wifi', 'subtitle' => 'Pass : Royalrentalps'],
+            ['icon' => 'fa-wifi', 'title' => 'free wifi', 'subtitle' => 'Pass : Nexusrentalps'],
             ['image' => '/images/Refrigeration-Icon.png', 'title' => 'FULL AC'],
         ];
 
