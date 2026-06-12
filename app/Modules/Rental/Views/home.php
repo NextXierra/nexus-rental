@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/rental.css?v=2">
+    <link rel="stylesheet" href="/assets/css/rental.css?v=3">
 </head>
 <body>
 <div class="page-shell">
@@ -46,7 +46,7 @@
     <section id="playstation" class="section section-black">
         <div class="container">
             <div class="section-wrap">
-                <h2>Nexus Rental Playstation <br>Lantai 1</h2>
+                <h2>Nexus Rental Playstation</h2>
                 <div class="facility-grid">
                     <?php foreach ($playstationCards as $card): ?>
                         <div class="facility-card">
