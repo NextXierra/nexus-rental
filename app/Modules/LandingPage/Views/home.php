@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/rental.css?v=4">
+    <link rel="stylesheet" href="/assets/css/landingpage.css?v=5">
 </head>
 <body>
 <div class="page-shell">
@@ -161,6 +161,6 @@
 <script src="/vendor/jquery/jquery.slim.min.js"></script>
 <script src="/vendor/popper/popper.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="/assets/js/rental.js?v=5"></script>
+<script src="/assets/js/landingpage.js?v=6"></script>
 </body>
 </html>
