@@ -9,12 +9,12 @@ class Home extends BaseController
     public function index(): string
     {
         $playstationCards = [
-            ['icon' => 'fa-money', 'title' => 'Harga mulai dari IDR 8.000'],
-            ['icon' => 'fa-gamepad', 'title' => 'Game PS 4 Terbaru'],
-            ['image' => '/images/Martz90-Circle-Addon2-Playstation.ico', 'title' => 'Terdapat 9 console PS 4'],
-            ['icon' => 'fa-television', 'title' => 'TV 32 ~ 50 inch'],
-            ['icon' => 'fa-wifi', 'title' => 'free wifi', 'subtitle' => 'Pass : Nexusrentalps'],
-            ['image' => '/images/Refrigeration-Icon.png', 'title' => 'FULL AC'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 1'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 2'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 3'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 4'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 5', 'subtitle' => 'Placeholder keterangan fasilitas'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 6'],
         ];
 
         $psGames = [
@@ -39,15 +39,15 @@ class Home extends BaseController
         ];
 
         $availability = [
-            ['name' => 'Playstation 1', 'status' => 'available'],
-            ['name' => 'Playstation 2', 'status' => 'available'],
-            ['name' => 'Playstation 3', 'status' => 'available'],
-            ['name' => 'Playstation 4', 'status' => 'available'],
-            ['name' => 'Playstation 5', 'status' => 'available'],
-            ['name' => 'Playstation 6', 'status' => 'available'],
-            ['name' => 'Playstation 7', 'status' => 'available'],
-            ['name' => 'Playstation 8', 'status' => 'booked', 'time' => 'Selesai pukul 21 : 21'],
-            ['name' => 'Playstation VIP', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 1', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 2', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 3', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 4', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 5', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 6', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 7', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 8', 'status' => 'booked', 'time' => 'Placeholder waktu selesai'],
+            ['name' => 'Placeholder Unit VIP', 'status' => 'available'],
         ];
 
         return view('Modules\LandingPage\Views\home', compact('playstationCards', 'psGames', 'availability'));
