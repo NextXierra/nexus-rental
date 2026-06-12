@@ -105,7 +105,7 @@
         <div class="container">
             <div class="contact-wrap">
                 <h2>Kontak Kami</h2>
-                <h4>Untuk booking dapat WA ke no. 0878-7720-7665</h4>
+                <h4>Untuk booking dapat WA ke no. 08xx-xxxx-xxxx</h4>
                 <div class="contact-grid">
                     <div>
                         <form id="feedbackForm" class="feedback-form">
@@ -128,7 +128,7 @@
                     <div class="contact-sidebar">
                         <div>
                             <h5>Alamat</h5>
-                            <p>Jl. Danau Toba No. A7, Sawojajar, Kec. Kedungkandang, Kota Malang, Jawa Timur 65139</p>
+                            <p>Jl. Nama Jalan No. 00, Kecamatan, Kota, Provinsi 00000</p>
                         </div>
                         <div>
                             <h5>Media Sosial</h5>
