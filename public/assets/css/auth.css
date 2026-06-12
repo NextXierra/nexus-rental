@@ -106,7 +106,7 @@ body.auth-body {
 
 .social-btn {
     border-radius: 5px;
-    color: #fff;
+    color: #000;
     text-align: center;
     padding: 10px;
     margin-bottom: 10px;
@@ -119,13 +119,14 @@ body.auth-body {
     float: left;
     margin-top: 3px;
     margin-left: 10px;
+    color: #000;
 }
 .btn-facebook { background-color: #3b5998; border: none; }
-.btn-facebook:hover { background-color: #2d4373; color: white; }
+.btn-facebook:hover { background-color: #2d4373; color: #000; }
 .btn-twitter { background-color: #00aced; border: none; }
-.btn-twitter:hover { background-color: #0084b4; color: white; }
+.btn-twitter:hover { background-color: #0084b4; color: #000; }
 .btn-google { background-color: #dd4b39; border: none; }
-.btn-google:hover { background-color: #c23321; color: white; }
+.btn-google:hover { background-color: #c23321; color: #000; }
 
 .image-section {
     background-size: cover;

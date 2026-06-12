@@ -43,7 +43,7 @@ class Login extends BaseController
     public function processLogin()
     {
         $rules = [
-            'email'    => 'required|valid_email',
+            'email'    => 'required',
             'password' => 'required',
         ];
 
@@ -51,11 +51,17 @@ class Login extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $email = $this->request->getPost('email');
+        $loginInput = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
         $userModel = new User();
-        $user = $userModel->where('email', $email)->first();
+        
+        // Cek login via email atau username
+        $user = $userModel->groupStart()
+                            ->where('email', $loginInput)
+                            ->orWhere('username', $loginInput)
+                          ->groupEnd()
+                          ->first();
 
         if ($user && password_verify($password, $user['password'])) {
             $session = session();

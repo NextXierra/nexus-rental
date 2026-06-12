@@ -55,7 +55,7 @@ $randomGame = $games[array_rand($games)];
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-user-o"></i></span>
                     </div>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Username or email" value="<?= old('email') ?>" required>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Username or email" value="<?= old('email') ?>" required>
                 </div>
                 
                 <div class="input-group mb-4">
