@@ -145,6 +145,6 @@
 
     <footer><div class="container"><p>Copyright &copy; Royal Rental 2026</p></div></footer>
 </div>
-<script src="/assets/js/rental.js"></script>
+<script src="/assets/js/rental.js?v=4"></script>
 </body>
 </html>

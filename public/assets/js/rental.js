@@ -20,8 +20,20 @@
     mobileMenu.hidden = !mobileMenu.hidden;
   });
 
-  mobileMenu.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () {
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      const target = document.querySelector(link.getAttribute('href'));
+
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      nav.classList.add('scrolled');
+      const navHeight = window.innerWidth >= 1024 ? 49 : nav.offsetHeight;
+      const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
       mobileMenu.hidden = true;
     });
   });
