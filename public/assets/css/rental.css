@@ -14,6 +14,8 @@ a { color: inherit; text-decoration: none; }
 .desktop-menu a, .mobile-menu a { transition: color .2s; }
 .desktop-menu a { padding: 8px 0; }
 .desktop-menu a:hover, .mobile-menu a:hover { color: #E8890A; }
+.profile-placeholder { width: 36px; height: 36px; border: 1px solid rgb(255 255 255 / 70%); color: #fff; }
+.profile-placeholder:hover { border-color: #E8890A; color: #E8890A; }
 .mobile-menu { overflow: hidden; margin-top: 8px; padding: 16px; background: #000; border-top: 1px solid rgb(255 255 255 / 20%); font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .1em; animation: menuIn .18s ease-out; }
 .mobile-menu ul { gap: 16px; }
 .mobile-menu a { display: block; padding: 8px 0; }

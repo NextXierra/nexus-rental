@@ -12,9 +12,9 @@ class Home extends BaseController
             ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 1'],
             ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 2'],
             ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 3'],
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 4'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 4', 'subtitle' => 'Placeholder keterangan fasilitas'],
             ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 5', 'subtitle' => 'Placeholder keterangan fasilitas'],
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 6'],
+            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 6', 'subtitle' => 'Placeholder keterangan fasilitas'],
         ];
 
         $psGames = [
@@ -47,7 +47,7 @@ class Home extends BaseController
             ['name' => 'Placeholder Unit 6', 'status' => 'available'],
             ['name' => 'Placeholder Unit 7', 'status' => 'available'],
             ['name' => 'Placeholder Unit 8', 'status' => 'booked', 'time' => 'Placeholder waktu selesai'],
-            ['name' => 'Placeholder Unit VIP', 'status' => 'available'],
+            ['name' => 'Placeholder Unit 9', 'status' => 'available'],
         ];
 
         return view('Modules\LandingPage\Views\home', compact('playstationCards', 'psGames', 'availability'));
