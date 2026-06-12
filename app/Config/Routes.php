@@ -3,4 +3,4 @@
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
-$routes->get('/', '\Modules\Rental\Controllers\Home::index');
+$routes->get('/', '\Modules\LandingPage\Controllers\Home::index');

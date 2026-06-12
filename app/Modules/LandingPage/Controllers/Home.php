@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Rental\Controllers;
+namespace Modules\LandingPage\Controllers;
 
 use App\Controllers\BaseController;
 
@@ -50,6 +50,6 @@ class Home extends BaseController
             ['name' => 'Playstation VIP', 'status' => 'available'],
         ];
 
-        return view('Modules\Rental\Views\home', compact('playstationCards', 'psGames', 'availability'));
+        return view('Modules\LandingPage\Views\home', compact('playstationCards', 'psGames', 'availability'));
     }
 }
