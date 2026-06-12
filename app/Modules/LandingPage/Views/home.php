@@ -9,16 +9,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/rental.css?v=3">
+    <link rel="stylesheet" href="/assets/css/rental.css?v=4">
 </head>
 <body>
 <div class="page-shell">
-    <nav id="mainNav" class="main-nav">
-        <div class="container nav-inner">
-            <a href="#" class="brand">Nexus Rental</a>
-            <button id="mobileMenuButton" class="menu-button" type="button">Menu <i class="fa fa-bars"></i></button>
+    <nav id="mainNav" class="navbar navbar-expand-lg main-nav">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a href="#" class="navbar-brand brand">Nexus Rental</a>
+            <button id="mobileMenuButton" class="navbar-toggler menu-button" type="button">Menu <i class="fa fa-bars"></i></button>
             <div class="desktop-menu">
-                <ul>
+                <ul class="navbar-nav">
                     <li><a href="#playstation">Fasilitas</a></li>
                     <li><a href="#availability">Cek Ketersediaan</a></li>
                     <li><a href="#playstationgames">Games</a></li>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div id="mobileMenu" class="mobile-menu" hidden>
-            <ul>
+            <ul class="navbar-nav">
                 <li><a href="#playstation">Fasilitas</a></li>
                 <li><a href="#availability">Cek Ketersediaan</a></li>
                 <li><a href="#playstationgames">Games</a></li>
@@ -47,18 +47,22 @@
         <div class="container">
             <div class="section-wrap">
                 <h2>Nexus Rental Playstation</h2>
-                <div class="facility-grid">
+                <div class="row">
                     <?php foreach ($playstationCards as $card): ?>
-                        <div class="facility-card">
-                            <?php if (isset($card['icon'])): ?>
-                                <span class="fa <?= esc($card['icon']) ?> facility-icon"></span>
-                            <?php else: ?>
-                                <img class="facility-image <?= str_contains($card['image'], 'Playstation') ? 'playstation-image' : '' ?>" src="<?= esc($card['image']) ?>" alt="">
-                            <?php endif; ?>
-                            <h4><?= esc($card['title']) ?></h4>
-                            <?php if (isset($card['subtitle'])): ?>
-                                <p><?= esc($card['subtitle']) ?></p>
-                            <?php endif; ?>
+                        <div class="col-md-4 mb-4">
+                            <div class="card facility-card">
+                                <div class="card-body">
+                                    <?php if (isset($card['icon'])): ?>
+                                        <span class="fa <?= esc($card['icon']) ?> facility-icon"></span>
+                                    <?php else: ?>
+                                        <img class="facility-image <?= str_contains($card['image'], 'Playstation') ? 'playstation-image' : '' ?>" src="<?= esc($card['image']) ?>" alt="">
+                                    <?php endif; ?>
+                                    <h4><?= esc($card['title']) ?></h4>
+                                    <?php if (isset($card['subtitle'])): ?>
+                                        <p><?= esc($card['subtitle']) ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -70,16 +74,20 @@
         <div class="container">
             <div class="section-wrap">
                 <h2>Cek Ketersediaan Playstation</h2>
-                <div class="availability-grid">
+                <div class="row">
                     <?php foreach ($availability as $ps): ?>
-                        <div class="availability-card">
-                            <?php if ($ps['status'] === 'available'): ?>
-                                <span class="fa fa-check availability-icon available"></span>
-                            <?php else: ?>
-                                <span class="fa fa-ban availability-icon booked"></span>
-                            <?php endif; ?>
-                            <h6><?= esc($ps['time'] ?? '') ?></h6>
-                            <div class="card-body"><h5><?= esc($ps['name']) ?></h5></div>
+                        <div class="col-sm-6 col-md-4 mb-4">
+                            <div class="card availability-card">
+                                <div class="card-body">
+                                    <?php if ($ps['status'] === 'available'): ?>
+                                        <span class="fa fa-check availability-icon available"></span>
+                                    <?php else: ?>
+                                        <span class="fa fa-ban availability-icon booked"></span>
+                                    <?php endif; ?>
+                                    <h6><?= esc($ps['time'] ?? '') ?></h6>
+                                    <h5><?= esc($ps['name']) ?></h5>
+                                </div>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -90,11 +98,13 @@
     <section id="playstationgames" class="section section-grey">
         <div class="container">
             <div class="games-heading"><h2>Playstation Games</h2></div>
-            <div class="games-grid">
+            <div class="row games-grid">
                 <?php foreach ($psGames as $game): ?>
-                    <div class="game-card">
-                        <img src="<?= esc($game['img']) ?>" alt="<?= esc($game['name']) ?>">
-                        <a role="button" href="#"><?= esc($game['name']) ?></a>
+                    <div class="col-sm-6 col-md-4 mb-4">
+                        <div class="card game-card">
+                            <img class="card-img-top" src="<?= esc($game['img']) ?>" alt="<?= esc($game['name']) ?>">
+                            <a class="btn game-button" role="button" href="#"><?= esc($game['name']) ?></a>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -106,26 +116,26 @@
             <div class="contact-wrap">
                 <h2>Kontak Kami</h2>
                 <h4>Untuk booking dapat WA ke no. 08xx-xxxx-xxxx</h4>
-                <div class="contact-grid">
-                    <div>
+                <div class="row contact-grid">
+                    <div class="col-md-8 mb-4 mb-md-0">
                         <form id="feedbackForm" class="feedback-form">
-                            <div>
+                            <div class="form-group">
                                 <label for="nama">Nama</label>
-                                <input type="text" id="nama" placeholder="Masukkan Nama" required>
+                                <input type="text" class="form-control" id="nama" placeholder="Masukkan Nama" required>
                             </div>
-                            <div>
+                            <div class="form-group">
                                 <label for="hp">No. Handphone / WA</label>
-                                <input type="text" id="hp" placeholder="Masukkan Nomor HP/WA" required>
+                                <input type="text" class="form-control" id="hp" placeholder="Masukkan Nomor HP/WA" required>
                             </div>
-                            <div>
+                            <div class="form-group">
                                 <label for="kritiksaran">Kritik dan Saran</label>
-                                <textarea id="kritiksaran" rows="6" placeholder="Kritik dan Saran atau Request Game PS 4" required></textarea>
+                                <textarea class="form-control" id="kritiksaran" rows="6" placeholder="Kritik dan Saran atau Request Game PS 4" required></textarea>
                             </div>
-                            <button type="submit">Kirim</button>
+                            <button type="submit" class="btn submit-button">Kirim</button>
                         </form>
                         <div id="successToast" class="success-toast" hidden>Terima kasih! Kritik dan saran Anda berhasil dikirim.</div>
                     </div>
-                    <div class="contact-sidebar">
+                    <div class="col-md-4 contact-sidebar">
                         <div>
                             <h5>Alamat</h5>
                             <p>Jl. Nama Jalan No. 00, Kecamatan, Kota, Provinsi 00000</p>
@@ -149,6 +159,6 @@
 <script src="/vendor/jquery/jquery.slim.min.js"></script>
 <script src="/vendor/popper/popper.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="/assets/js/rental.js?v=4"></script>
+<script src="/assets/js/rental.js?v=5"></script>
 </body>
 </html>

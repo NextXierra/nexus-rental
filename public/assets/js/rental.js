@@ -30,7 +30,7 @@
 
       event.preventDefault();
       nav.classList.add('scrolled');
-      const navHeight = window.innerWidth >= 1024 ? 49 : nav.offsetHeight;
+      const navHeight = window.innerWidth >= 1024 ? 59 : nav.offsetHeight;
       const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
 
       window.scrollTo({ top: targetTop, behavior: 'smooth' });
