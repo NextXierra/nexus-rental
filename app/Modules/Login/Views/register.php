@@ -6,14 +6,68 @@
     <title>Register - Royal Rental</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<?= base_url('vendor/bootstrap/css/bootstrap.min.css') ?>">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .card {
+            background-color: #111;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+        }
+        .card-body {
+            padding: 2rem;
+        }
+        .form-control {
+            background-color: #222;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #fff;
+            border-radius: 10px;
+        }
+        .form-control:focus {
+            background-color: #333;
+            border-color: #E8890A;
+            color: #fff;
+            box-shadow: none;
+        }
+        .btn-success {
+            background-color: #E8890A;
+            border-color: #E8890A;
+            border-radius: 10px;
+            color: #000;
+            font-weight: bold;
+        }
+        .btn-success:hover {
+            background-color: #c77608;
+            border-color: #c77608;
+            color: #000;
+        }
+        a {
+            color: #E8890A;
+        }
+        a:hover {
+            color: #c77608;
+            text-decoration: none;
+        }
+        .text-center h3 {
+            font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body>
 
 <div class="container">
     <div class="row justify-content-center align-items-center vh-100">
         <div class="col-md-5">
-            <div class="card shadow-sm">
-                <div class="card-body p-4">
+            <div class="text-center mb-4">
+                <h2 style="font-family: Cabin, sans-serif; text-transform: uppercase; letter-spacing: 0.1em;"><a href="<?= base_url('/') ?>" style="color: #fff;">Nexus Rental</a></h2>
+            </div>
+            <div class="card shadow">
+                <div class="card-body">
                     <h3 class="text-center mb-4">Register</h3>
 
                     <?php if (session()->getFlashdata('errors')) : ?>
