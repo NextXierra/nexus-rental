@@ -66,8 +66,9 @@ class Login extends BaseController
         if ($user && password_verify($password, $user['password'])) {
             $session = session();
             $session->set([
-                'user_id' => $user['id'],
-                'username' => $user['username'],
+                'user_id'   => $user['id'],
+                'username'  => $user['username'],
+                'role'      => $user['role'],
                 'logged_in' => true,
             ]);
             return redirect()->to('/'); // Redirect to dashboard or home

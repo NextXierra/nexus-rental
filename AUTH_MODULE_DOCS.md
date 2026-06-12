@@ -14,12 +14,13 @@ Struktur tabel:
 - `username` (VARCHAR 100, Unique)
 - `email` (VARCHAR 255, Unique)
 - `password` (VARCHAR 255, Hashed)
+- `role` (ENUM: 'customer', 'customer_vip', 'admin', Default: 'customer')
 - `created_at` (DATETIME)
 - `updated_at` (DATETIME)
 
 ### MVC (HMVC Pattern)
 1. **Model**: `Modules\Login\Models\User`
-   - Allowed fields: `username`, `email`, `password`.
+   - Allowed fields: `username`, `email`, `password`, `role`.
    - Menggunakan callback `beforeInsert` dan `beforeUpdate` untuk auto-hashing password (dengan `password_hash`).
 
 2. **Controller**: `Modules\Login\Controllers\Login`
