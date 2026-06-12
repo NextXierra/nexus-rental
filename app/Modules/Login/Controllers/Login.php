@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Controllers;
+namespace Modules\Login\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\User;
+use Modules\Login\Models\User;
 
 class Login extends BaseController
 {
     public function index()
     {
-        return view('auth/login');
+        return view('Modules\Login\Views\login');
     }
 
     public function register()
     {
-        return view('auth/register');
+        return view('Modules\Login\Views\register');
     }
 
     public function processRegister()
