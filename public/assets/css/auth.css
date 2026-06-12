@@ -104,9 +104,9 @@ body.auth-body {
 .divider::before { margin-right: .5em; }
 .divider::after { margin-left: .5em; }
 
-.social-btn {
+a.social-btn {
     border-radius: 5px;
-    color: #000;
+    color: #000 !important;
     text-align: center;
     padding: 10px;
     margin-bottom: 10px;
@@ -115,11 +115,11 @@ body.auth-body {
     display: block;
     text-decoration: none;
 }
-.social-btn i {
+a.social-btn i {
     float: left;
     margin-top: 3px;
     margin-left: 10px;
-    color: #000;
+    color: #000 !important;
 }
 .btn-facebook { background-color: #3b5998; border: none; }
 .btn-facebook:hover { background-color: #2d4373; color: #000; }
