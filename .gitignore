@@ -125,3 +125,6 @@ _modules/*
 
 /results/
 /phpunit.xml
+
+# Internal Docs
+DEV_GUIDELINES.md
