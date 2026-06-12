@@ -23,7 +23,7 @@
                     <li><a href="#availability">Cek Ketersediaan</a></li>
                     <li><a href="#playstationgames">Games</a></li>
                     <li><a href="#contact">Kontak</a></li>
-                    <li><a href="#" class="profile-placeholder rounded-circle d-flex align-items-center justify-content-center" aria-label="Login placeholder"><i class="fa fa-user"></i></a></li>
+                    <li><a href="<?= base_url('login') ?>" class="profile-placeholder rounded-circle d-flex align-items-center justify-content-center" aria-label="Login"><i class="fa fa-user"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <li><a href="#availability">Cek Ketersediaan</a></li>
                 <li><a href="#playstationgames">Games</a></li>
                 <li><a href="#contact">Kontak</a></li>
-                <li><a href="#" class="profile-placeholder rounded-circle d-flex align-items-center justify-content-center" aria-label="Login placeholder"><i class="fa fa-user"></i></a></li>
+                <li><a href="<?= base_url('login') ?>" class="profile-placeholder rounded-circle d-flex align-items-center justify-content-center" aria-label="Login"><i class="fa fa-user"></i></a></li>
             </ul>
         </div>
     </nav>
