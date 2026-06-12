@@ -16,9 +16,9 @@
     <nav id="mainNav" class="navbar navbar-expand-lg main-nav">
         <div class="container d-flex align-items-center justify-content-between">
             <a href="#" class="navbar-brand brand">Nexus Rental</a>
-            <button id="mobileMenuButton" class="navbar-toggler menu-button" type="button">Menu <i class="fa fa-bars"></i></button>
-            <div class="desktop-menu">
-                <ul class="navbar-nav">
+            <button id="mobileMenuButton" class="navbar-toggler menu-button d-flex d-lg-none align-items-center" type="button">Menu <i class="fa fa-bars"></i></button>
+            <div class="desktop-menu d-none d-lg-flex align-items-center">
+                <ul class="navbar-nav d-flex align-items-center">
                     <li><a href="#playstation">Fasilitas</a></li>
                     <li><a href="#availability">Cek Ketersediaan</a></li>
                     <li><a href="#playstationgames">Games</a></li>
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div id="mobileMenu" class="mobile-menu" hidden>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav d-flex flex-column">
                 <li><a href="#playstation">Fasilitas</a></li>
                 <li><a href="#availability">Cek Ketersediaan</a></li>
                 <li><a href="#playstationgames">Games</a></li>
@@ -36,14 +36,14 @@
         </div>
     </nav>
 
-    <header class="hero">
+    <header class="hero d-flex align-items-center justify-content-center">
         <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <a href="#playstation" class="down-button"><i class="fa fa-angle-double-down"></i></a>
+        <div class="hero-content d-flex align-items-end justify-content-center">
+            <a href="#playstation" class="down-button d-flex align-items-center justify-content-center"><i class="fa fa-angle-double-down"></i></a>
         </div>
     </header>
 
-    <section id="playstation" class="section section-black">
+    <section id="playstation" class="section section-black d-flex align-items-center">
         <div class="container">
             <div class="section-wrap">
                 <h2>Nexus Rental Playstation</h2>
@@ -51,7 +51,7 @@
                     <?php foreach ($playstationCards as $card): ?>
                         <div class="col-md-4 mb-4">
                             <div class="card facility-card">
-                                <div class="card-body">
+                                <div class="card-body d-flex flex-column align-items-center justify-content-center h-100">
                                     <?php if (isset($card['icon'])): ?>
                                         <span class="fa <?= esc($card['icon']) ?> facility-icon"></span>
                                     <?php else: ?>
@@ -70,7 +70,7 @@
         </div>
     </section>
 
-    <section id="availability" class="section section-black">
+    <section id="availability" class="section section-black d-flex align-items-center">
         <div class="container">
             <div class="section-wrap">
                 <h2>Cek Ketersediaan Playstation</h2>
@@ -78,7 +78,7 @@
                     <?php foreach ($availability as $ps): ?>
                         <div class="col-sm-6 col-md-4 mb-4">
                             <div class="card availability-card">
-                                <div class="card-body">
+                                <div class="card-body d-flex flex-column align-items-center justify-content-center h-100">
                                     <?php if ($ps['status'] === 'available'): ?>
                                         <span class="fa fa-check availability-icon available"></span>
                                     <?php else: ?>
@@ -95,13 +95,13 @@
         </div>
     </section>
 
-    <section id="playstationgames" class="section section-grey">
+    <section id="playstationgames" class="section section-grey d-flex align-items-center">
         <div class="container">
             <div class="games-heading"><h2>Playstation Games</h2></div>
             <div class="row games-grid">
                 <?php foreach ($psGames as $game): ?>
                     <div class="col-sm-6 col-md-4 mb-4">
-                        <div class="card game-card">
+                        <div class="card game-card d-flex flex-column align-items-center">
                             <img class="card-img-top" src="<?= esc($game['img']) ?>" alt="<?= esc($game['name']) ?>">
                             <a class="btn game-button" role="button" href="#"><?= esc($game['name']) ?></a>
                         </div>
@@ -111,7 +111,7 @@
         </div>
     </section>
 
-    <section id="contact" class="section section-black">
+    <section id="contact" class="section section-black d-flex align-items-center">
         <div class="container">
             <div class="contact-wrap">
                 <h2>Kontak Kami</h2>
@@ -135,14 +135,14 @@
                         </form>
                         <div id="successToast" class="success-toast" hidden>Terima kasih! Kritik dan saran Anda berhasil dikirim.</div>
                     </div>
-                    <div class="col-md-4 contact-sidebar">
+                    <div class="col-md-4 contact-sidebar d-flex flex-column">
                         <div>
                             <h5>Alamat</h5>
                             <p>Jl. Nama Jalan No. 00, Kecamatan, Kota, Provinsi 00000</p>
                         </div>
                         <div>
                             <h5>Media Sosial</h5>
-                            <div class="social-links">
+                            <div class="social-links d-flex">
                                 <a href="#"><i class="fa fa-facebook-official"></i></a>
                                 <a href="#"><i class="fa fa-instagram"></i></a>
                                 <a href="mailto:nexusrentalps@gmail.com"><i class="fa fa-envelope"></i></a>
