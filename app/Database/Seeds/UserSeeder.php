@@ -14,19 +14,19 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'username' => 'user',
-                'email'    => 'user@royalrental.com',
+                'email'    => 'user@nexusrental.com',
                 'password' => 'user', // Password akan di-hash oleh model
                 'role'     => 'customer'
             ],
             [
                 'username' => 'vip',
-                'email'    => 'vip@royalrental.com',
+                'email'    => 'vip@nexusrental.com',
                 'password' => 'vip',
                 'role'     => 'customer_vip'
             ],
             [
                 'username' => 'admin',
-                'email'    => 'admin@royalrental.com',
+                'email'    => 'admin@nexusrental.com',
                 'password' => 'admin',
                 'role'     => 'admin'
             ],

@@ -1,7 +1,7 @@
-# Royal Rental Auth Module Documentation
+# Nexus Rental Auth Module Documentation
 
 ## Fitur Auth
-Modul otentikasi sederhana untuk sistem Royal Rental. Dibangun di dalam direktori `ci4/` menggunakan CodeIgniter 4 dan Bootstrap 4.6 (Lokal).
+Modul otentikasi sederhana untuk sistem Nexus Rental. Dibangun di dalam direktori `ci4/` menggunakan CodeIgniter 4 dan Bootstrap 4.6 (Lokal).
 
 ## Komponen
 
