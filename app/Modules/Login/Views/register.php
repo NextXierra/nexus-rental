@@ -18,109 +18,9 @@ $randomGame = $games[array_rand($games)];
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= base_url('vendor/bootstrap/css/bootstrap.min.css') ?>">
-    <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-        }
-        .login-wrapper {
-            background-color: #111;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            max-width: 900px;
-            width: 100%;
-        }
-        .form-section {
-            padding: 3rem;
-            background-color: #111;
-            position: relative;
-        }
-        .form-section h3 {
-            font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
-            text-transform: uppercase;
-            letter-spacing: .05em;
-            margin-bottom: 2rem;
-            color: #fff;
-        }
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            color: #fff;
-            font-size: 1.5rem;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .close-btn:hover {
-            color: #E8890A;
-        }
-        .input-group-text {
-            background-color: #222;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-right: none;
-            color: #888;
-            border-radius: 20px 0 0 20px;
-        }
-        .form-control {
-            background-color: #222;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-left: none;
-            color: #fff;
-            border-radius: 0 20px 20px 0;
-            padding-left: 0;
-        }
-        .form-control:focus {
-            background-color: #222;
-            border-color: #E8890A;
-            color: #fff;
-            box-shadow: none;
-        }
-        .form-control:focus + .input-group-text {
-            border-color: #E8890A;
-        }
-        .btn-success {
-            background-color: #E8890A;
-            border-color: #E8890A;
-            border-radius: 20px;
-            color: #000;
-            font-weight: bold;
-            padding: 0.5rem 2rem;
-            width: 100%;
-            margin-top: 1rem;
-        }
-        .btn-success:hover {
-            background-color: #c77608;
-            border-color: #c77608;
-            color: #000;
-        }
-        a {
-            color: #E8890A;
-            font-size: 0.9rem;
-        }
-        a:hover {
-            color: #c77608;
-            text-decoration: none;
-        }
-        .image-section {
-            background-image: url('<?= base_url("images/" . $randomGame) ?>');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        .image-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, #111, transparent);
-        }
-    </style>
+    <link rel="stylesheet" href="<?= base_url('assets/css/auth.css') ?>">
 </head>
-<body>
+<body class="auth-body">
 
 <div class="container">
     <div class="login-wrapper row mx-auto">
@@ -180,7 +80,7 @@ $randomGame = $games[array_rand($games)];
         </div>
         
         <!-- Image Section -->
-        <div class="col-md-6 d-none d-md-block image-section">
+        <div class="col-md-6 d-none d-md-block image-section" style="background-image: url('<?= base_url("images/" . $randomGame) ?>');">
             <div class="image-overlay"></div>
         </div>
     </div>
