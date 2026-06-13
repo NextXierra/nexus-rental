@@ -6,8 +6,16 @@ use App\Controllers\BaseController;
 
 class DashboardUser extends BaseController
 {
-    public function index(): string
+    public function index()
     {
+        if (! session()->get('logged_in')) {
+            return redirect()->to('/login');
+        }
+
+        if (session()->get('role') === 'admin') {
+            return redirect()->to('/dashboard/admin');
+        }
+
         return view('Modules\DashboardUser\Views\dashboard');
     }
 }
