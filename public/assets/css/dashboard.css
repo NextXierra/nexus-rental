@@ -145,6 +145,55 @@ body.dashboard-body {
     min-height: calc(100vh - 56px);
 }
 
+.dashboard-content {
+    padding: 24px;
+}
+
+.dashboard-page-title {
+    margin: 0;
+    color: #fff;
+    font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+}
+
+.dashboard-page-subtitle {
+    margin: 6px 0 0;
+    color: #bdbdbd;
+    font-size: 14px;
+}
+
+.dashboard-modal {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #151515;
+    color: #fff;
+}
+
+.dashboard-modal .modal-header,
+.dashboard-modal .modal-footer {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-modal .close {
+    color: #fff;
+    text-shadow: none;
+}
+
+.dashboard-modal label {
+    color: #c9c9c9;
+    font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.dashboard-modal .form-control {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: #111;
+    color: #fff;
+}
+
 .topbar {
     min-height: 92px;
     margin-bottom: 28px;
