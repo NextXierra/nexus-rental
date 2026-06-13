@@ -14,4 +14,11 @@ $routes->get('dashboard/admin/unit-ps', '\Modules\DashboardAdmin\Controllers\Uni
 $routes->post('dashboard/admin/unit-ps/store', '\Modules\DashboardAdmin\Controllers\UnitPs::store');
 $routes->post('dashboard/admin/unit-ps/(:num)/update', '\Modules\DashboardAdmin\Controllers\UnitPs::update/$1');
 $routes->post('dashboard/admin/unit-ps/(:num)/delete', '\Modules\DashboardAdmin\Controllers\UnitPs::delete/$1');
+
+$routes->get('dashboard/admin/reservasi', '\Modules\DashboardAdmin\Controllers\Reservasi::index');
+$routes->post('dashboard/admin/reservasi/store', '\Modules\DashboardAdmin\Controllers\Reservasi::store');
+$routes->post('dashboard/admin/reservasi/(:num)/complete', '\Modules\DashboardAdmin\Controllers\Reservasi::complete/$1');
+$routes->post('dashboard/admin/reservasi/(:num)/cancel', '\Modules\DashboardAdmin\Controllers\Reservasi::cancel/$1');
+
+$routes->get('dashboard/admin/pembayaran', '\Modules\DashboardAdmin\Controllers\Pembayaran::index');
 $routes->get('dashboard/user', '\Modules\DashboardUser\Controllers\DashboardUser::index');
