@@ -27,6 +27,16 @@ class Reservasi extends BaseController
             ->orderBy('reservasi.created_at', 'DESC')
             ->get()->getResultArray();
 
+        $pendingReservations = [];
+        $otherReservations = [];
+        foreach ($reservasiList as $r) {
+            if ($r['status'] === 'pending') {
+                $pendingReservations[] = $r;
+            } else {
+                $otherReservations[] = $r;
+            }
+        }
+
         $pelangganList = $db->table('pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $userList = $db->table('users')->where('role', 'pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $unitModel = new UnitPsModel();
@@ -35,7 +45,8 @@ class Reservasi extends BaseController
         $allUnits = $unitModel->orderBy('nama_unit', 'ASC')->findAll();
 
         return view('Modules\DashboardAdmin\Views\reservasi', [
-            'reservations' => $reservasiList,
+            'pendingReservations' => $pendingReservations,
+            'reservations' => $otherReservations,
             'pelangganList' => $pelangganList,
             'userList' => $userList,
             'unitList' => $unitList,
@@ -371,5 +382,73 @@ class Reservasi extends BaseController
             'status' => 'success',
             'units'  => $resultUnits
         ]);
+    }
+
+    public function approve($id)
+    {
+        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
+            return redirect()->to('/login');
+        }
+
+        $reservasiModel = new ReservasiModel();
+        $reservasi = $reservasiModel->find($id);
+
+        if (! $reservasi || $reservasi['status'] !== 'pending') {
+            return redirect()->back()->with('error', 'Permintaan reservasi tidak ditemukan.');
+        }
+
+        $db = \Config\Database::connect();
+        
+        // Cek bentrok sebelum approve
+        $overlap = $db->table('reservasi')
+            ->where('unit_id', $reservasi['unit_id'])
+            ->where('status', 'aktif')
+            ->where('waktu_mulai <', $reservasi['waktu_selesai'])
+            ->where('waktu_selesai >', $reservasi['waktu_mulai'])
+            ->get()->getRowArray();
+
+        if ($overlap) {
+            return redirect()->back()->with('error', 'Gagal menyetujui, unit PS bentrok dengan reservasi aktif lain.');
+        }
+
+        $db->transStart();
+
+        $reservasiModel->update($id, ['status' => 'aktif']);
+
+        $db->table('pembayaran')
+            ->where('reservasi_id', $id)
+            ->update(['status' => 'lunas']);
+
+        $waktuMulai = strtotime($reservasi['waktu_mulai']);
+        if ($waktuMulai <= time()) {
+            $unitModel = new UnitPsModel();
+            $unitModel->update($reservasi['unit_id'], ['status' => 'disewa']);
+        }
+
+        $db->transComplete();
+
+        if ($db->transStatus() === false) {
+            return redirect()->back()->with('error', 'Gagal memproses persetujuan.');
+        }
+
+        return redirect()->to('/dashboard/admin/reservasi')->with('success', 'Reservasi berhasil disetujui.');
+    }
+
+    public function reject($id)
+    {
+        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
+            return redirect()->to('/login');
+        }
+
+        $reservasiModel = new ReservasiModel();
+        $reservasi = $reservasiModel->find($id);
+
+        if (! $reservasi || $reservasi['status'] !== 'pending') {
+            return redirect()->back()->with('error', 'Permintaan reservasi tidak ditemukan.');
+        }
+
+        $reservasiModel->update($id, ['status' => 'dibatalkan']);
+
+        return redirect()->to('/dashboard/admin/reservasi')->with('success', 'Permintaan reservasi ditolak.');
     }
 }

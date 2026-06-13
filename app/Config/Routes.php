@@ -19,6 +19,8 @@ $routes->get('dashboard/admin/reservasi', '\Modules\DashboardAdmin\Controllers\R
 $routes->get('dashboard/admin/reservasi/check-availability', '\Modules\DashboardAdmin\Controllers\Reservasi::checkAvailability');
 $routes->get('dashboard/admin/reservasi/check-units', '\Modules\DashboardAdmin\Controllers\Reservasi::checkUnits');
 $routes->post('dashboard/admin/reservasi/store', '\Modules\DashboardAdmin\Controllers\Reservasi::store');
+$routes->post('dashboard/admin/reservasi/(:num)/approve', '\Modules\DashboardAdmin\Controllers\Reservasi::approve/$1');
+$routes->post('dashboard/admin/reservasi/(:num)/reject', '\Modules\DashboardAdmin\Controllers\Reservasi::reject/$1');
 $routes->post('dashboard/admin/reservasi/(:num)/complete', '\Modules\DashboardAdmin\Controllers\Reservasi::complete/$1');
 $routes->post('dashboard/admin/reservasi/(:num)/cancel', '\Modules\DashboardAdmin\Controllers\Reservasi::cancel/$1');
 

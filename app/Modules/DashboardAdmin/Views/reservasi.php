@@ -61,7 +61,63 @@
                 </div>
             <?php endif; ?>
 
+            <!-- Tabel Permintaan Reservasi (Pending) -->
+            <div class="dashboard-panel mb-4">
+                <div class="panel-heading d-flex align-items-center justify-content-between py-3 px-4">
+                    <h2 class="mb-0" style="font-size: 16px;">Permintaan Reservasi (Pending)</h2>
+                    <span class="badge badge-warning text-dark"><?= count($pendingReservations) ?> Permintaan</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table dashboard-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Pelanggan</th>
+                                <th>Unit PS</th>
+                                <th>Tipe</th>
+                                <th>Mulai</th>
+                                <th>Selesai</th>
+                                <th>Total Jam</th>
+                                <th>Total Harga</th>
+                                <th class="text-right">Aksi Approval</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if ($pendingReservations): ?>
+                                <?php foreach ($pendingReservations as $res): ?>
+                                    <tr>
+                                        <td><?= esc($res['nama_pelanggan']) ?></td>
+                                        <td><?= esc($res['nama_unit']) ?></td>
+                                        <td><span class="badge badge-secondary"><?= esc($res['tipe']) ?></span></td>
+                                        <td><?= date('d M Y H:i', strtotime($res['waktu_mulai'])) ?></td>
+                                        <td><?= date('d M Y H:i', strtotime($res['waktu_selesai'])) ?></td>
+                                        <td><?= esc($res['total_jam']) ?> Jam</td>
+                                        <td>Rp <?= number_format((int) $res['total_harga'], 0, ',', '.') ?></td>
+                                        <td class="text-right">
+                                            <form action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/approve" method="post" class="d-inline" onsubmit="return confirm('Setujui reservasi?')">
+                                                <?= csrf_field() ?>
+                                                <button class="btn btn-sm btn-outline-success" type="submit">Setujui</button>
+                                            </form>
+                                            <form action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/reject" method="post" class="d-inline" onsubmit="return confirm('Tolak permintaan reservasi?')">
+                                                <?= csrf_field() ?>
+                                                <button class="btn btn-sm btn-outline-danger" type="submit">Tolak</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="8" class="text-center text-muted py-4">Tidak ada permintaan reservasi masuk.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <div class="dashboard-panel">
+                <div class="panel-heading py-3 px-4">
+                    <h2 class="mb-0" style="font-size: 16px;">Daftar Reservasi</h2>
+                </div>
                 <div class="table-responsive">
                     <table class="table dashboard-table mb-0">
                         <thead>
