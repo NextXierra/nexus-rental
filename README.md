@@ -1,64 +1,69 @@
-# Nexus Rental - Playstation Rental Management System
+# CodeIgniter 4 Application Starter
 
-Aplikasi manajemen rental Playstation berbasis web menggunakan PHP framework CodeIgniter 4 dengan arsitektur Modular custom.
+## What is CodeIgniter?
 
-## Stack Teknologi
-- **Backend:** CodeIgniter 4 (PHP 8.2+)
-- **Database:** MariaDB / MySQL
-- **Frontend:** Bootstrap 4.6 (Local), Font Awesome 4.7.0 (Local), Custom CSS (Playstation Dark Theme)
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](https://codeigniter.com).
 
-## Database Configuration
-Konfigurasi database di `.env`:
-- Host: `43.157.228.10`
-- Port: `3307`
-- Database: `pemweb`
-- User: `admin`
-- Password: `db_password`
+This repository holds a composer-installable app starter.
+It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-### Setup Database & Seeds
-Jalankan perintah berikut untuk migrasi dan mengisi data awal:
-```bash
-php spark migrate
-php spark db:seed UserSeeder
-php spark db:seed UnitPsSeeder
-php spark db:seed PelangganSeeder
-```
+More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
 
-## Struktur Modul (`app/Modules/`)
-- **LandingPage**: Tampilan utama web ketersediaan unit.
-- **Login**: Autentikasi akun (Login, Register, Logout, Model User).
-- **DashboardAdmin**: Area admin untuk mengelola unit, reservasi, dan pembayaran.
-- **DashboardUser**: Area pelanggan (member) untuk melihat profil dan mengajukan reservasi.
+You can read the [user guide](https://codeigniter.com/user_guide/)
+corresponding to the latest version of the framework.
 
-## Fitur Utama & Alur Kerja
+## Installation & updates
 
-### 1. Autentikasi & Guard
-- Login menggunakan email dan password.
-- Session menyimpan `user_id`, `nama`, `role`, dan `logged_in`.
-- Hak akses dibatasi lewat controller (admin/pelanggan). Akses tidak sah akan dilempar ke halaman login.
+`composer create-project codeigniter4/appstarter` then `composer update` whenever
+there is a new release of the framework.
 
-### 2. Unit PS (Admin)
-- CRUD data unit Playstation (PS4 / PS5).
-- Pengaturan harga sewa per jam dan status (`tersedia`, `disewa`, `maintenance`).
+When updating, check the release notes to see if there are any changes you might need to apply
+to your `app` folder. The affected files can be copied or merged from
+`vendor/codeigniter4/framework/app`.
 
-### 3. Reservasi (Admin & User)
-- **Reservasi Admin:** Input reservasi offline (non-member) langsung ketik nama, atau online (member) via dropdown.
-- **Reservasi User:** Member dapat mengajukan booking dari dashboard mereka (status `pending`).
-- **Validasi Overlap (Live Check):** Sistem secara dinamis mengecek tabrakan jadwal menggunakan fetch API `/check-units` dan `/check-availability`. Dropdown unit akan otomatis menonaktifkan (`disabled`) unit yang sudah disewa pada jam tersebut.
-- **Waktu & Durasi:** Menggunakan input tanggal (`date`) dan drop down jam/menit terpisah untuk kemudahan pengisian.
-- **Approval Admin:** Permintaan pending dari user muncul paling atas. Admin dapat menyetujui (mengubah status reservasi jadi `aktif`, unit jadi `disewa`, pembayaran jadi `lunas`) atau menolak (status `dibatalkan`).
+## Setup
 
-### 4. Pembayaran
-- Pembayaran terbuat otomatis saat reservasi disimpan.
-- Metode **QRIS**: Status awal `sudah_bayar`.
-- Metode **Tunai**: Status awal `belum_bayar`.
-- Setelah disetujui (ACC) admin, status otomatis berganti menjadi `lunas`.
+Copy `env` to `.env` and tailor for your app, specifically the baseURL
+and any database settings.
 
-## Struktur Branch Git
-Semua branch dikembangkan mandiri dari branch `main`:
-- `main`: Branch utama produksi.
-- `admin-home-dashboard`: Menu dashboard admin.
-- `admin-pelanggan`: Pengelolaan pelanggan admin.
-- `admin-laporan`: Laporan pendapatan.
-- `user-home`: Dashboard home user.
-- `user-profil`: Profil user.
+## Important Change with index.php
+
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
+
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
+
+**Please** read the user guide for a better explanation of how CI4 works!
+
+## Repository Management
+
+We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
+
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
+
+## Server Requirements
+
+PHP version 8.2 or higher is required, with the following extensions installed:
+
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+
+> [!WARNING]
+> - The end of life date for PHP 7.4 was November 28, 2022.
+> - The end of life date for PHP 8.0 was November 26, 2023.
+> - The end of life date for PHP 8.1 was December 31, 2025.
+> - If you are still using below PHP 8.2, you should upgrade immediately.
+> - The end of life date for PHP 8.2 will be December 31, 2026.
+
+Additionally, make sure that the following extensions are enabled in your PHP:
+
+- json (enabled by default - don't turn it off)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
