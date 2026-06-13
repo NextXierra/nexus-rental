@@ -93,14 +93,15 @@
                                         <td><?= esc($res['total_jam']) ?> Jam</td>
                                         <td>Rp <?= number_format((int) $res['total_harga'], 0, ',', '.') ?></td>
                                         <td class="text-right">
-                                            <form action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/approve" method="post" class="d-inline" onsubmit="return confirm('Setujui reservasi?')">
+                                            <form id="approve-form-<?= esc($res['id']) ?>" action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/approve" method="post" class="d-none">
                                                 <?= csrf_field() ?>
-                                                <button class="btn btn-sm btn-outline-success" type="submit">Setujui</button>
                                             </form>
-                                            <form action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/reject" method="post" class="d-inline" onsubmit="return confirm('Tolak permintaan reservasi?')">
+                                            <button class="btn btn-sm btn-outline-success trigger-confirm" type="button" data-message="Apakah Anda yakin ingin menyetujui reservasi ini?" data-form-id="approve-form-<?= esc($res['id']) ?>">Setujui</button>
+
+                                            <form id="reject-form-<?= esc($res['id']) ?>" action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/reject" method="post" class="d-none">
                                                 <?= csrf_field() ?>
-                                                <button class="btn btn-sm btn-outline-danger" type="submit">Tolak</button>
                                             </form>
+                                            <button class="btn btn-sm btn-outline-danger trigger-confirm" type="button" data-message="Apakah Anda yakin ingin menolak permintaan reservasi ini?" data-form-id="reject-form-<?= esc($res['id']) ?>">Tolak</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -147,14 +148,15 @@
                                         <td><span class="status-pill <?= esc($res['status']) ?>"><?= esc($res['status']) ?></span></td>
                                         <td class="text-right">
                                             <?php if ($res['status'] === 'aktif'): ?>
-                                                <form action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/complete" method="post" class="d-inline" onsubmit="return confirm('Selesaikan reservasi?')">
+                                                <form id="complete-form-<?= esc($res['id']) ?>" action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/complete" method="post" class="d-none">
                                                     <?= csrf_field() ?>
-                                                    <button class="btn btn-sm btn-outline-success" type="submit">Selesai</button>
                                                 </form>
-                                                <form action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/cancel" method="post" class="d-inline" onsubmit="return confirm('Batalkan reservasi?')">
+                                                <button class="btn btn-sm btn-outline-success trigger-confirm" type="button" data-message="Apakah Anda yakin ingin menyelesaikan reservasi ini?" data-form-id="complete-form-<?= esc($res['id']) ?>">Selesai</button>
+
+                                                <form id="cancel-form-<?= esc($res['id']) ?>" action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/cancel" method="post" class="d-none">
                                                     <?= csrf_field() ?>
-                                                    <button class="btn btn-sm btn-outline-danger" type="submit">Batal</button>
                                                 </form>
+                                                <button class="btn btn-sm btn-outline-danger trigger-confirm" type="button" data-message="Apakah Anda yakin ingin membatalkan reservasi ini?" data-form-id="cancel-form-<?= esc($res['id']) ?>">Batal</button>
                                             <?php else: ?>
                                                 <span class="text-muted">-</span>
                                             <?php endif; ?>
@@ -288,11 +290,43 @@
     </div>
 </div>
 
+<div class="modal fade" id="confirmActionModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content dashboard-modal">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="confirmBody">
+                Apakah Anda yakin ingin melakukan tindakan ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-warning btn-sm" id="confirmSubmitBtn">Yakin</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="/vendor/jquery/jquery.slim.min.js"></script>
 <script src="/vendor/popper/popper.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function() {
+    var activeFormId = null;
+
+    $('.trigger-confirm').click(function() {
+        activeFormId = $(this).attr('data-form-id');
+        var message = $(this).attr('data-message');
+        $('#confirmBody').text(message);
+        $('#confirmActionModal').modal('show');
+    });
+
+    $('#confirmSubmitBtn').click(function() {
+        if (activeFormId) {
+            $('#' + activeFormId).submit();
+        }
+    });
     $('#status_pelanggan').change(function() {
         var status = $(this).val();
         $('#block_user').addClass('d-none');

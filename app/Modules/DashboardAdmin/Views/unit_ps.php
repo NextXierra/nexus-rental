@@ -79,10 +79,10 @@
                                         <td><span class="status-pill <?= esc($unit['status']) ?>"><?= esc($unit['status']) ?></span></td>
                                         <td class="text-right">
                                             <button class="btn btn-sm btn-outline-warning" type="button" data-toggle="modal" data-target="#editUnitModal<?= esc($unit['id']) ?>">Edit</button>
-                                            <form action="/dashboard/admin/unit-ps/<?= esc($unit['id']) ?>/delete" method="post" class="d-inline" onsubmit="return confirm('Hapus unit ini?')">
+                                            <form id="delete-form-<?= esc($unit['id']) ?>" action="/dashboard/admin/unit-ps/<?= esc($unit['id']) ?>/delete" method="post" class="d-none">
                                                 <?= csrf_field() ?>
-                                                <button class="btn btn-sm btn-outline-danger" type="submit">Hapus</button>
                                             </form>
+                                            <button class="btn btn-sm btn-outline-danger trigger-confirm" type="button" data-message="Apakah Anda yakin ingin menghapus unit PS ini?" data-form-id="delete-form-<?= esc($unit['id']) ?>">Hapus</button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -183,8 +183,44 @@
     </div>
 <?php endforeach; ?>
 
+<div class="modal fade" id="confirmActionModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content dashboard-modal">
+            <div class="modal-header">
+                <h5 class="modal-title">Konfirmasi</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body" id="confirmBody">
+                Apakah Anda yakin ingin melakukan tindakan ini?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-warning btn-sm" id="confirmSubmitBtn">Yakin</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="/vendor/jquery/jquery.slim.min.js"></script>
 <script src="/vendor/popper/popper.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    var activeFormId = null;
+
+    $('.trigger-confirm').click(function() {
+        activeFormId = $(this).attr('data-form-id');
+        var message = $(this).attr('data-message');
+        $('#confirmBody').text(message);
+        $('#confirmActionModal').modal('show');
+    });
+
+    $('#confirmSubmitBtn').click(function() {
+        if (activeFormId) {
+            $('#' + activeFormId).submit();
+        }
+    });
+});
+</script>
 </body>
 </html>
