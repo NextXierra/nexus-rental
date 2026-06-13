@@ -130,25 +130,13 @@
                 <div class="form-group">
                     <label>Status Pelanggan</label>
                     <select id="status_pelanggan" name="status_pelanggan" class="form-control" required>
-                        <option value="pelanggan">Pelanggan Terdaftar</option>
                         <option value="user">Member</option>
-                        <option value="baru">Pelanggan Baru</option>
+                        <option value="pelanggan">Non-Member</option>
                     </select>
                 </div>
 
-                <!-- Block Pelanggan Existing -->
-                <div class="form-group" id="block_pelanggan">
-                    <label>Pilih Pelanggan</label>
-                    <select name="pelanggan_id" class="form-control">
-                        <option value="">-- Pilih Pelanggan --</option>
-                        <?php foreach ($pelangganList as $p): ?>
-                            <option value="<?= esc($p['id']) ?>" <?= old('pelanggan_id') == $p['id'] ? 'selected' : '' ?>><?= esc($p['nama']) ?> (<?= esc($p['no_hp']) ?>)</option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <!-- Block User Terdaftar -->
-                <div class="form-group d-none" id="block_user">
+                <!-- Block User Terdaftar (Member) -->
+                <div class="form-group" id="block_user">
                     <label>Pilih Member</label>
                     <select name="user_id" class="form-control">
                         <option value="">-- Pilih Member --</option>
@@ -158,15 +146,15 @@
                     </select>
                 </div>
 
-                <!-- Block Pelanggan Baru -->
-                <div class="d-none" id="block_baru">
+                <!-- Block Pelanggan Biasa -->
+                <div class="d-none" id="block_pelanggan">
                     <div class="form-group">
-                        <label>Nama Pelanggan Baru</label>
-                        <input type="text" name="nama_baru" class="form-control" value="<?= esc(old('nama_baru')) ?>">
+                        <label>Nama Pelanggan</label>
+                        <input type="text" name="nama" class="form-control" value="<?= esc(old('nama')) ?>">
                     </div>
                     <div class="form-group">
-                        <label>No. HP Baru</label>
-                        <input type="text" name="no_hp_baru" class="form-control" value="<?= esc(old('no_hp_baru')) ?>">
+                        <label>No. HP</label>
+                        <input type="text" name="no_hp" class="form-control" value="<?= esc(old('no_hp')) ?>">
                     </div>
                 </div>
 
@@ -175,24 +163,24 @@
                     <select name="unit_id" class="form-control" required>
                         <option value="">-- Pilih Unit --</option>
                         <?php foreach ($unitList as $u): ?>
-                            <option value="<?= esc($u['id']) ?>" <?= old('unit_id') == $u['id'] ? 'selected' : '' ?>><?= esc($u['nama_unit']) ?> (Rp <?= number_format($u['harga_per_jam'], 0, ',', '.') ?>/jam)</option>
+                            <option value="<?= esc($u['id']) ?>" <?= old('unit_id') == $u['id'] ? 'selected' : '' ?>><?= esc($u['nama_unit']) ?> (Rp <?= number_format((int) $u['harga_per_jam'], 0, ',', '.') ?>/jam) <?= $u['status'] !== 'tersedia' ? '[' . strtoupper(esc($u['status'])) . ']' : '' ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Tipe Layanan</label>
-                    <select name="tipe" class="form-control" required>
-                        <option value="offline">Main di Tempat</option>
+                    <select id="tipe_layanan" name="tipe" class="form-control" required>
+                        <option value="offline">Main Langsung</option>
                         <option value="online">Booking</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group d-none" id="block_waktu_mulai">
                     <label>Waktu Mulai</label>
-                    <input type="datetime-local" name="waktu_mulai" class="form-control" value="<?= esc(old('waktu_mulai')) ?>" required>
+                    <input type="datetime-local" name="waktu_mulai" class="form-control" value="<?= esc(old('waktu_mulai')) ?>">
                 </div>
                 <div class="form-group">
-                    <label>Waktu Selesai</label>
-                    <input type="datetime-local" name="waktu_selesai" class="form-control" value="<?= esc(old('waktu_selesai')) ?>" required>
+                    <label>Durasi (Jam)</label>
+                    <input type="number" name="durasi" class="form-control" value="<?= esc(old('durasi', 1)) ?>" min="1" max="24" required>
                 </div>
                 <div class="form-group mb-0">
                     <label>Metode Pembayaran</label>
@@ -217,28 +205,35 @@
 $(document).ready(function() {
     $('#status_pelanggan').change(function() {
         var status = $(this).val();
-        $('#block_pelanggan').addClass('d-none');
         $('#block_user').addClass('d-none');
-        $('#block_baru').addClass('d-none');
+        $('#block_pelanggan').addClass('d-none');
         
-        $('#block_pelanggan select').removeAttr('required');
         $('#block_user select').removeAttr('required');
-        $('#block_baru input').removeAttr('required');
+        $('#block_pelanggan input').removeAttr('required');
 
-        if (status === 'pelanggan') {
-            $('#block_pelanggan').removeClass('d-none');
-            $('#block_pelanggan select').attr('required', 'required');
-        } else if (status === 'user') {
+        if (status === 'user') {
             $('#block_user').removeClass('d-none');
             $('#block_user select').attr('required', 'required');
-        } else if (status === 'baru') {
-            $('#block_baru').removeClass('d-none');
-            $('input[name="nama_baru"]').attr('required', 'required');
+        } else if (status === 'pelanggan') {
+            $('#block_pelanggan').removeClass('d-none');
+            $('input[name="nama"]').attr('required', 'required');
         }
     });
 
-    // trigger initial state
+    $('#tipe_layanan').change(function() {
+        var tipe = $(this).val();
+        if (tipe === 'offline') {
+            $('#block_waktu_mulai').addClass('d-none');
+            $('input[name="waktu_mulai"]').removeAttr('required');
+        } else {
+            $('#block_waktu_mulai').removeClass('d-none');
+            $('input[name="waktu_mulai"]').attr('required', 'required');
+        }
+    });
+
+    // trigger initial states
     $('#status_pelanggan').trigger('change');
+    $('#tipe_layanan').trigger('change');
 });
 </script>
 </body>

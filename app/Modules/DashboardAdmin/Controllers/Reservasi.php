@@ -30,7 +30,8 @@ class Reservasi extends BaseController
         $pelangganList = $db->table('pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $userList = $db->table('users')->where('role', 'pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $unitModel = new UnitPsModel();
-        $unitList = $unitModel->where('status', 'tersedia')->orderBy('nama_unit', 'ASC')->findAll();
+        // Tampilkan semua unit kecuali yang sedang maintenance
+        $unitList = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
         $allUnits = $unitModel->orderBy('nama_unit', 'ASC')->findAll();
 
         return view('Modules\DashboardAdmin\Views\reservasi', [
@@ -53,22 +54,24 @@ class Reservasi extends BaseController
         }
 
         $statusPelanggan = $this->request->getPost('status_pelanggan');
+        $tipeLayanan = $this->request->getPost('tipe');
 
         $rules = [
-            'status_pelanggan' => 'required|in_list[user,pelanggan,baru]',
+            'status_pelanggan' => 'required|in_list[user,pelanggan]',
             'unit_id'          => 'required|integer',
             'tipe'             => 'required|in_list[online,offline]',
-            'waktu_mulai'      => 'required|valid_date[Y-m-d\TH:i]',
-            'waktu_selesai'    => 'required|valid_date[Y-m-d\TH:i]',
+            'durasi'           => 'required|integer|greater_than[0]',
             'metode'           => 'required|in_list[tunai,qris]',
         ];
 
+        if ($tipeLayanan === 'online') {
+            $rules['waktu_mulai'] = 'required|valid_date[Y-m-d\TH:i]';
+        }
+
         if ($statusPelanggan === 'user') {
             $rules['user_id'] = 'required|integer';
-        } elseif ($statusPelanggan === 'pelanggan') {
-            $rules['pelanggan_id'] = 'required|integer';
         } else {
-            $rules['nama_baru'] = 'required|max_length[100]';
+            $rules['nama'] = 'required|max_length[100]';
         }
 
         if (! $this->validate($rules)) {
@@ -97,14 +100,12 @@ class Reservasi extends BaseController
                 ]);
                 $pelangganId = $db->insertID();
             }
-        } elseif ($statusPelanggan === 'pelanggan') {
-            $pelangganId = $this->request->getPost('pelanggan_id');
         } else {
-            // Pelanggan Baru
+            // Pelanggan Biasa (Non-Member) -> Buat baru tiap transaksi
             $db->table('pelanggan')->insert([
                 'user_id' => null,
-                'nama'    => $this->request->getPost('nama_baru'),
-                'no_hp'   => $this->request->getPost('no_hp_baru'),
+                'nama'    => $this->request->getPost('nama'),
+                'no_hp'   => $this->request->getPost('no_hp'),
             ]);
             $pelangganId = $db->insertID();
         }
@@ -117,18 +118,34 @@ class Reservasi extends BaseController
             return redirect()->back()->withInput()->with('error', 'Unit PS tidak ditemukan.');
         }
 
-        if ($unit['status'] !== 'tersedia') {
-            return redirect()->back()->withInput()->with('error', 'Unit PS sedang tidak tersedia.');
+        if ($unit['status'] === 'maintenance') {
+            return redirect()->back()->withInput()->with('error', 'Unit PS sedang dalam perawatan (maintenance).');
         }
 
-        $waktuMulai = strtotime($this->request->getPost('waktu_mulai'));
-        $waktuSelesai = strtotime($this->request->getPost('waktu_selesai'));
-
-        if ($waktuSelesai <= $waktuMulai) {
-            return redirect()->back()->withInput()->with('error', 'Waktu selesai harus setelah waktu mulai.');
+        if ($tipeLayanan === 'offline') {
+            $waktuMulai = time();
+            $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
+        } else {
+            $waktuMulai = strtotime($this->request->getPost('waktu_mulai'));
+            $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
         }
 
-        $totalJam = ceil(($waktuSelesai - $waktuMulai) / 3600);
+        $durasi = (int) $this->request->getPost('durasi');
+        $waktuSelesaiFormatted = date('Y-m-d H:i:s', $waktuMulai + ($durasi * 3600));
+
+        // Cek overlap reservasi aktif
+        $overlap = $db->table('reservasi')
+            ->where('unit_id', $unitId)
+            ->where('status', 'aktif')
+            ->where('waktu_mulai <', $waktuSelesaiFormatted)
+            ->where('waktu_selesai >', $waktuMulaiFormatted)
+            ->get()->getRowArray();
+
+        if ($overlap) {
+            return redirect()->back()->withInput()->with('error', 'Unit PS tersebut sudah disewa pada jam tersebut.');
+        }
+
+        $totalJam = $durasi;
         $hargaPerJam = (int) $unit['harga_per_jam'];
         $totalHarga = $totalJam * $hargaPerJam;
 
@@ -138,9 +155,9 @@ class Reservasi extends BaseController
         $reservasiId = $reservasiModel->insert([
             'pelanggan_id'  => $pelangganId,
             'unit_id'       => $unitId,
-            'tipe'          => $this->request->getPost('tipe'),
-            'waktu_mulai'   => $this->request->getPost('waktu_mulai'),
-            'waktu_selesai' => $this->request->getPost('waktu_selesai'),
+            'tipe'          => $tipeLayanan,
+            'waktu_mulai'   => $waktuMulaiFormatted,
+            'waktu_selesai' => $waktuSelesaiFormatted,
             'total_jam'     => $totalJam,
             'harga_per_jam' => $hargaPerJam,
             'total_harga'   => $totalHarga,
@@ -155,7 +172,10 @@ class Reservasi extends BaseController
             'status'       => 'lunas',
         ]);
 
-        $unitModel->update($unitId, ['status' => 'disewa']);
+        // Update status unit jika waktu mulai adalah saat ini atau lampau
+        if ($waktuMulai <= time()) {
+            $unitModel->update($unitId, ['status' => 'disewa']);
+        }
 
         $db->transComplete();
 
