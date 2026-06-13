@@ -180,9 +180,15 @@
                         <option value="online">Booking</option>
                     </select>
                 </div>
-                <div class="form-group d-none" id="block_waktu_mulai">
-                    <label>Waktu Mulai</label>
-                    <input type="datetime-local" name="waktu_mulai" class="form-control" value="<?= esc(old('waktu_mulai')) ?>">
+                <div class="form-row d-none" id="block_waktu_mulai">
+                    <div class="form-group col-sm-6">
+                        <label>Tanggal Mulai</label>
+                        <input type="date" name="tanggal_mulai" class="form-control" value="<?= esc(old('tanggal_mulai', date('Y-m-d'))) ?>">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Jam Mulai</label>
+                        <input type="time" name="jam_mulai" class="form-control" value="<?= esc(old('jam_mulai', date('H:i'))) ?>">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Durasi (Jam)</label>
@@ -240,17 +246,21 @@ $(document).ready(function() {
         var tipe = $(this).val();
         if (tipe === 'offline') {
             $('#block_waktu_mulai').addClass('d-none');
-            $('input[name="waktu_mulai"]').removeAttr('required');
+            $('input[name="tanggal_mulai"]').removeAttr('required');
+            $('input[name="jam_mulai"]').removeAttr('required');
         } else {
             $('#block_waktu_mulai').removeClass('d-none');
-            $('input[name="waktu_mulai"]').attr('required', 'required');
+            $('input[name="tanggal_mulai"]').attr('required', 'required');
+            $('input[name="jam_mulai"]').attr('required', 'required');
         }
     });
 
     function checkAvailability() {
         var unitId = $('select[name="unit_id"]').val();
         var tipe = $('#tipe_layanan').val();
-        var waktuMulai = $('input[name="waktu_mulai"]').val();
+        var tanggalMulai = $('input[name="tanggal_mulai"]').val();
+        var jamMulai = $('input[name="jam_mulai"]').val();
+        var waktuMulai = tanggalMulai + ' ' + jamMulai;
         var durasi = $('input[name="durasi"]').val();
 
         // Bersihkan state awal
@@ -261,7 +271,7 @@ $(document).ready(function() {
             return;
         }
 
-        if (tipe === 'online' && !waktuMulai) {
+        if (tipe === 'online' && (!tanggalMulai || !jamMulai)) {
             return;
         }
 
@@ -287,14 +297,16 @@ $(document).ready(function() {
 
     function updateUnitOptions() {
         var tipe = $('#tipe_layanan').val();
-        var waktuMulai = $('input[name="waktu_mulai"]').val();
+        var tanggalMulai = $('input[name="tanggal_mulai"]').val();
+        var jamMulai = $('input[name="jam_mulai"]').val();
+        var waktuMulai = tanggalMulai + ' ' + jamMulai;
         var durasi = $('input[name="durasi"]').val();
 
         if (!tipe || !durasi) {
             return;
         }
 
-        if (tipe === 'online' && !waktuMulai) {
+        if (tipe === 'online' && (!tanggalMulai || !jamMulai)) {
             return;
         }
 
@@ -343,7 +355,7 @@ $(document).ready(function() {
 
     // Bind event check
     $('select[name="unit_id"]').on('change', checkAvailability);
-    $('#tipe_layanan, input[name="waktu_mulai"], input[name="durasi"]').on('change keyup', function() {
+    $('#tipe_layanan, input[name="tanggal_mulai"], input[name="jam_mulai"], input[name="durasi"]').on('change keyup', function() {
         updateUnitOptions();
     });
 

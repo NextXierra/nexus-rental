@@ -65,7 +65,8 @@ class Reservasi extends BaseController
         ];
 
         if ($tipeLayanan === 'online') {
-            $rules['waktu_mulai'] = 'required|valid_date[Y-m-d\TH:i]';
+            $rules['tanggal_mulai'] = 'required|valid_date[Y-m-d]';
+            $rules['jam_mulai']     = 'required';
         }
 
         if ($statusPelanggan === 'user') {
@@ -126,7 +127,9 @@ class Reservasi extends BaseController
             $waktuMulai = time();
             $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
         } else {
-            $waktuMulai = strtotime($this->request->getPost('waktu_mulai'));
+            $tanggal = $this->request->getPost('tanggal_mulai');
+            $jam = $this->request->getPost('jam_mulai');
+            $waktuMulai = strtotime($tanggal . ' ' . $jam);
             $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
         }
 
