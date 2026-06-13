@@ -6,7 +6,7 @@
     <title>Dashboard User - Nexus Rental</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/dashboard.css?v=2">
+    <link rel="stylesheet" href="/assets/css/dashboard.css?v=3">
 </head>
 <body class="dashboard-body user-dashboard">
 <div class="dashboard-shell">
@@ -16,8 +16,22 @@
             <a href="/dashboard/user" class="active"><i class="fa fa-home"></i> Home</a>
             <a href="#"><i class="fa fa-calendar-check-o"></i> Reservasi Saya</a>
             <a href="#"><i class="fa fa-user"></i> Profil</a>
+            <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
         </nav>
     </aside>
+    <main class="dashboard-main">
+        <header class="dashboard-topnav">
+            <form class="dashboard-search" action="#" method="get">
+                <input type="text" name="search" placeholder="Search for...">
+                <button type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
+            </form>
+            <div class="dashboard-user-menu">
+                <span>User</span>
+                <a href="#" class="dashboard-profile" aria-label="Profil"><i class="fa fa-user"></i></a>
+            </div>
+        </header>
+        <section class="dashboard-content-blank"></section>
+    </main>
 </div>
 <script src="/vendor/jquery/jquery.slim.min.js"></script>
 <script src="/vendor/popper/popper.min.js"></script>

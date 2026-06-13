@@ -1,7 +1,7 @@
 body.dashboard-body {
     margin: 0;
     min-height: 100vh;
-    background: #0b0b0c;
+    background: #111;
     color: #fff;
     font-family: Lora, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -9,25 +9,24 @@ body.dashboard-body {
 .dashboard-shell {
     min-height: 100vh;
     display: flex;
-    background:
-        radial-gradient(circle at top right, rgba(232, 137, 10, 0.16), transparent 32rem),
-        linear-gradient(135deg, #0b0b0c 0%, #151515 50%, #080808 100%);
+    background: #151515;
 }
 
 .dashboard-sidebar {
-    width: 280px;
-    flex: 0 0 280px;
-    padding: 32px 24px;
+    width: 224px;
+    flex: 0 0 224px;
+    min-height: 100vh;
+    padding: 20px 15px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.72);
+    background: #000;
 }
 
 .dashboard-brand {
     display: block;
-    margin-bottom: 48px;
+    margin-bottom: 24px;
     color: #fff;
     font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
@@ -41,11 +40,11 @@ body.dashboard-body {
 .dashboard-nav a {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-    padding: 13px 14px;
+    gap: 10px;
+    margin-bottom: 6px;
+    padding: 9px 12px;
     border: 1px solid transparent;
-    border-radius: 14px;
+    border-radius: 4px;
     color: #c9c9c9;
     font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
@@ -65,7 +64,85 @@ body.dashboard-body {
 
 .dashboard-main {
     width: 100%;
-    padding: 40px;
+    min-width: 0;
+    padding: 0;
+    background: #151515;
+}
+
+.dashboard-topnav {
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: #000;
+}
+
+.dashboard-search {
+    width: min(420px, 100%);
+    display: flex;
+}
+
+.dashboard-search input {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+    background: #111;
+    color: #fff;
+    font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+
+.dashboard-search input:focus {
+    outline: none;
+    border-color: rgba(232, 137, 10, 0.55);
+}
+
+.dashboard-search button {
+    width: 42px;
+    height: 38px;
+    border: 1px solid #E8890A;
+    border-radius: 0 4px 4px 0;
+    background: #E8890A;
+    color: #000;
+    cursor: pointer;
+}
+
+.dashboard-user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #c9c9c9;
+    font-family: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+
+.dashboard-profile {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(232, 137, 10, 0.45);
+    border-radius: 999px;
+    background: rgba(232, 137, 10, 0.08);
+    color: #E8890A;
+    transition: all .2s;
+}
+
+.dashboard-profile:hover {
+    background: #E8890A;
+    color: #000;
+    text-decoration: none;
+}
+
+.dashboard-content-blank {
+    min-height: calc(100vh - 56px);
 }
 
 .topbar {
@@ -386,7 +463,7 @@ body.dashboard-body {
     .dashboard-sidebar {
         width: 100%;
         flex: none;
-        padding: 22px 16px;
+        padding: 16px 15px;
         border-right: 0;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -408,7 +485,17 @@ body.dashboard-body {
     }
 
     .dashboard-main {
-        padding: 22px 16px;
+        padding: 0;
+    }
+
+    .dashboard-topnav {
+        min-height: 56px;
+        padding: 10px 15px;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-search {
+        width: calc(100% - 80px);
     }
 
     .topbar {
