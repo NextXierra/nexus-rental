@@ -187,7 +187,19 @@
                     </div>
                     <div class="form-group col-sm-6">
                         <label>Jam Mulai</label>
-                        <input type="time" name="jam_mulai" class="form-control" value="<?= esc(old('jam_mulai', date('H:i'))) ?>">
+                        <div class="d-flex align-items-center">
+                            <select name="jam_mulai_hour" class="form-control mr-1">
+                                <?php for($i=0; $i<24; $i++): $h = sprintf("%02d", $i); ?>
+                                    <option value="<?= $h ?>" <?= date('H') == $h ? 'selected' : '' ?>><?= $h ?></option>
+                                <?php endfor; ?>
+                            </select>
+                            <span class="mx-1">:</span>
+                            <select name="jam_mulai_minute" class="form-control ml-1">
+                                <?php for($i=0; $i<60; $i+=5): $m = sprintf("%02d", $i); ?>
+                                    <option value="<?= $m ?>" <?= (floor(date('i')/5)*5) == $i ? 'selected' : '' ?>><?= $m ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -247,11 +259,13 @@ $(document).ready(function() {
         if (tipe === 'offline') {
             $('#block_waktu_mulai').addClass('d-none');
             $('input[name="tanggal_mulai"]').removeAttr('required');
-            $('input[name="jam_mulai"]').removeAttr('required');
+            $('select[name="jam_mulai_hour"]').removeAttr('required');
+            $('select[name="jam_mulai_minute"]').removeAttr('required');
         } else {
             $('#block_waktu_mulai').removeClass('d-none');
             $('input[name="tanggal_mulai"]').attr('required', 'required');
-            $('input[name="jam_mulai"]').attr('required', 'required');
+            $('select[name="jam_mulai_hour"]').attr('required', 'required');
+            $('select[name="jam_mulai_minute"]').attr('required', 'required');
         }
     });
 
@@ -259,8 +273,9 @@ $(document).ready(function() {
         var unitId = $('select[name="unit_id"]').val();
         var tipe = $('#tipe_layanan').val();
         var tanggalMulai = $('input[name="tanggal_mulai"]').val();
-        var jamMulai = $('input[name="jam_mulai"]').val();
-        var waktuMulai = tanggalMulai + ' ' + jamMulai;
+        var jamMulaiHour = $('select[name="jam_mulai_hour"]').val();
+        var jamMulaiMinute = $('select[name="jam_mulai_minute"]').val();
+        var waktuMulai = tanggalMulai + ' ' + jamMulaiHour + ':' + jamMulaiMinute;
         var durasi = $('input[name="durasi"]').val();
 
         // Bersihkan state awal
@@ -271,7 +286,7 @@ $(document).ready(function() {
             return;
         }
 
-        if (tipe === 'online' && (!tanggalMulai || !jamMulai)) {
+        if (tipe === 'online' && (!tanggalMulai || !jamMulaiHour || !jamMulaiMinute)) {
             return;
         }
 
@@ -298,15 +313,16 @@ $(document).ready(function() {
     function updateUnitOptions() {
         var tipe = $('#tipe_layanan').val();
         var tanggalMulai = $('input[name="tanggal_mulai"]').val();
-        var jamMulai = $('input[name="jam_mulai"]').val();
-        var waktuMulai = tanggalMulai + ' ' + jamMulai;
+        var jamMulaiHour = $('select[name="jam_mulai_hour"]').val();
+        var jamMulaiMinute = $('select[name="jam_mulai_minute"]').val();
+        var waktuMulai = tanggalMulai + ' ' + jamMulaiHour + ':' + jamMulaiMinute;
         var durasi = $('input[name="durasi"]').val();
 
         if (!tipe || !durasi) {
             return;
         }
 
-        if (tipe === 'online' && (!tanggalMulai || !jamMulai)) {
+        if (tipe === 'online' && (!tanggalMulai || !jamMulaiHour || !jamMulaiMinute)) {
             return;
         }
 
@@ -355,7 +371,7 @@ $(document).ready(function() {
 
     // Bind event check
     $('select[name="unit_id"]').on('change', checkAvailability);
-    $('#tipe_layanan, input[name="tanggal_mulai"], input[name="jam_mulai"], input[name="durasi"]').on('change keyup', function() {
+    $('#tipe_layanan, input[name="tanggal_mulai"], select[name="jam_mulai_hour"], select[name="jam_mulai_minute"], input[name="durasi"]').on('change keyup', function() {
         updateUnitOptions();
     });
 
