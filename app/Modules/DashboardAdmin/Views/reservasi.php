@@ -61,10 +61,10 @@
                 </div>
             <?php endif; ?>
 
-            <!-- Tabel Permintaan Reservasi (Pending) -->
+            <!-- Tabel Permintaan Reservasi -->
             <div class="dashboard-panel mb-4">
                 <div class="panel-heading d-flex align-items-center justify-content-between py-3 px-4">
-                    <h2 class="mb-0" style="font-size: 16px;">Permintaan Reservasi (Pending)</h2>
+                    <h2 class="mb-0" style="font-size: 16px;">Permintaan Reservasi</h2>
                     <span class="badge badge-warning text-dark"><?= count($pendingReservations) ?> Permintaan</span>
                 </div>
                 <div class="table-responsive">
