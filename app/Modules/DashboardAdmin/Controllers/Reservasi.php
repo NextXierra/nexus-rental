@@ -280,7 +280,7 @@ class Reservasi extends BaseController
 
     public function checkAvailability()
     {
-        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
+        if (! session()->get('logged_in') || ! in_array(session()->get('role'), ['admin', 'pelanggan'])) {
             return $this->response->setJSON(['available' => false, 'message' => 'Unauthorized']);
         }
 
@@ -326,7 +326,7 @@ class Reservasi extends BaseController
 
     public function checkUnits()
     {
-        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
+        if (! session()->get('logged_in') || ! in_array(session()->get('role'), ['admin', 'pelanggan'])) {
             return $this->response->setJSON(['status' => 'error', 'message' => 'Unauthorized']);
         }
 
