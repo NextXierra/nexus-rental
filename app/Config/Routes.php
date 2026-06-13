@@ -16,6 +16,7 @@ $routes->post('dashboard/admin/unit-ps/(:num)/update', '\Modules\DashboardAdmin\
 $routes->post('dashboard/admin/unit-ps/(:num)/delete', '\Modules\DashboardAdmin\Controllers\UnitPs::delete/$1');
 
 $routes->get('dashboard/admin/reservasi', '\Modules\DashboardAdmin\Controllers\Reservasi::index');
+$routes->get('dashboard/admin/reservasi/check-availability', '\Modules\DashboardAdmin\Controllers\Reservasi::checkAvailability');
 $routes->post('dashboard/admin/reservasi/store', '\Modules\DashboardAdmin\Controllers\Reservasi::store');
 $routes->post('dashboard/admin/reservasi/(:num)/complete', '\Modules\DashboardAdmin\Controllers\Reservasi::complete/$1');
 $routes->post('dashboard/admin/reservasi/(:num)/cancel', '\Modules\DashboardAdmin\Controllers\Reservasi::cancel/$1');

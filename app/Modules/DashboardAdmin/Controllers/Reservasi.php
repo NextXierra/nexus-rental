@@ -261,4 +261,50 @@ class Reservasi extends BaseController
 
         return redirect()->to('/dashboard/admin/reservasi')->with('success', 'Reservasi dibatalkan.');
     }
+
+    public function checkAvailability()
+    {
+        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
+            return $this->response->setJSON(['available' => false, 'message' => 'Unauthorized']);
+        }
+
+        $unitId = $this->request->getGet('unit_id');
+        $tipe = $this->request->getGet('tipe');
+        $durasi = (int) $this->request->getGet('durasi');
+
+        if (! $unitId || ! $tipe || ! $durasi) {
+            return $this->response->setJSON(['available' => false, 'message' => 'Parameter tidak lengkap']);
+        }
+
+        if ($tipe === 'offline') {
+            $waktuMulai = time();
+            $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
+        } else {
+            $waktuMulaiStr = $this->request->getGet('waktu_mulai');
+            if (! $waktuMulaiStr) {
+                return $this->response->setJSON(['available' => false, 'message' => 'Waktu mulai harus diisi']);
+            }
+            $waktuMulai = strtotime($waktuMulaiStr);
+            $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
+        }
+
+        $waktuSelesaiFormatted = date('Y-m-d H:i:s', $waktuMulai + ($durasi * 3600));
+
+        $db = \Config\Database::connect();
+        $overlap = $db->table('reservasi')
+            ->where('unit_id', $unitId)
+            ->where('status', 'aktif')
+            ->where('waktu_mulai <', $waktuSelesaiFormatted)
+            ->where('waktu_selesai >', $waktuMulaiFormatted)
+            ->get()->getRowArray();
+
+        if ($overlap) {
+            return $this->response->setJSON([
+                'available' => false, 
+                'message' => 'Unit PS sudah disewa pada jam tersebut (' . date('H:i', strtotime($overlap['waktu_mulai'])) . ' - ' . date('H:i', strtotime($overlap['waktu_selesai'])) . ')'
+            ]);
+        }
+
+        return $this->response->setJSON(['available' => true, 'message' => 'Unit PS tersedia']);
+    }
 }

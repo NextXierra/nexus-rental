@@ -139,6 +139,9 @@
                     </div>
                 <?php endif; ?>
 
+                <!-- Live AJAX Overlap Alert -->
+                <div class="alert alert-danger d-none" id="modal_overlap_alert"></div>
+
                 <div class="form-group">
                     <label>Status Pelanggan</label>
                     <select id="status_pelanggan" name="status_pelanggan" class="form-control" required>
@@ -243,6 +246,47 @@ $(document).ready(function() {
             $('input[name="waktu_mulai"]').attr('required', 'required');
         }
     });
+
+    function checkAvailability() {
+        var unitId = $('select[name="unit_id"]').val();
+        var tipe = $('#tipe_layanan').val();
+        var waktuMulai = $('input[name="waktu_mulai"]').val();
+        var durasi = $('input[name="durasi"]').val();
+
+        // Bersihkan state awal
+        $('#modal_overlap_alert').addClass('d-none').text('');
+        $('#createReservasiModal button[type="submit"]').removeAttr('disabled');
+
+        if (!unitId || !tipe || !durasi) {
+            return;
+        }
+
+        if (tipe === 'online' && !waktuMulai) {
+            return;
+        }
+
+        var url = '/dashboard/admin/reservasi/check-availability?unit_id=' + unitId + '&tipe=' + tipe + '&durasi=' + durasi;
+        if (tipe === 'online') {
+            url += '&waktu_mulai=' + encodeURIComponent(waktuMulai);
+        }
+
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                if (data.available === false) {
+                    $('#modal_overlap_alert').removeClass('d-none').text(data.message);
+                    $('#createReservasiModal button[type="submit"]').attr('disabled', 'disabled');
+                }
+            })
+            .catch(function(err) {
+                console.error('Gagal mengecek ketersediaan unit', err);
+            });
+    }
+
+    // Bind event check
+    $('select[name="unit_id"], #tipe_layanan, input[name="waktu_mulai"], input[name="durasi"]').on('change keyup', checkAvailability);
 
     // trigger initial states
     $('#status_pelanggan').trigger('change');
