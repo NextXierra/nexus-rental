@@ -285,12 +285,72 @@ $(document).ready(function() {
             });
     }
 
+    function updateUnitOptions() {
+        var tipe = $('#tipe_layanan').val();
+        var waktuMulai = $('input[name="waktu_mulai"]').val();
+        var durasi = $('input[name="durasi"]').val();
+
+        if (!tipe || !durasi) {
+            return;
+        }
+
+        if (tipe === 'online' && !waktuMulai) {
+            return;
+        }
+
+        var url = '/dashboard/admin/reservasi/check-units?tipe=' + tipe + '&durasi=' + durasi;
+        if (tipe === 'online') {
+            url += '&waktu_mulai=' + encodeURIComponent(waktuMulai);
+        }
+
+        var currentSelectedUnit = $('select[name="unit_id"]').val();
+
+        fetch(url)
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(data) {
+                if (data.status === 'success') {
+                    var selectUnit = $('select[name="unit_id"]');
+                    selectUnit.empty();
+                    selectUnit.append('<option value="">-- Pilih Unit --</option>');
+
+                    data.units.forEach(function(u) {
+                        var optionText = u.nama_unit + ' (Rp ' + parseInt(u.harga_per_jam).toLocaleString('id-ID') + '/jam)';
+                        var disabledAttr = '';
+                        
+                        if (u.is_booked) {
+                            optionText += ' [DISEWA]';
+                            disabledAttr = ' disabled="disabled"';
+                        }
+
+                        var selectedAttr = '';
+                        if (u.id == currentSelectedUnit && !u.is_booked) {
+                            selectedAttr = ' selected="selected"';
+                        }
+
+                        selectUnit.append('<option value="' + u.id + '"' + disabledAttr + selectedAttr + '>' + optionText + '</option>');
+                    });
+
+                    // Trigger checkAvailability to re-validate selected unit
+                    checkAvailability();
+                }
+            })
+            .catch(function(err) {
+                console.error('Gagal memuat unit PS', err);
+            });
+    }
+
     // Bind event check
-    $('select[name="unit_id"], #tipe_layanan, input[name="waktu_mulai"], input[name="durasi"]').on('change keyup', checkAvailability);
+    $('select[name="unit_id"]').on('change', checkAvailability);
+    $('#tipe_layanan, input[name="waktu_mulai"], input[name="durasi"]').on('change keyup', function() {
+        updateUnitOptions();
+    });
 
     // trigger initial states
     $('#status_pelanggan').trigger('change');
     $('#tipe_layanan').trigger('change');
+    updateUnitOptions();
 
     <?php if (session()->getFlashdata('errors') || session()->getFlashdata('error')): ?>
         $('#createReservasiModal').modal('show');

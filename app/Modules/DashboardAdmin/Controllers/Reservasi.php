@@ -307,4 +307,64 @@ class Reservasi extends BaseController
 
         return $this->response->setJSON(['available' => true, 'message' => 'Unit PS tersedia']);
     }
+
+    public function checkUnits()
+    {
+        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Unauthorized']);
+        }
+
+        $tipe = $this->request->getGet('tipe');
+        $durasi = (int) $this->request->getGet('durasi');
+
+        if (! $tipe || ! $durasi) {
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Parameter tidak lengkap']);
+        }
+
+        if ($tipe === 'offline') {
+            $waktuMulai = time();
+            $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
+        } else {
+            $waktuMulaiStr = $this->request->getGet('waktu_mulai');
+            if (! $waktuMulaiStr) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Waktu mulai harus diisi']);
+            }
+            $waktuMulai = strtotime($waktuMulaiStr);
+            $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
+        }
+
+        $waktuSelesaiFormatted = date('Y-m-d H:i:s', $waktuMulai + ($durasi * 3600));
+
+        $db = \Config\Database::connect();
+        
+        // Ambil semua unit yang tidak maintenance
+        $unitModel = new UnitPsModel();
+        $units = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
+
+        // Cari reservasi aktif yang overlap pada range waktu ini
+        $activeReservations = $db->table('reservasi')
+            ->where('status', 'aktif')
+            ->where('waktu_mulai <', $waktuSelesaiFormatted)
+            ->where('waktu_selesai >', $waktuMulaiFormatted)
+            ->get()->getResultArray();
+
+        $bookedUnitIds = array_column($activeReservations, 'unit_id');
+
+        $resultUnits = [];
+        foreach ($units as $unit) {
+            $isBooked = in_array($unit['id'], $bookedUnitIds);
+            $resultUnits[] = [
+                'id'            => $unit['id'],
+                'nama_unit'     => $unit['nama_unit'],
+                'tipe'          => $unit['tipe'],
+                'harga_per_jam' => $unit['harga_per_jam'],
+                'is_booked'     => $isBooked,
+            ];
+        }
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'units'  => $resultUnits
+        ]);
+    }
 }
