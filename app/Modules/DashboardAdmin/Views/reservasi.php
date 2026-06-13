@@ -17,7 +17,7 @@
             <a href="/dashboard/admin/unit-ps"><i class="fa fa-gamepad"></i> Unit PS</a>
             <a href="/dashboard/admin/reservasi" class="active"><i class="fa fa-calendar-check-o"></i> Reservasi</a>
             <a href="#"><i class="fa fa-users"></i> Pelanggan</a>
-            <a href="#"><i class="fa fa-credit-card"></i> Pembayaran</a>
+            <a href="/dashboard/admin/pembayaran"><i class="fa fa-credit-card"></i> Pembayaran</a>
             <a href="#"><i class="fa fa-bar-chart"></i> Laporan</a>
             <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
         </nav>
