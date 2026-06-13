@@ -13,21 +13,17 @@ class UserSeeder extends Seeder
 
         $data = [
             [
-                'username' => 'user',
-                'email'    => 'user@nexusrental.com',
-                'password' => 'user', // Password akan di-hash oleh model
-                'role'     => 'customer'
+                'nama'     => 'Pelanggan',
+                'email'    => 'pelanggan@nexusrental.com',
+                'password' => 'pelanggan', // Password akan di-hash oleh model
+                'no_hp'    => '08xx-xxxx-xxxx',
+                'role'     => 'pelanggan'
             ],
             [
-                'username' => 'vip',
-                'email'    => 'vip@nexusrental.com',
-                'password' => 'vip',
-                'role'     => 'customer_vip'
-            ],
-            [
-                'username' => 'admin',
+                'nama'     => 'Admin',
                 'email'    => 'admin@nexusrental.com',
                 'password' => 'admin',
+                'no_hp'    => '08xx-xxxx-xxxx',
                 'role'     => 'admin'
             ],
         ];

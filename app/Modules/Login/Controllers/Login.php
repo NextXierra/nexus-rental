@@ -20,9 +20,9 @@ class Login extends BaseController
     public function processRegister()
     {
         $rules = [
-            'username' => 'required|min_length[3]|max_length[100]|is_unique[users.username]',
-            'email'    => 'required|valid_email|is_unique[users.email]',
-            'password' => 'required|min_length[8]',
+            'nama'         => 'required|min_length[3]|max_length[100]',
+            'email'        => 'required|valid_email|is_unique[users.email]',
+            'password'     => 'required|min_length[8]',
             'pass_confirm' => 'required|matches[password]',
         ];
 
@@ -32,9 +32,10 @@ class Login extends BaseController
 
         $userModel = new User();
         $userModel->save([
-            'username' => $this->request->getPost('username'),
+            'nama'     => $this->request->getPost('nama'),
             'email'    => $this->request->getPost('email'),
             'password' => $this->request->getPost('password'),
+            'no_hp'    => $this->request->getPost('no_hp'),
         ]);
 
         return redirect()->to('/login')->with('success', 'Registration successful. Please login.');
@@ -51,27 +52,25 @@ class Login extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $loginInput = $this->request->getPost('email');
+        $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
         $userModel = new User();
-        
-        // Cek login via email atau username
-        $user = $userModel->groupStart()
-                            ->where('email', $loginInput)
-                            ->orWhere('username', $loginInput)
-                          ->groupEnd()
-                          ->first();
+        $user = $userModel->where('email', $email)->first();
 
         if ($user && password_verify($password, $user['password'])) {
             $session = session();
             $session->set([
                 'user_id'   => $user['id'],
-                'username'  => $user['username'],
+                'nama'      => $user['nama'],
                 'role'      => $user['role'],
                 'logged_in' => true,
             ]);
-            return redirect()->to('/'); // Redirect to dashboard or home
+            if ($user['role'] === 'admin') {
+                return redirect()->to('/dashboard/admin');
+            }
+
+            return redirect()->to('/dashboard/user');
         }
 
         return redirect()->back()->withInput()->with('error', 'Invalid login credentials.');

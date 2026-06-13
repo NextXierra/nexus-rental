@@ -9,3 +9,5 @@ $routes->post('login/process', '\Modules\Login\Controllers\Login::processLogin')
 $routes->get('register', '\Modules\Login\Controllers\Login::register');
 $routes->post('register/process', '\Modules\Login\Controllers\Login::processRegister');
 $routes->get('logout', '\Modules\Login\Controllers\Login::logout');
+$routes->get('dashboard/admin', '\Modules\DashboardAdmin\Controllers\DashboardAdmin::index');
+$routes->get('dashboard/user', '\Modules\DashboardUser\Controllers\DashboardUser::index');

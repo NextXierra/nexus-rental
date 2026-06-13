@@ -1,31 +1,39 @@
 # Nexus Rental Auth Module Documentation
 
 ## Fitur Auth
-Modul otentikasi sederhana untuk sistem Nexus Rental. Dibangun di dalam direktori `ci4/` menggunakan CodeIgniter 4 dan Bootstrap 4.6 (Lokal).
+Modul otentikasi sederhana untuk sistem Nexus Rental. Dibangun menggunakan CodeIgniter 4 dan Bootstrap 4.6 (Lokal).
 
 ## Komponen
 
 ### Database
-Tabel `users` dibuat melalui migrasi:
+Database `pemweb` dibuat melalui migrasi:
 `php spark migrate`
 
-Struktur tabel:
+Struktur tabel utama:
+- `users`
+- `pelanggan`
+- `unit_ps`
+- `reservasi`
+- `pembayaran`
+
+Struktur tabel `users`:
 - `id` (Primary Key, Auto Increment)
-- `username` (VARCHAR 100, Unique)
-- `email` (VARCHAR 255, Unique)
+- `nama` (VARCHAR 100)
+- `email` (VARCHAR 100, Unique)
 - `password` (VARCHAR 255, Hashed)
-- `role` (ENUM: 'customer', 'customer_vip', 'admin', Default: 'customer')
+- `no_hp` (VARCHAR 20, Nullable)
+- `role` (ENUM: 'admin', 'pelanggan', Default: 'pelanggan')
 - `created_at` (DATETIME)
-- `updated_at` (DATETIME)
 
 ### MVC (HMVC Pattern)
 1. **Model**: `Modules\Login\Models\User`
-   - Allowed fields: `username`, `email`, `password`, `role`.
+   - Allowed fields: `nama`, `email`, `password`, `no_hp`, `role`.
    - Menggunakan callback `beforeInsert` dan `beforeUpdate` untuk auto-hashing password (dengan `password_hash`).
 
 2. **Controller**: `Modules\Login\Controllers\Login`
    - Mengatur validasi register dan login.
-   - Mengatur session data (`user_id`, `username`, `logged_in`).
+   - Login menggunakan email dan password.
+   - Mengatur session data (`user_id`, `nama`, `role`, `logged_in`).
 
 3. **Views**:
    - Diletakkan di `app/Modules/Login/Views/`
@@ -34,7 +42,7 @@ Struktur tabel:
    - Keduanya menggunakan template layout yang menggunakan aset vendor CSS/JS lokal (Bootstrap 4.6, jQuery, Popper).
 
 ### Routing
-Route di-update pada `ci4/app/Config/Routes.php`:
+Route di-update pada `app/Config/Routes.php`:
 - `GET login` => `\Modules\Login\Controllers\Login::index`
 - `POST login/process` => `\Modules\Login\Controllers\Login::processLogin`
 - `GET register` => `\Modules\Login\Controllers\Login::register`
