@@ -130,9 +130,9 @@
                 <div class="form-group">
                     <label>Status Pelanggan</label>
                     <select id="status_pelanggan" name="status_pelanggan" class="form-control" required>
-                        <option value="pelanggan">Pelanggan Existing (Offline)</option>
-                        <option value="user">User Terdaftar (Akun Online)</option>
-                        <option value="baru">Pelanggan Baru (Input Manual)</option>
+                        <option value="pelanggan">Pelanggan Terdaftar (Offline)</option>
+                        <option value="user">Member (Online)</option>
+                        <option value="baru">Pelanggan Baru</option>
                     </select>
                 </div>
 
@@ -149,9 +149,9 @@
 
                 <!-- Block User Terdaftar -->
                 <div class="form-group d-none" id="block_user">
-                    <label>Pilih User</label>
+                    <label>Pilih Member</label>
                     <select name="user_id" class="form-control">
-                        <option value="">-- Pilih User --</option>
+                        <option value="">-- Pilih Member --</option>
                         <?php foreach ($userList as $u): ?>
                             <option value="<?= esc($u['id']) ?>" <?= old('user_id') == $u['id'] ? 'selected' : '' ?>><?= esc($u['nama']) ?> (<?= esc($u['email']) ?>)</option>
                         <?php endforeach; ?>
@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Unit PS (Hanya yang tersedia)</label>
+                    <label>Pilih Unit PS</label>
                     <select name="unit_id" class="form-control" required>
                         <option value="">-- Pilih Unit --</option>
                         <?php foreach ($unitList as $u): ?>
@@ -182,8 +182,8 @@
                 <div class="form-group">
                     <label>Tipe Layanan</label>
                     <select name="tipe" class="form-control" required>
-                        <option value="offline">Offline (Main di tempat)</option>
-                        <option value="online">Online (Booking online)</option>
+                        <option value="offline">Main di Tempat</option>
+                        <option value="online">Booking Online</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -195,7 +195,7 @@
                     <input type="datetime-local" name="waktu_selesai" class="form-control" value="<?= esc(old('waktu_selesai')) ?>" required>
                 </div>
                 <div class="form-group mb-0">
-                    <label>Metode Pembayaran (Lunas Langsung)</label>
+                    <label>Metode Pembayaran</label>
                     <select name="metode" class="form-control" required>
                         <option value="tunai">Tunai</option>
                         <option value="qris">QRIS</option>
