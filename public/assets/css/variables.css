@@ -1,0 +1,79 @@
+/* ROYAL SCRIBBLE - Design System Variables & Color Scheme */
+
+@font-face {
+  font-family: 'Caveat';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../fonts/caveat-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/hankengrotesk-italic-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/hankengrotesk-normal-latin.woff2') format('woff2');
+}
+
+:root {
+  /* Colors */
+  --surface: #F6F2E9;
+  --surface-dim: #ddd9d8;
+  --surface-bright: #F6F2E9;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f7f3f2;
+  --surface-container: #f1edec;
+  --surface-container-high: #ebe7e6;
+  --surface-container-highest: #e5e2e1;
+  --on-surface: #1c1b1b;
+  --on-surface-variant: #444748;
+  --inverse-surface: #313030;
+  --inverse-on-surface: #f4f0ef;
+  --outline: #747878;
+  --outline-variant: #c4c7c7;
+  --surface-tint: #5f5e5e;
+  --primary: #000000;
+  --on-primary: #ffffff;
+  --primary-container: #1c1b1b;
+  --on-primary-container: #858383;
+  --inverse-primary: #c8c6c5;
+  --secondary: #5f5e5b;
+  --on-secondary: #ffffff;
+  --secondary-container: #e5e2dd;
+  --on-secondary-container: #656461;
+  --tertiary: #000000;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #1c1b1a;
+  --on-tertiary-container: #868382;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #F6F2E9;
+  --on-background: #1c1b1b;
+  --surface-variant: #e5e2e1;
+  
+  /* Brand/Interactive */
+  --burnt-orange: #d95d39;
+  --turquoise: #2ec4b6;
+  --available-green: #70a049;
+  --occupied-red: #c23b22;
+  
+  /* Fonts */
+  --font-headline: 'Caveat', cursive;
+  --font-body: 'Hanken Grotesk', sans-serif;
+  
+  /* Rough/Doodle shadow values */
+  --shadow-block: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-block-hover: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  --border-rough: 2px solid #000000;
+}

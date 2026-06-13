@@ -6,7 +6,7 @@
     <title>Dashboard User - Nexus Rental</title>
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/dashboard.css?v=3">
+    <link rel="stylesheet" href="/assets/css/dashboard.css?v=6">
 </head>
 <body class="dashboard-body user-dashboard">
 <div class="dashboard-shell">
@@ -26,7 +26,7 @@
                 <button type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
             </form>
             <div class="dashboard-user-menu">
-                <span>User</span>
+                <span><?= esc(session()->get('nama') ?? 'User') ?></span>
                 <a href="#" class="dashboard-profile" aria-label="Profil"><i class="fa fa-user"></i></a>
             </div>
         </header>

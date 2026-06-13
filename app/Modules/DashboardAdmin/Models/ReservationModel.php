@@ -4,7 +4,7 @@ namespace Modules\DashboardAdmin\Models;
 
 use CodeIgniter\Model;
 
-class Reservasi extends Model
+class ReservationModel extends Model
 {
     protected $table            = 'reservasi';
     protected $primaryKey       = 'id';

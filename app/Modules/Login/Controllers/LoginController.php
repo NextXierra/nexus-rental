@@ -3,9 +3,9 @@
 namespace Modules\Login\Controllers;
 
 use App\Controllers\BaseController;
-use Modules\Login\Models\User;
+use Modules\Login\Models\UserModel;
 
-class Login extends BaseController
+class LoginController extends BaseController
 {
     public function index()
     {
@@ -30,7 +30,7 @@ class Login extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $userModel = new User();
+        $userModel = new UserModel();
         $userModel->save([
             'nama'     => $this->request->getPost('nama'),
             'email'    => $this->request->getPost('email'),
@@ -55,7 +55,7 @@ class Login extends BaseController
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
 
-        $userModel = new User();
+        $userModel = new UserModel();
         $user = $userModel->where('email', $email)->first();
 
         if ($user && password_verify($password, $user['password'])) {

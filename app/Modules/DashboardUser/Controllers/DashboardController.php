@@ -4,7 +4,7 @@ namespace Modules\DashboardUser\Controllers;
 
 use App\Controllers\BaseController;
 
-class DashboardUser extends BaseController
+class DashboardController extends BaseController
 {
     public function index()
     {

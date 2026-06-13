@@ -4,7 +4,7 @@ namespace Modules\LandingPage\Controllers;
 
 use App\Controllers\BaseController;
 
-class Home extends BaseController
+class HomeController extends BaseController
 {
     public function index(): string
     {

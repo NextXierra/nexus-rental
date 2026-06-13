@@ -4,7 +4,7 @@ namespace Modules\Login\Models;
 
 use CodeIgniter\Model;
 
-class User extends Model
+class UserModel extends Model
 {
     protected $table            = 'users';
     protected $primaryKey       = 'id';
@@ -14,12 +14,12 @@ class User extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['nama', 'email', 'password', 'no_hp', 'role'];
 
-    // Dates
+    
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
 
-    // Callbacks
+    
     protected $beforeInsert   = ['hashPassword'];
     protected $beforeUpdate   = ['hashPassword'];
 

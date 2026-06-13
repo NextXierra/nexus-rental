@@ -3,9 +3,9 @@
 namespace Modules\DashboardAdmin\Controllers;
 
 use App\Controllers\BaseController;
-use Modules\DashboardAdmin\Models\UnitPs as UnitPsModel;
+use Modules\DashboardAdmin\Models\UnitPsModel;
 
-class UnitPs extends BaseController
+class UnitPsController extends BaseController
 {
     public function index()
     {

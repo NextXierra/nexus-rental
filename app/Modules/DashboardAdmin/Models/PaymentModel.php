@@ -4,7 +4,7 @@ namespace Modules\DashboardAdmin\Models;
 
 use CodeIgniter\Model;
 
-class Pembayaran extends Model
+class PaymentModel extends Model
 {
     protected $table            = 'pembayaran';
     protected $primaryKey       = 'id';

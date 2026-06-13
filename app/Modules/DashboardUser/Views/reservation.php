@@ -6,7 +6,7 @@
     <title>Reservasi Saya - Nexus Rental</title>
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/dashboard.css?v=4">
+    <link rel="stylesheet" href="/assets/css/dashboard.css?v=6">
 </head>
 <body class="dashboard-body user-dashboard">
 <div class="dashboard-shell">
@@ -26,7 +26,7 @@
                 <button type="submit" aria-label="Search"><i class="fa fa-search"></i></button>
             </form>
             <div class="dashboard-user-menu">
-                <span>User</span>
+                <span><?= esc(session()->get('nama') ?? 'User') ?></span>
                 <a href="#" class="dashboard-profile" aria-label="Profil"><i class="fa fa-user"></i></a>
             </div>
         </header>
@@ -264,9 +264,10 @@ $(document).ready(function() {
 
     updateUnitOptions();
 
-    <?php if (session()->getFlashdata('errors') || session()->getFlashdata('error')): ?>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('book') || <?= (session()->getFlashdata('errors') || session()->getFlashdata('error')) ? 'true' : 'false' ?>) {
         $('#createBookingModal').modal('show');
-    <?php endif; ?>
+    }
 });
 </script>
 </body>

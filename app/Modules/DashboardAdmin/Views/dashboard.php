@@ -6,7 +6,7 @@
     <title>Dashboard Admin - Nexus Rental</title>
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/dashboard.css?v=4">
+    <link rel="stylesheet" href="/assets/css/dashboard.css?v=6">
 </head>
 <body class="dashboard-body">
 <div class="dashboard-shell">

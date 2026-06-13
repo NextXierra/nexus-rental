@@ -3,9 +3,9 @@
 namespace Modules\DashboardAdmin\Controllers;
 
 use App\Controllers\BaseController;
-use Modules\DashboardAdmin\Models\Pembayaran as PembayaranModel;
+use Modules\DashboardAdmin\Models\PaymentModel;
 
-class Pembayaran extends BaseController
+class PaymentController extends BaseController
 {
     public function index()
     {
@@ -26,7 +26,7 @@ class Pembayaran extends BaseController
             ->orderBy('pembayaran.dibayar_at', 'DESC')
             ->get()->getResultArray();
 
-        return view('Modules\DashboardAdmin\Views\pembayaran', [
+        return view('Modules\DashboardAdmin\Views\payment', [
             'payments' => $pembayaranList,
         ]);
     }

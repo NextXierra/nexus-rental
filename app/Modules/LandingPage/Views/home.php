@@ -4,12 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Nexus Rental</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/landingpage.css?v=5">
+    <link rel="stylesheet" href="/assets/css/landingpage.css?v=9">
 </head>
 <body>
 <div class="page-shell">
@@ -41,7 +38,7 @@
     <header class="hero d-flex align-items-center justify-content-center">
         <div class="hero-overlay"></div>
         <div class="hero-content d-flex align-items-end justify-content-center">
-            <a href="#playstation" class="down-button d-flex align-items-center justify-content-center"><i class="fa fa-angle-double-down"></i></a>
+            <a href="<?= base_url('dashboard/user/reservasi?book=1') ?>" class="hero-booking-button">BOOKING SEKARANG</a>
         </div>
     </header>
 

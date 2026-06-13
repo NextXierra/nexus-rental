@@ -3,11 +3,11 @@
 namespace Modules\DashboardAdmin\Controllers;
 
 use App\Controllers\BaseController;
-use Modules\DashboardAdmin\Models\Reservasi as ReservasiModel;
-use Modules\DashboardAdmin\Models\UnitPs as UnitPsModel;
-use Modules\DashboardAdmin\Models\Pembayaran as PembayaranModel;
+use Modules\DashboardAdmin\Models\ReservationModel;
+use Modules\DashboardAdmin\Models\UnitPsModel;
+use Modules\DashboardAdmin\Models\PaymentModel;
 
-class Reservasi extends BaseController
+class ReservationController extends BaseController
 {
     public function index()
     {
@@ -40,11 +40,11 @@ class Reservasi extends BaseController
         $pelangganList = $db->table('pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $userList = $db->table('users')->where('role', 'pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $unitModel = new UnitPsModel();
-        // Tampilkan semua unit kecuali yang sedang maintenance
+        
         $unitList = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
         $allUnits = $unitModel->orderBy('nama_unit', 'ASC')->findAll();
 
-        return view('Modules\DashboardAdmin\Views\reservasi', [
+        return view('Modules\DashboardAdmin\Views\reservation', [
             'pendingReservations' => $pendingReservations,
             'reservations' => $otherReservations,
             'pelangganList' => $pelangganList,
@@ -96,12 +96,12 @@ class Reservasi extends BaseController
 
         if ($statusPelanggan === 'user') {
             $userId = $this->request->getPost('user_id');
-            // Cek apakah user sudah punya data pelanggan
+            
             $existingPelanggan = $db->table('pelanggan')->where('user_id', $userId)->get()->getRowArray();
             if ($existingPelanggan) {
                 $pelangganId = $existingPelanggan['id'];
             } else {
-                // Ambil data user untuk disalin ke pelanggan
+                
                 $userData = $db->table('users')->where('id', $userId)->get()->getRowArray();
                 if (! $userData) {
                     return redirect()->back()->withInput()->with('error', 'User tidak ditemukan.');
@@ -114,7 +114,7 @@ class Reservasi extends BaseController
                 $pelangganId = $db->insertID();
             }
         } else {
-            // Pelanggan Biasa (Non-Member) -> Buat baru tiap transaksi
+            
             $db->table('pelanggan')->insert([
                 'user_id' => null,
                 'nama'    => $this->request->getPost('nama'),
@@ -149,7 +149,7 @@ class Reservasi extends BaseController
         $durasi = (int) $this->request->getPost('durasi');
         $waktuSelesaiFormatted = date('Y-m-d H:i:s', $waktuMulai + ($durasi * 3600));
 
-        // Cek overlap reservasi aktif
+        
         $overlap = $db->table('reservasi')
             ->where('unit_id', $unitId)
             ->where('status', 'aktif')
@@ -167,7 +167,7 @@ class Reservasi extends BaseController
 
         $db->transStart();
 
-        $reservasiModel = new ReservasiModel();
+        $reservasiModel = new ReservationModel();
         $reservasiId = $reservasiModel->insert([
             'pelanggan_id'  => $pelangganId,
             'unit_id'       => $unitId,
@@ -180,7 +180,7 @@ class Reservasi extends BaseController
             'status'        => 'aktif',
         ]);
 
-        $pembayaranModel = new PembayaranModel();
+        $pembayaranModel = new PaymentModel();
         $pembayaranModel->insert([
             'reservasi_id' => $reservasiId,
             'jumlah'       => $totalHarga,
@@ -188,7 +188,7 @@ class Reservasi extends BaseController
             'status'       => 'lunas',
         ]);
 
-        // Update status unit jika waktu mulai adalah saat ini atau lampau
+        
         if ($waktuMulai <= time()) {
             $unitModel->update($unitId, ['status' => 'disewa']);
         }
@@ -212,7 +212,7 @@ class Reservasi extends BaseController
             return redirect()->to('/dashboard/user');
         }
 
-        $reservasiModel = new ReservasiModel();
+        $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 
         if (! $reservasi) {
@@ -250,7 +250,7 @@ class Reservasi extends BaseController
             return redirect()->to('/dashboard/user');
         }
 
-        $reservasiModel = new ReservasiModel();
+        $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 
         if (! $reservasi) {
@@ -353,11 +353,11 @@ class Reservasi extends BaseController
 
         $db = \Config\Database::connect();
         
-        // Ambil semua unit yang tidak maintenance
+        
         $unitModel = new UnitPsModel();
         $units = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
 
-        // Cari reservasi aktif yang overlap pada range waktu ini
+        
         $activeReservations = $db->table('reservasi')
             ->where('status', 'aktif')
             ->where('waktu_mulai <', $waktuSelesaiFormatted)
@@ -390,7 +390,7 @@ class Reservasi extends BaseController
             return redirect()->to('/login');
         }
 
-        $reservasiModel = new ReservasiModel();
+        $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 
         if (! $reservasi || $reservasi['status'] !== 'pending') {
@@ -399,7 +399,7 @@ class Reservasi extends BaseController
 
         $db = \Config\Database::connect();
         
-        // Cek bentrok sebelum approve
+        
         $overlap = $db->table('reservasi')
             ->where('unit_id', $reservasi['unit_id'])
             ->where('status', 'aktif')
@@ -440,7 +440,7 @@ class Reservasi extends BaseController
             return redirect()->to('/login');
         }
 
-        $reservasiModel = new ReservasiModel();
+        $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 
         if (! $reservasi || $reservasi['status'] !== 'pending') {

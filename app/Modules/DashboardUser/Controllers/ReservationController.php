@@ -3,11 +3,11 @@
 namespace Modules\DashboardUser\Controllers;
 
 use App\Controllers\BaseController;
-use Modules\DashboardAdmin\Models\Reservasi as ReservasiModel;
-use Modules\DashboardAdmin\Models\UnitPs as UnitPsModel;
-use Modules\DashboardAdmin\Models\Pembayaran as PembayaranModel;
+use Modules\DashboardAdmin\Models\ReservationModel;
+use Modules\DashboardAdmin\Models\UnitPsModel;
+use Modules\DashboardAdmin\Models\PaymentModel;
 
-class ReservasiSaya extends BaseController
+class ReservationController extends BaseController
 {
     public function index()
     {
@@ -22,7 +22,7 @@ class ReservasiSaya extends BaseController
         $userId = session()->get('user_id');
         $db = \Config\Database::connect();
 
-        // Ambil data reservasi milik user ini
+        
         $reservasiList = $db->table('reservasi')
             ->select('reservasi.*, unit_ps.nama_unit, pembayaran.metode as metode_bayar, pembayaran.status as status_bayar')
             ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
@@ -33,10 +33,10 @@ class ReservasiSaya extends BaseController
             ->get()->getResultArray();
 
         $unitModel = new UnitPsModel();
-        // Tampilkan semua unit kecuali yang sedang maintenance
+        
         $unitList = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
 
-        return view('Modules\DashboardUser\Views\reservasi_saya', [
+        return view('Modules\DashboardUser\Views\reservation', [
             'reservations' => $reservasiList,
             'unitList'     => $unitList,
         ]);
@@ -83,7 +83,7 @@ class ReservasiSaya extends BaseController
         $waktuMulai = strtotime($tanggal . ' ' . $jamHour . ':' . $jamMinute);
         $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
 
-        // Validasi agar tidak booking di waktu lampau
+        
         if ($waktuMulai < time()) {
             return redirect()->back()->withInput()->with('error', 'Waktu mulai booking tidak boleh di masa lampau.');
         }
@@ -93,7 +93,7 @@ class ReservasiSaya extends BaseController
 
         $db = \Config\Database::connect();
 
-        // Cek overlap dengan reservasi yang AKTIF (approved)
+        
         $overlap = $db->table('reservasi')
             ->where('unit_id', $unitId)
             ->where('status', 'aktif')
@@ -105,13 +105,13 @@ class ReservasiSaya extends BaseController
             return redirect()->back()->withInput()->with('error', 'Unit PS tersebut sudah disewa pada jam tersebut.');
         }
 
-        // Cari atau buat record pelanggan untuk user_id ini
+        
         $userId = session()->get('user_id');
         $existingPelanggan = $db->table('pelanggan')->where('user_id', $userId)->get()->getRowArray();
         if ($existingPelanggan) {
             $pelangganId = $existingPelanggan['id'];
         } else {
-            // Dapatkan no hp user dari database jika tidak ada di session
+            
             $userRow = $db->table('users')->where('id', $userId)->get()->getRowArray();
             $db->table('pelanggan')->insert([
                 'user_id' => $userId,
@@ -127,7 +127,7 @@ class ReservasiSaya extends BaseController
 
         $db->transStart();
 
-        $reservasiModel = new ReservasiModel();
+        $reservasiModel = new ReservationModel();
         $reservasiId = $reservasiModel->insert([
             'pelanggan_id'  => $pelangganId,
             'unit_id'       => $unitId,
@@ -137,13 +137,13 @@ class ReservasiSaya extends BaseController
             'total_jam'     => $totalJam,
             'harga_per_jam' => $hargaPerJam,
             'total_harga'   => $totalHarga,
-            'status'        => 'pending', // Menunggu approval admin
+            'status'        => 'pending', 
         ]);
 
         $metode = $this->request->getPost('metode');
         $statusPembayaran = ($metode === 'qris') ? 'sudah_bayar' : 'belum_bayar';
 
-        $pembayaranModel = new PembayaranModel();
+        $pembayaranModel = new PaymentModel();
         $pembayaranModel->insert([
             'reservasi_id' => $reservasiId,
             'jumlah'       => $totalHarga,

@@ -4,7 +4,7 @@ namespace Modules\DashboardAdmin\Models;
 
 use CodeIgniter\Model;
 
-class UnitPs extends Model
+class UnitPsModel extends Model
 {
     protected $table            = 'unit_ps';
     protected $primaryKey       = 'id';
