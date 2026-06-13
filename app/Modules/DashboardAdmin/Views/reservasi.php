@@ -127,6 +127,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
+                <?php if (session()->getFlashdata('error')): ?>
+                    <div class="alert alert-danger"><?= esc(session()->getFlashdata('error')) ?></div>
+                <?php endif; ?>
+
+                <?php if (session()->getFlashdata('errors')): ?>
+                    <div class="alert alert-danger">
+                        <?php foreach (session()->getFlashdata('errors') as $error): ?>
+                            <div><?= esc($error) ?></div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+
                 <div class="form-group">
                     <label>Status Pelanggan</label>
                     <select id="status_pelanggan" name="status_pelanggan" class="form-control" required>
@@ -234,6 +246,10 @@ $(document).ready(function() {
     // trigger initial states
     $('#status_pelanggan').trigger('change');
     $('#tipe_layanan').trigger('change');
+
+    <?php if (session()->getFlashdata('errors') || session()->getFlashdata('error')): ?>
+        $('#createReservasiModal').modal('show');
+    <?php endif; ?>
 });
 </script>
 </body>
