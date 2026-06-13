@@ -171,15 +171,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Pilih Unit PS</label>
-                    <select name="unit_id" class="form-control" required>
-                        <option value="">-- Pilih Unit --</option>
-                        <?php foreach ($unitList as $u): ?>
-                            <option value="<?= esc($u['id']) ?>" <?= old('unit_id') == $u['id'] ? 'selected' : '' ?>><?= esc($u['nama_unit']) ?> (Rp <?= number_format((int) $u['harga_per_jam'], 0, ',', '.') ?>/jam) <?= $u['status'] !== 'tersedia' ? '[' . strtoupper(esc($u['status'])) . ']' : '' ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label>Tipe Layanan</label>
                     <select id="tipe_layanan" name="tipe" class="form-control" required>
                         <option value="offline">Main Langsung</option>
@@ -193,6 +184,16 @@
                 <div class="form-group">
                     <label>Durasi (Jam)</label>
                     <input type="number" name="durasi" class="form-control" value="<?= esc(old('durasi', 1)) ?>" min="1" max="24" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Pilih Unit PS</label>
+                    <select name="unit_id" class="form-control" required>
+                        <option value="">-- Pilih Unit --</option>
+                        <?php foreach ($unitList as $u): ?>
+                            <option value="<?= esc($u['id']) ?>" <?= old('unit_id') == $u['id'] ? 'selected' : '' ?>><?= esc($u['nama_unit']) ?> (Rp <?= number_format((int) $u['harga_per_jam'], 0, ',', '.') ?>/jam) <?= $u['status'] !== 'tersedia' ? '[' . strtoupper(esc($u['status'])) . ']' : '' ?></option>
+                        <?php endforeach; ?>
+                    </select>
                 </div>
                 <div class="form-group mb-0">
                     <label>Metode Pembayaran</label>
