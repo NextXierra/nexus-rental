@@ -130,8 +130,8 @@
                 <div class="form-group">
                     <label>Status Pelanggan</label>
                     <select id="status_pelanggan" name="status_pelanggan" class="form-control" required>
-                        <option value="pelanggan">Pelanggan Terdaftar (Offline)</option>
-                        <option value="user">Member (Online)</option>
+                        <option value="pelanggan">Pelanggan Terdaftar</option>
+                        <option value="user">Member</option>
                         <option value="baru">Pelanggan Baru</option>
                     </select>
                 </div>
@@ -183,7 +183,7 @@
                     <label>Tipe Layanan</label>
                     <select name="tipe" class="form-control" required>
                         <option value="offline">Main di Tempat</option>
-                        <option value="online">Booking Online</option>
+                        <option value="online">Booking</option>
                     </select>
                 </div>
                 <div class="form-group">
