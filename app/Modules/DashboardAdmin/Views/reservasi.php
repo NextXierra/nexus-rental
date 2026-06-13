@@ -128,14 +128,48 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label>Pelanggan</label>
-                    <select name="pelanggan_id" class="form-control" required>
+                    <label>Status Pelanggan</label>
+                    <select id="status_pelanggan" name="status_pelanggan" class="form-control" required>
+                        <option value="pelanggan">Pelanggan Existing (Offline)</option>
+                        <option value="user">User Terdaftar (Akun Online)</option>
+                        <option value="baru">Pelanggan Baru (Input Manual)</option>
+                    </select>
+                </div>
+
+                <!-- Block Pelanggan Existing -->
+                <div class="form-group" id="block_pelanggan">
+                    <label>Pilih Pelanggan</label>
+                    <select name="pelanggan_id" class="form-control">
                         <option value="">-- Pilih Pelanggan --</option>
                         <?php foreach ($pelangganList as $p): ?>
-                            <option value="<?= esc($p['id']) ?>" <?= old('pelanggan_id') == $p['id'] ? 'selected' : '' ?>><?= esc($p['nama']) ?></option>
+                            <option value="<?= esc($p['id']) ?>" <?= old('pelanggan_id') == $p['id'] ? 'selected' : '' ?>><?= esc($p['nama']) ?> (<?= esc($p['no_hp']) ?>)</option>
                         <?php endforeach; ?>
                     </select>
                 </div>
+
+                <!-- Block User Terdaftar -->
+                <div class="form-group d-none" id="block_user">
+                    <label>Pilih User</label>
+                    <select name="user_id" class="form-control">
+                        <option value="">-- Pilih User --</option>
+                        <?php foreach ($userList as $u): ?>
+                            <option value="<?= esc($u['id']) ?>" <?= old('user_id') == $u['id'] ? 'selected' : '' ?>><?= esc($u['nama']) ?> (<?= esc($u['email']) ?>)</option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <!-- Block Pelanggan Baru -->
+                <div class="d-none" id="block_baru">
+                    <div class="form-group">
+                        <label>Nama Pelanggan Baru</label>
+                        <input type="text" name="nama_baru" class="form-control" value="<?= esc(old('nama_baru')) ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>No. HP Baru</label>
+                        <input type="text" name="no_hp_baru" class="form-control" value="<?= esc(old('no_hp_baru')) ?>">
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Unit PS (Hanya yang tersedia)</label>
                     <select name="unit_id" class="form-control" required>
@@ -179,5 +213,33 @@
 <script src="/vendor/jquery/jquery.slim.min.js"></script>
 <script src="/vendor/popper/popper.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#status_pelanggan').change(function() {
+        var status = $(this).val();
+        $('#block_pelanggan').addClass('d-none');
+        $('#block_user').addClass('d-none');
+        $('#block_baru').addClass('d-none');
+        
+        $('#block_pelanggan select').removeAttr('required');
+        $('#block_user select').removeAttr('required');
+        $('#block_baru input').removeAttr('required');
+
+        if (status === 'pelanggan') {
+            $('#block_pelanggan').removeClass('d-none');
+            $('#block_pelanggan select').attr('required', 'required');
+        } else if (status === 'user') {
+            $('#block_user').removeClass('d-none');
+            $('#block_user select').attr('required', 'required');
+        } else if (status === 'baru') {
+            $('#block_baru').removeClass('d-none');
+            $('input[name="nama_baru"]').attr('required', 'required');
+        }
+    });
+
+    // trigger initial state
+    $('#status_pelanggan').trigger('change');
+});
+</script>
 </body>
 </html>
