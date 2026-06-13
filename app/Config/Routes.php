@@ -26,3 +26,5 @@ $routes->post('dashboard/admin/reservasi/(:num)/cancel', '\Modules\DashboardAdmi
 
 $routes->get('dashboard/admin/pembayaran', '\Modules\DashboardAdmin\Controllers\Pembayaran::index');
 $routes->get('dashboard/user', '\Modules\DashboardUser\Controllers\DashboardUser::index');
+$routes->get('dashboard/user/reservasi', '\Modules\DashboardUser\Controllers\ReservasiSaya::index');
+$routes->post('dashboard/user/reservasi/store', '\Modules\DashboardUser\Controllers\ReservasiSaya::store');

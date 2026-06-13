@@ -14,7 +14,7 @@
         <a href="/" class="dashboard-brand">Nexus Rental</a>
         <nav class="dashboard-nav">
             <a href="/dashboard/user" class="active"><i class="fa fa-home"></i> Home</a>
-            <a href="#"><i class="fa fa-calendar-check-o"></i> Reservasi Saya</a>
+            <a href="/dashboard/user/reservasi"><i class="fa fa-calendar-check-o"></i> Reservasi Saya</a>
             <a href="#"><i class="fa fa-user"></i> Profil</a>
             <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
         </nav>
