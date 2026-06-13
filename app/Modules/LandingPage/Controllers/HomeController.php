@@ -38,17 +38,41 @@ class HomeController extends BaseController
             ['img' => '/images/1390942.jpg', 'name' => 'Battlefield 4'],
         ];
 
-        $availability = [
-            ['name' => 'Placeholder Unit 1', 'status' => 'available'],
-            ['name' => 'Placeholder Unit 2', 'status' => 'available'],
-            ['name' => 'Placeholder Unit 3', 'status' => 'available'],
-            ['name' => 'Placeholder Unit 4', 'status' => 'available'],
-            ['name' => 'Placeholder Unit 5', 'status' => 'available'],
-            ['name' => 'Placeholder Unit 6', 'status' => 'available'],
-            ['name' => 'Placeholder Unit 7', 'status' => 'available'],
-            ['name' => 'Placeholder Unit 8', 'status' => 'booked', 'time' => 'Placeholder waktu selesai'],
-            ['name' => 'Placeholder Unit 9', 'status' => 'available'],
-        ];
+        $db = \Config\Database::connect();
+        $units = $db->table('unit_ps')
+            ->whereIn('status', ['tersedia', 'disewa'])
+            ->orderBy('tipe', 'ASC')
+            ->orderBy('nama_unit', 'ASC')
+            ->get()->getResultArray();
+
+        $availability = [];
+        foreach ($units as $unit) {
+            $status = ($unit['status'] === 'disewa') ? 'booked' : 'available';
+            $time = '';
+
+            if ($unit['status'] === 'disewa') {
+                $now = date('Y-m-d H:i:s');
+                $activeRes = $db->table('reservasi')
+                    ->where('unit_id', $unit['id'])
+                    ->where('status', 'aktif')
+                    ->where('waktu_mulai <=', $now)
+                    ->where('waktu_selesai >=', $now)
+                    ->orderBy('waktu_selesai', 'DESC')
+                    ->get()->getRowArray();
+
+                if ($activeRes) {
+                    $time = 'Selesai: ' . date('H:i', strtotime($activeRes['waktu_selesai']));
+                } else {
+                    $time = 'Sewa Aktif';
+                }
+            }
+
+            $availability[] = [
+                'name'   => $unit['nama_unit'] . ' (' . $unit['tipe'] . ')',
+                'status' => $status,
+                'time'   => $time
+            ];
+        }
 
         return view('Modules\LandingPage\Views\home', compact('playstationCards', 'psGames', 'availability'));
     }
