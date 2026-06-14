@@ -33,3 +33,4 @@ $routes->get('dashboard/admin/pelanggan', '\Modules\DashboardAdmin\Controllers\C
 $routes->get('dashboard/admin/laporan', '\Modules\DashboardAdmin\Controllers\ReportController::index');
 $routes->get('dashboard/admin/profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
 $routes->get('dashboard/user/profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
+$routes->post('dashboard/user/profil/update', '\Modules\DashboardUser\Controllers\ProfileController::update');
