@@ -147,7 +147,7 @@
                     <select name="unit_id" class="form-control" required>
                         <option value="">-- Pilih Unit --</option>
                         <?php foreach ($unitList as $u): ?>
-                            <option value="<?= esc($u['id']) ?>" <?= old('unit_id') == $u['id'] ? 'selected' : '' ?>><?= esc($u['nama_unit']) ?> (Rp <?= number_format((int) $u['harga_per_jam'], 0, ',', '.') ?>/jam) <?= $u['status'] !== 'tersedia' ? '[' . strtoupper(esc($u['status'])) . ']' : '' ?></option>
+                            <option value="<?= esc($u['id']) ?>" <?= (old('unit_id') == $u['id'] || (isset($selectedUnitId) && $selectedUnitId == $u['id'])) ? 'selected' : '' ?>><?= esc($u['nama_unit']) ?> (Rp <?= number_format((int) $u['harga_per_jam'], 0, ',', '.') ?>/jam) <?= $u['status'] !== 'tersedia' ? '[' . strtoupper(esc($u['status'])) . ']' : '' ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
