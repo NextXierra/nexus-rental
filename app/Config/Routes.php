@@ -34,5 +34,7 @@ $routes->post('dashboard/admin/pelanggan/store', '\Modules\DashboardAdmin\Contro
 $routes->post('dashboard/admin/pelanggan/(:num)/update', '\Modules\DashboardAdmin\Controllers\CustomerController::update/$1');
 $routes->post('dashboard/admin/pelanggan/(:num)/delete', '\Modules\DashboardAdmin\Controllers\CustomerController::delete/$1');
 $routes->get('dashboard/admin/laporan', '\Modules\DashboardAdmin\Controllers\ReportController::index');
+$routes->get('dashboard/admin/laporan/print', '\Modules\DashboardAdmin\Controllers\ReportController::printLaporan');
+$routes->get('dashboard/admin/laporan/export/excel', '\Modules\DashboardAdmin\Controllers\ReportController::exportExcel');
 $routes->get('dashboard/admin/profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
 $routes->get('dashboard/user/profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
