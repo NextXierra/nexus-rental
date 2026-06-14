@@ -12,7 +12,7 @@
 <div class="page-shell">
     <nav id="mainNav" class="navbar navbar-expand-lg main-nav">
         <div class="container d-flex align-items-center justify-content-between">
-            <a href="#" class="navbar-brand brand">Nexus Rental</a>
+            <a href="#" class="navbar-brand brand"><i class="fa fa-gamepad"></i> Nexus Rental</a>
             <button id="mobileMenuButton" class="navbar-toggler menu-button d-flex d-lg-none align-items-center" type="button">Menu <i class="fa fa-bars"></i></button>
             <div class="desktop-menu d-none d-lg-flex align-items-center">
                 <ul class="navbar-nav d-flex align-items-center">

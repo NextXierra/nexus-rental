@@ -69,6 +69,9 @@ $randomGame = $games[array_rand($games)];
                         <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     </div>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text toggle-password" data-target="#password" style="border-left: none; border-radius: 0 20px 20px 0; cursor: pointer;"><i class="fa fa-eye"></i></span>
+                    </div>
                 </div>
 
                 <div class="input-group mb-4">
@@ -76,6 +79,9 @@ $randomGame = $games[array_rand($games)];
                         <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     </div>
                     <input type="password" class="form-control" id="pass_confirm" name="pass_confirm" placeholder="Confirm Password" required>
+                    <div class="input-group-append">
+                        <span class="input-group-text toggle-password" data-target="#pass_confirm" style="border-left: none; border-radius: 0 20px 20px 0; cursor: pointer;"><i class="fa fa-eye"></i></span>
+                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-success">REGISTER</button>
@@ -94,8 +100,30 @@ $randomGame = $games[array_rand($games)];
 </div>
 
 <!-- Bootstrap JS -->
-<script src="<?= base_url('vendor/jquery/jquery.min.js') ?>"></script>
+<script src="<?= base_url('vendor/jquery/jquery.slim.min.js') ?>"></script>
 <script src="<?= base_url('vendor/popper/popper.min.js') ?>"></script>
 <script src="<?= base_url('vendor/bootstrap/js/bootstrap.min.js') ?>"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var toggleButtons = document.querySelectorAll('.toggle-password');
+    toggleButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var targetSelector = btn.getAttribute('data-target');
+            var targetInput = document.querySelector(targetSelector);
+            var icon = btn.querySelector('i');
+            
+            if (targetInput.type === 'password') {
+                targetInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                targetInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

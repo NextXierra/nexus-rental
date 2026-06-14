@@ -319,6 +319,11 @@ h2::after {
   width: 48px; 
   height: 48px; 
   margin-bottom: 16px; 
+  transform: scale(1) rotate(-3deg);
+  transition: transform 0.2s;
+}
+.facility-card:hover .facility-image {
+  transform: scale(1.1) rotate(5deg);
 }
 
 .facility-image.playstation-image { 

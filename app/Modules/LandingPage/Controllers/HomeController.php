@@ -9,12 +9,12 @@ class HomeController extends BaseController
     public function index(): string
     {
         $playstationCards = [
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 1'],
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 2'],
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 3'],
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 4', 'subtitle' => 'Placeholder keterangan fasilitas'],
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 5', 'subtitle' => 'Placeholder keterangan fasilitas'],
-            ['icon' => 'fa-star', 'title' => 'Placeholder Fasilitas 6', 'subtitle' => 'Placeholder keterangan fasilitas'],
+            ['icon' => 'fa-television', 'title' => 'Layar 50 Inch'],
+            ['icon' => 'fa-gamepad', 'title' => 'Playstation 4'],
+            ['icon' => 'fa-gamepad', 'title' => 'Playstation 5', 'subtitle' => 'VIP'],
+            ['image' => '/images/sofa.svg', 'title' => 'Sofa Premium'],
+            ['icon' => 'fa-coffee', 'title' => 'Cafe'],
+            ['icon' => 'fa-wifi', 'title' => 'Wifi'],
         ];
 
         $psGames = [

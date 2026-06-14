@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#d95d39" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Backrest -->
+  <path d="M4 9V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3" />
+  <!-- Left Armrest -->
+  <rect x="2" y="9" width="3" height="9" rx="1" />
+  <!-- Right Armrest -->
+  <rect x="19" y="9" width="3" height="9" rx="1" />
+  <!-- Cushion/Seat -->
+  <rect x="5" y="11" width="14" height="7" rx="1" />
+  <!-- Legs -->
+  <line x1="6" y1="18" x2="6" y2="21" />
+  <line x1="18" y1="18" x2="18" y2="21" />
+</svg>
