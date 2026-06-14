@@ -38,3 +38,4 @@ $routes->get('dashboard/admin/laporan/print', '\Modules\DashboardAdmin\Controlle
 $routes->get('dashboard/admin/laporan/export/excel', '\Modules\DashboardAdmin\Controllers\ReportController::exportExcel');
 $routes->get('dashboard/admin/profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
 $routes->get('dashboard/user/profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
+$routes->post('dashboard/user/profil/update', '\Modules\DashboardUser\Controllers\ProfileController::update');
