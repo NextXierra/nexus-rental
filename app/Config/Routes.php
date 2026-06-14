@@ -30,6 +30,9 @@ $routes->get('dashboard/user/reservasi', '\Modules\DashboardUser\Controllers\Res
 $routes->post('dashboard/user/reservasi/store', '\Modules\DashboardUser\Controllers\ReservationController::store');
 
 $routes->get('dashboard/admin/pelanggan', '\Modules\DashboardAdmin\Controllers\CustomerController::index');
+$routes->post('dashboard/admin/pelanggan/store', '\Modules\DashboardAdmin\Controllers\CustomerController::store');
+$routes->post('dashboard/admin/pelanggan/(:num)/update', '\Modules\DashboardAdmin\Controllers\CustomerController::update/$1');
+$routes->post('dashboard/admin/pelanggan/(:num)/delete', '\Modules\DashboardAdmin\Controllers\CustomerController::delete/$1');
 $routes->get('dashboard/admin/laporan', '\Modules\DashboardAdmin\Controllers\ReportController::index');
 $routes->get('dashboard/admin/profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
 $routes->get('dashboard/user/profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
