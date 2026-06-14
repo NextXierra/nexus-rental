@@ -15,7 +15,7 @@
         <nav class="dashboard-nav">
             <a href="/dashboard/user"><i class="fa fa-home"></i> Home</a>
             <a href="/dashboard/user/reservasi" class="active"><i class="fa fa-calendar-check-o"></i> Reservasi Saya</a>
-            <a href="#"><i class="fa fa-user"></i> Profil</a>
+            <a href="/dashboard/user/profil"><i class="fa fa-user"></i> Profil</a>
             <a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
         </nav>
     </aside>
@@ -27,7 +27,7 @@
             </form>
             <div class="dashboard-user-menu">
                 <span><?= esc(session()->get('nama') ?? 'User') ?></span>
-                <a href="#" class="dashboard-profile" aria-label="Profil"><i class="fa fa-user"></i></a>
+                <a href="/dashboard/user/profil" class="dashboard-profile" aria-label="Profil"><i class="fa fa-user"></i></a>
             </div>
         </header>
 

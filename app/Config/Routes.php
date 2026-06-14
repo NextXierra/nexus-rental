@@ -28,3 +28,8 @@ $routes->get('dashboard/admin/pembayaran', '\Modules\DashboardAdmin\Controllers\
 $routes->get('dashboard/user', '\Modules\DashboardUser\Controllers\DashboardController::index');
 $routes->get('dashboard/user/reservasi', '\Modules\DashboardUser\Controllers\ReservationController::index');
 $routes->post('dashboard/user/reservasi/store', '\Modules\DashboardUser\Controllers\ReservationController::store');
+
+$routes->get('dashboard/admin/pelanggan', '\Modules\DashboardAdmin\Controllers\CustomerController::index');
+$routes->get('dashboard/admin/laporan', '\Modules\DashboardAdmin\Controllers\ReportController::index');
+$routes->get('dashboard/admin/profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
+$routes->get('dashboard/user/profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
