@@ -31,5 +31,7 @@ $routes->post('dashboard/user/reservasi/store', '\Modules\DashboardUser\Controll
 
 $routes->get('dashboard/admin/pelanggan', '\Modules\DashboardAdmin\Controllers\CustomerController::index');
 $routes->get('dashboard/admin/laporan', '\Modules\DashboardAdmin\Controllers\ReportController::index');
+$routes->get('dashboard/admin/laporan/print', '\Modules\DashboardAdmin\Controllers\ReportController::printLaporan');
+$routes->get('dashboard/admin/laporan/export/excel', '\Modules\DashboardAdmin\Controllers\ReportController::exportExcel');
 $routes->get('dashboard/admin/profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
 $routes->get('dashboard/user/profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
