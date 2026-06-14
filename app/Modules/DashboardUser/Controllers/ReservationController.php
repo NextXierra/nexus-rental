@@ -35,10 +35,12 @@ class ReservationController extends BaseController
         $unitModel = new UnitPsModel();
         
         $unitList = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
+        $selectedUnitId = $this->request->getGet('unit_id');
 
         return view('Modules\DashboardUser\Views\reservation', [
-            'reservations' => $reservasiList,
-            'unitList'     => $unitList,
+            'reservations'   => $reservasiList,
+            'unitList'       => $unitList,
+            'selectedUnitId' => $selectedUnitId,
         ]);
     }
 
