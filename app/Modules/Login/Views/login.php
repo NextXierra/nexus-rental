@@ -1,14 +1,3 @@
-<?php
-$games = [
-    'pes2019.jpg', 'fifa2019.jpg', 'spiderman.png', 'pes2018.jpg', 'ps4fifa18.jpg', 
-    'god-of-war-4-day-one-edition.jpg', 'Grand-Theft-Auto-V-PS4-Box-Art.jpg', 
-    'capcom-2-1003801.jpg', 'nsuns_legacy_ps4_3d_pegi_usk_1499157554.jpg', 
-    '81HNE-+Y6WL._SL1500_.jpg', 'injustice.jpg', 'ps4-the-witcher-3-wild-hunt_1.jpg', 
-    '81Oqvv6OxHL._SL1500_.jpg', '91iH-qAxe7L._SL1500_.jpg', 'Horizon-zero-dawn-box-art.jpg', 
-    'ufc_2_PS4_1_front_fvlb_3602794547772389271.jpg', 'C0R4myqWgAERMF2.jpg', '1390942.jpg'
-];
-$randomGame = $games[array_rand($games)];
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

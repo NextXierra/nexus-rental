@@ -20,6 +20,7 @@
             ?>
             <a href="/dashboard/admin" class="<?= empty($segment) ? 'active' : '' ?>"><i class="fa fa-home"></i> Home Dashboard</a>
             <a href="/dashboard/admin/unit-ps" class="<?= ($segment === 'unit-ps') ? 'active' : '' ?>"><i class="fa fa-gamepad"></i> Unit PS</a>
+            <a href="/dashboard/admin/games" class="<?= ($segment === 'games') ? 'active' : '' ?>"><i class="fa fa-th-large"></i> Games</a>
             <a href="/dashboard/admin/reservasi" class="<?= ($segment === 'reservasi') ? 'active' : '' ?>"><i class="fa fa-calendar-check-o"></i> Reservasi</a>
             <a href="/dashboard/admin/pelanggan" class="<?= ($segment === 'pelanggan') ? 'active' : '' ?>"><i class="fa fa-users"></i> Pelanggan</a>
             <a href="/dashboard/admin/pembayaran" class="<?= ($segment === 'pembayaran') ? 'active' : '' ?>"><i class="fa fa-credit-card"></i> Pembayaran</a>

@@ -4,17 +4,38 @@ namespace Modules\Login\Controllers;
 
 use App\Controllers\BaseController;
 use Modules\Login\Models\UserModel;
+use Modules\DashboardAdmin\Models\GameModel;
 
 class LoginController extends BaseController
 {
     public function index()
     {
-        return view('Modules\Login\Views\login');
+        $gameModel = new GameModel();
+        $games = $gameModel->findAll();
+        $randomGame = 'pes2019.jpg';
+
+        if (! empty($games)) {
+            $randomGame = $games[array_rand($games)]['gambar'];
+        }
+
+        return view('Modules\Login\Views\login', [
+            'randomGame' => $randomGame
+        ]);
     }
 
     public function register()
     {
-        return view('Modules\Login\Views\register');
+        $gameModel = new GameModel();
+        $games = $gameModel->findAll();
+        $randomGame = 'pes2019.jpg';
+
+        if (! empty($games)) {
+            $randomGame = $games[array_rand($games)]['gambar'];
+        }
+
+        return view('Modules\Login\Views\register', [
+            'randomGame' => $randomGame
+        ]);
     }
 
     public function processRegister()

@@ -20,6 +20,12 @@ $routes->group('dashboard/admin', ['filter' => ['auth', 'admin']], function($rou
     $routes->post('unit-ps/(:num)/update', '\Modules\DashboardAdmin\Controllers\UnitPsController::update/$1');
     $routes->post('unit-ps/(:num)/delete', '\Modules\DashboardAdmin\Controllers\UnitPsController::delete/$1');
 
+    // Games CRUD
+    $routes->get('games', '\Modules\DashboardAdmin\Controllers\GameController::index');
+    $routes->post('games/store', '\Modules\DashboardAdmin\Controllers\GameController::store');
+    $routes->post('games/(:num)/update', '\Modules\DashboardAdmin\Controllers\GameController::update/$1');
+    $routes->post('games/(:num)/delete', '\Modules\DashboardAdmin\Controllers\GameController::delete/$1');
+
     // Reservasi Admin
     $routes->get('reservasi', '\Modules\DashboardAdmin\Controllers\ReservationController::index');
     $routes->get('reservasi/check-availability', '\Modules\DashboardAdmin\Controllers\ReservationController::checkAvailability');
