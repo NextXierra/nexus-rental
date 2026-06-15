@@ -44,7 +44,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fa fa-user-o"></i></span>
                     </div>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email address" value="<?= old('email') ?>" required>
+                    <input type="text" class="form-control" id="login" name="login" placeholder="Email or Username" value="<?= old('login') ?>" required>
                 </div>
                 
                 <div class="input-group mb-4">
