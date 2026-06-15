@@ -61,10 +61,8 @@ class ProfileController extends BaseController
 
         $db->transStart();
 
-        // Update Users
         $db->table('users')->where('id', $userId)->update($updateData);
 
-        // Update Pelanggan
         $existingPelanggan = $db->table('pelanggan')->where('user_id', $userId)->get()->getRowArray();
         if ($existingPelanggan) {
             $db->table('pelanggan')->where('user_id', $userId)->update([

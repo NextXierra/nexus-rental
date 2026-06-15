@@ -11,14 +11,12 @@ class CustomerController extends BaseController
     {
         $db = \Config\Database::connect();
         
-        // Fetch pelanggan with left join to users to get their linked account email
         $customers = $db->table('pelanggan')
             ->select('pelanggan.*, users.email')
             ->join('users', 'pelanggan.user_id = users.id', 'left')
             ->orderBy('pelanggan.nama', 'ASC')
             ->get()->getResultArray();
 
-        // Fetch user accounts with role 'pelanggan' for dropdown selection
         $users = $db->table('users')
             ->where('role', 'pelanggan')
             ->orderBy('nama', 'ASC')

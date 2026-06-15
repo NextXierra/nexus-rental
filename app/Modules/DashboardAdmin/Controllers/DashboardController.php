@@ -10,30 +10,25 @@ class DashboardController extends BaseController
     {
         $db = \Config\Database::connect();
 
-        // 1. Today's Revenue
         $todayRevenue = $db->table('pembayaran')
             ->where('status', 'lunas')
             ->where('DATE(dibayar_at)', date('Y-m-d'))
             ->selectSum('jumlah')
             ->get()->getRowArray()['jumlah'] ?? 0;
 
-        // 2. Active Reservations Count
         $activeReservations = $db->table('reservasi')
             ->where('status', 'aktif')
             ->countAllResults();
 
-        // 3. Available Units Count
         $availableUnits = $db->table('unit_ps')
             ->where('status', 'tersedia')
             ->countAllResults();
         $totalUnits = $db->table('unit_ps')
             ->countAllResults();
 
-        // 4. Total Customers
         $totalCustomers = $db->table('pelanggan')
             ->countAllResults();
 
-        // 5. Recent Active Reservations List
         $activeReservationsList = $db->table('reservasi')
             ->select('reservasi.*, pelanggan.nama as nama_pelanggan, unit_ps.nama_unit')
             ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
@@ -43,7 +38,6 @@ class DashboardController extends BaseController
             ->limit(5)
             ->get()->getResultArray();
 
-        // 6. Weekly Revenue (Last 7 Days)
         $weeklyData = [];
         for ($i = 6; $i >= 0; $i--) {
             $date = date('Y-m-d', strtotime("-$i days"));
