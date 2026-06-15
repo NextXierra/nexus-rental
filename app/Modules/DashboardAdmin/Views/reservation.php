@@ -120,7 +120,7 @@
                                         <?= csrf_field() ?>
                                     </form>
                                     <button class="btn btn-sm btn-outline-success trigger-confirm" type="button" data-message="Apakah Anda yakin ingin menyelesaikan reservasi ini?" data-form-id="complete-form-<?= esc($res['id']) ?>">Selesai</button>
-
+ 
                                     <form id="cancel-form-<?= esc($res['id']) ?>" action="/dashboard/admin/reservasi/<?= esc($res['id']) ?>/cancel" method="post" class="d-none">
                                         <?= csrf_field() ?>
                                     </form>
@@ -139,6 +139,11 @@
             </tbody>
         </table>
     </div>
+    <?php if (isset($pager)): ?>
+        <div class="d-flex justify-content-center pt-3 pb-3">
+            <?= $pager->links('reservations', 'brutal') ?>
+        </div>
+    <?php endif; ?>
 </div>
 
 <div class="modal fade" id="createReservasiModal" tabindex="-1" role="dialog" aria-hidden="true">

@@ -11,24 +11,29 @@ class ReservationController extends BaseController
 {
     public function index()
     {
-        $db = \Config\Database::connect();
-        $reservasiList = $db->table('reservasi')
+        $reservationModel = new ReservationModel();
+        
+        // Paginate only non-pending reservations.
+        // We will query pending separately but we might want pending to be paginated too?
+        // Usually pending is few. Let's make normal reservations paginated to 10 items.
+        
+        $pendingReservations = $reservationModel
             ->select('reservasi.*, pelanggan.nama as nama_pelanggan, unit_ps.nama_unit')
             ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
             ->join('unit_ps', 'reservasi.unit_id = unit_ps.id')
+            ->where('reservasi.status', 'pending')
             ->orderBy('reservasi.created_at', 'DESC')
-            ->get()->getResultArray();
+            ->findAll(); // Pending list is usually short, so keep it direct or limit
 
-        $pendingReservations = [];
-        $otherReservations = [];
-        foreach ($reservasiList as $r) {
-            if ($r['status'] === 'pending') {
-                $pendingReservations[] = $r;
-            } else {
-                $otherReservations[] = $r;
-            }
-        }
+        $reservations = $reservationModel
+            ->select('reservasi.*, pelanggan.nama as nama_pelanggan, unit_ps.nama_unit')
+            ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
+            ->join('unit_ps', 'reservasi.unit_id = unit_ps.id')
+            ->where('reservasi.status !=', 'pending')
+            ->orderBy('reservasi.created_at', 'DESC')
+            ->paginate(10, 'reservations');
 
+        $db = \Config\Database::connect();
         $pelangganList = $db->table('pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $userList = $db->table('users')->where('role', 'pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $unitModel = new UnitPsModel();
@@ -38,11 +43,12 @@ class ReservationController extends BaseController
 
         return view('Modules\DashboardAdmin\Views\reservation', [
             'pendingReservations' => $pendingReservations,
-            'reservations' => $otherReservations,
+            'reservations' => $reservations,
             'pelangganList' => $pelangganList,
             'userList' => $userList,
             'unitList' => $unitList,
             'allUnits' => $allUnits,
+            'pager' => $reservationModel->pager,
         ]);
     }
 

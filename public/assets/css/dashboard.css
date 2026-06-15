@@ -498,6 +498,41 @@ body.dashboard-body {
     font-family: var(--font-body);
 }
 
+/* Brutal Pagination Styles */
+.brutal-pagination-container {
+    box-shadow: 3px 3px 0 0 rgba(0,0,0,1);
+    border: var(--border-rough);
+    display: inline-flex;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: var(--surface-container-lowest);
+}
+
+.brutal-pagination-container .page-item .page-link {
+    border: none;
+    border-right: 2px solid var(--primary);
+    background-color: var(--surface-container-lowest);
+    color: var(--primary);
+    font-family: var(--font-headline);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.brutal-pagination-container .page-item:last-child .page-link {
+    border-right: none;
+}
+
+.brutal-pagination-container .page-item.active .page-link {
+    background-color: var(--turquoise) !important;
+    color: var(--primary) !important;
+}
+
+.brutal-pagination-container .page-item:hover .page-link:not(.active) {
+    background-color: var(--surface-container-low);
+    color: var(--burnt-orange);
+}
+
 .dashboard-table th {
     border: 0;
     color: var(--on-surface-variant);

@@ -132,6 +132,9 @@ Relasi:
 - Seeders:
   * `app/Database/Seeds/UserSeeder.php`
   * `app/Database/Seeds/GameSeeder.php`
+  * `app/Database/Seeds/PelangganSeeder.php`
+  * `app/Database/Seeds/UnitPsSeeder.php`
+  * `app/Database/Seeds/TransactionSeeder.php`
 - Models:
   * `app/Modules/Login/Models/UserModel.php`
   * `app/Modules/DashboardAdmin/Models/GameModel.php`

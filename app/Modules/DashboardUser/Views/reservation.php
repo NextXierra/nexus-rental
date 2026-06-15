@@ -68,6 +68,11 @@
             </tbody>
         </table>
     </div>
+    <?php if (isset($pager)): ?>
+        <div class="d-flex justify-content-center pt-3 pb-3">
+            <?= $pager->links('reservations_user', 'brutal') ?>
+        </div>
+    <?php endif; ?>
 </div>
 
 <div class="modal fade" id="createBookingModal" tabindex="-1" role="dialog" aria-hidden="true">

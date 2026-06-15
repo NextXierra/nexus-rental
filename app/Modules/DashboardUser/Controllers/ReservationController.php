@@ -12,16 +12,16 @@ class ReservationController extends BaseController
     public function index()
     {
         $userId = session()->get('user_id');
-        $db = \Config\Database::connect();
+        $reservationModel = new ReservationModel();
 
-        $reservasiList = $db->table('reservasi')
+        $reservasiList = $reservationModel
             ->select('reservasi.*, unit_ps.nama_unit, pembayaran.metode as metode_bayar, pembayaran.status as status_bayar')
             ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
             ->join('unit_ps', 'reservasi.unit_id = unit_ps.id')
             ->join('pembayaran', 'reservasi.id = pembayaran.reservasi_id', 'left')
             ->where('pelanggan.user_id', $userId)
             ->orderBy('reservasi.created_at', 'DESC')
-            ->get()->getResultArray();
+            ->paginate(10, 'reservations_user');
 
         $unitModel = new UnitPsModel();
         
@@ -32,6 +32,7 @@ class ReservationController extends BaseController
             'reservations'   => $reservasiList,
             'unitList'       => $unitList,
             'selectedUnitId' => $selectedUnitId,
+            'pager'          => $reservationModel->pager,
         ]);
     }
 

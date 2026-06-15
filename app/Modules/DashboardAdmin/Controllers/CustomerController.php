@@ -9,14 +9,16 @@ class CustomerController extends BaseController
 {
     public function index()
     {
-        $db = \Config\Database::connect();
+        $pelangganModel = new PelangganModel();
         
-        $customers = $db->table('pelanggan')
+        // Use select and join with users email, then paginate 10 items
+        $customers = $pelangganModel
             ->select('pelanggan.*, users.email')
             ->join('users', 'pelanggan.user_id = users.id', 'left')
             ->orderBy('pelanggan.nama', 'ASC')
-            ->get()->getResultArray();
+            ->paginate(10, 'customers');
 
+        $db = \Config\Database::connect();
         $users = $db->table('users')
             ->where('role', 'pelanggan')
             ->orderBy('nama', 'ASC')
@@ -25,6 +27,7 @@ class CustomerController extends BaseController
         return view('Modules\DashboardAdmin\Views\customer', [
             'customers' => $customers,
             'users'     => $users,
+            'pager'     => $pelangganModel->pager,
         ]);
     }
 

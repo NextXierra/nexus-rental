@@ -11,7 +11,8 @@ class GameController extends BaseController
     {
         $gameModel = new GameModel();
         return view('Modules\DashboardAdmin\Views\game', [
-            'games' => $gameModel->orderBy('nama_game', 'ASC')->findAll()
+            'games' => $gameModel->orderBy('nama_game', 'ASC')->paginate(10, 'games'),
+            'pager' => $gameModel->pager
         ]);
     }
 

@@ -12,7 +12,8 @@ class UnitPsController extends BaseController
         $unitModel = new UnitPsModel();
 
         return view('Modules\DashboardAdmin\Views\unit_ps', [
-            'units' => $unitModel->orderBy('tipe', 'ASC')->orderBy('nama_unit', 'ASC')->findAll(),
+            'units' => $unitModel->orderBy('tipe', 'ASC')->orderBy('nama_unit', 'ASC')->paginate(10, 'units'),
+            'pager' => $unitModel->pager
         ]);
     }
 

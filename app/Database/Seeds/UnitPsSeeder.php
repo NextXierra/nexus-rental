@@ -3,13 +3,13 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use Modules\DashboardAdmin\Models\UnitPs;
+use Modules\DashboardAdmin\Models\UnitPsModel;
 
 class UnitPsSeeder extends Seeder
 {
     public function run()
     {
-        $unitModel = new UnitPs();
+        $unitModel = new UnitPsModel();
 
         $data = [
             ['nama_unit' => 'PS4-01', 'tipe' => 'PS4', 'harga_per_jam' => 10000, 'status' => 'tersedia'],

@@ -43,5 +43,10 @@
             </tbody>
         </table>
     </div>
+    <?php if (isset($pager)): ?>
+        <div class="d-flex justify-content-center pt-3 pb-3">
+            <?= $pager->links('payments', 'brutal') ?>
+        </div>
+    <?php endif; ?>
 </div>
 <?= $this->endSection() ?>

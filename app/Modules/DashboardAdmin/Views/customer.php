@@ -66,6 +66,11 @@
             </tbody>
         </table>
     </div>
+    <?php if (isset($pager)): ?>
+        <div class="d-flex justify-content-center pt-3 pb-3">
+            <?= $pager->links('customers', 'brutal') ?>
+        </div>
+    <?php endif; ?>
 </div>
 
 <!-- Modal Tambah Pelanggan -->
