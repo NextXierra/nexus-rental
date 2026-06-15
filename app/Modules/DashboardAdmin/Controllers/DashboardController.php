@@ -8,14 +8,6 @@ class DashboardController extends BaseController
 {
     public function index()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $db = \Config\Database::connect();
 
         // 1. Today's Revenue

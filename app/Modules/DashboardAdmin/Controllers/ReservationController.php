@@ -11,14 +11,6 @@ class ReservationController extends BaseController
 {
     public function index()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $db = \Config\Database::connect();
         $reservasiList = $db->table('reservasi')
             ->select('reservasi.*, pelanggan.nama as nama_pelanggan, unit_ps.nama_unit')
@@ -56,14 +48,6 @@ class ReservationController extends BaseController
 
     public function store()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $statusPelanggan = $this->request->getPost('status_pelanggan');
         $tipeLayanan = $this->request->getPost('tipe');
 
@@ -204,14 +188,6 @@ class ReservationController extends BaseController
 
     public function complete($id)
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 
@@ -242,14 +218,6 @@ class ReservationController extends BaseController
 
     public function cancel($id)
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 
@@ -280,10 +248,6 @@ class ReservationController extends BaseController
 
     public function checkAvailability()
     {
-        if (! session()->get('logged_in') || ! in_array(session()->get('role'), ['admin', 'pelanggan'])) {
-            return $this->response->setJSON(['available' => false, 'message' => 'Unauthorized']);
-        }
-
         $unitId = $this->request->getGet('unit_id');
         $tipe = $this->request->getGet('tipe');
         $durasi = (int) $this->request->getGet('durasi');
@@ -326,10 +290,6 @@ class ReservationController extends BaseController
 
     public function checkUnits()
     {
-        if (! session()->get('logged_in') || ! in_array(session()->get('role'), ['admin', 'pelanggan'])) {
-            return $this->response->setJSON(['status' => 'error', 'message' => 'Unauthorized']);
-        }
-
         $tipe = $this->request->getGet('tipe');
         $durasi = (int) $this->request->getGet('durasi');
 
@@ -353,11 +313,9 @@ class ReservationController extends BaseController
 
         $db = \Config\Database::connect();
         
-        
         $unitModel = new UnitPsModel();
         $units = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
 
-        
         $activeReservations = $db->table('reservasi')
             ->where('status', 'aktif')
             ->where('waktu_mulai <', $waktuSelesaiFormatted)
@@ -386,10 +344,6 @@ class ReservationController extends BaseController
 
     public function approve($id)
     {
-        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
-            return redirect()->to('/login');
-        }
-
         $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 
@@ -398,7 +352,6 @@ class ReservationController extends BaseController
         }
 
         $db = \Config\Database::connect();
-        
         
         $overlap = $db->table('reservasi')
             ->where('unit_id', $reservasi['unit_id'])
@@ -436,10 +389,6 @@ class ReservationController extends BaseController
 
     public function reject($id)
     {
-        if (! session()->get('logged_in') || session()->get('role') !== 'admin') {
-            return redirect()->to('/login');
-        }
-
         $reservasiModel = new ReservationModel();
         $reservasi = $reservasiModel->find($id);
 

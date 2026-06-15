@@ -8,14 +8,6 @@ class ReportController extends BaseController
 {
     public function index()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $filter = $this->request->getGet('filter') ?? 'harian';
         $tanggal = $this->request->getGet('tanggal') ?? date('Y-m-d');
         $bulan = $this->request->getGet('bulan') ?? date('Y-m');
@@ -28,14 +20,6 @@ class ReportController extends BaseController
 
     public function printLaporan()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $filter = $this->request->getGet('filter') ?? 'harian';
         $tanggal = $this->request->getGet('tanggal') ?? date('Y-m-d');
         $bulan = $this->request->getGet('bulan') ?? date('Y-m');
@@ -48,14 +32,6 @@ class ReportController extends BaseController
 
     public function exportExcel()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $filter = $this->request->getGet('filter') ?? 'harian';
         $tanggal = $this->request->getGet('tanggal') ?? date('Y-m-d');
         $bulan = $this->request->getGet('bulan') ?? date('Y-m');

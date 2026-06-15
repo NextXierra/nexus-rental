@@ -9,33 +9,54 @@ $routes->post('login/process', '\Modules\Login\Controllers\LoginController::proc
 $routes->get('register', '\Modules\Login\Controllers\LoginController::register');
 $routes->post('register/process', '\Modules\Login\Controllers\LoginController::processRegister');
 $routes->get('logout', '\Modules\Login\Controllers\LoginController::logout');
-$routes->get('dashboard/admin', '\Modules\DashboardAdmin\Controllers\DashboardController::index');
-$routes->get('dashboard/admin/unit-ps', '\Modules\DashboardAdmin\Controllers\UnitPsController::index');
-$routes->post('dashboard/admin/unit-ps/store', '\Modules\DashboardAdmin\Controllers\UnitPsController::store');
-$routes->post('dashboard/admin/unit-ps/(:num)/update', '\Modules\DashboardAdmin\Controllers\UnitPsController::update/$1');
-$routes->post('dashboard/admin/unit-ps/(:num)/delete', '\Modules\DashboardAdmin\Controllers\UnitPsController::delete/$1');
 
-$routes->get('dashboard/admin/reservasi', '\Modules\DashboardAdmin\Controllers\ReservationController::index');
-$routes->get('dashboard/admin/reservasi/check-availability', '\Modules\DashboardAdmin\Controllers\ReservationController::checkAvailability');
-$routes->get('dashboard/admin/reservasi/check-units', '\Modules\DashboardAdmin\Controllers\ReservationController::checkUnits');
-$routes->post('dashboard/admin/reservasi/store', '\Modules\DashboardAdmin\Controllers\ReservationController::store');
-$routes->post('dashboard/admin/reservasi/(:num)/approve', '\Modules\DashboardAdmin\Controllers\ReservationController::approve/$1');
-$routes->post('dashboard/admin/reservasi/(:num)/reject', '\Modules\DashboardAdmin\Controllers\ReservationController::reject/$1');
-$routes->post('dashboard/admin/reservasi/(:num)/complete', '\Modules\DashboardAdmin\Controllers\ReservationController::complete/$1');
-$routes->post('dashboard/admin/reservasi/(:num)/cancel', '\Modules\DashboardAdmin\Controllers\ReservationController::cancel/$1');
+// Dashboard Admin Group
+$routes->group('dashboard/admin', ['filter' => ['auth', 'admin']], function($routes) {
+    $routes->get('/', '\Modules\DashboardAdmin\Controllers\DashboardController::index');
+    
+    // Unit PS CRUD
+    $routes->get('unit-ps', '\Modules\DashboardAdmin\Controllers\UnitPsController::index');
+    $routes->post('unit-ps/store', '\Modules\DashboardAdmin\Controllers\UnitPsController::store');
+    $routes->post('unit-ps/(:num)/update', '\Modules\DashboardAdmin\Controllers\UnitPsController::update/$1');
+    $routes->post('unit-ps/(:num)/delete', '\Modules\DashboardAdmin\Controllers\UnitPsController::delete/$1');
 
-$routes->get('dashboard/admin/pembayaran', '\Modules\DashboardAdmin\Controllers\PaymentController::index');
-$routes->get('dashboard/user', '\Modules\DashboardUser\Controllers\DashboardController::index');
-$routes->get('dashboard/user/reservasi', '\Modules\DashboardUser\Controllers\ReservationController::index');
-$routes->post('dashboard/user/reservasi/store', '\Modules\DashboardUser\Controllers\ReservationController::store');
+    // Reservasi Admin
+    $routes->get('reservasi', '\Modules\DashboardAdmin\Controllers\ReservationController::index');
+    $routes->get('reservasi/check-availability', '\Modules\DashboardAdmin\Controllers\ReservationController::checkAvailability');
+    $routes->get('reservasi/check-units', '\Modules\DashboardAdmin\Controllers\ReservationController::checkUnits');
+    $routes->post('reservasi/store', '\Modules\DashboardAdmin\Controllers\ReservationController::store');
+    $routes->post('reservasi/(:num)/approve', '\Modules\DashboardAdmin\Controllers\ReservationController::approve/$1');
+    $routes->post('reservasi/(:num)/reject', '\Modules\DashboardAdmin\Controllers\ReservationController::reject/$1');
+    $routes->post('reservasi/(:num)/complete', '\Modules\DashboardAdmin\Controllers\ReservationController::complete/$1');
+    $routes->post('reservasi/(:num)/cancel', '\Modules\DashboardAdmin\Controllers\ReservationController::cancel/$1');
 
-$routes->get('dashboard/admin/pelanggan', '\Modules\DashboardAdmin\Controllers\CustomerController::index');
-$routes->post('dashboard/admin/pelanggan/store', '\Modules\DashboardAdmin\Controllers\CustomerController::store');
-$routes->post('dashboard/admin/pelanggan/(:num)/update', '\Modules\DashboardAdmin\Controllers\CustomerController::update/$1');
-$routes->post('dashboard/admin/pelanggan/(:num)/delete', '\Modules\DashboardAdmin\Controllers\CustomerController::delete/$1');
-$routes->get('dashboard/admin/laporan', '\Modules\DashboardAdmin\Controllers\ReportController::index');
-$routes->get('dashboard/admin/laporan/print', '\Modules\DashboardAdmin\Controllers\ReportController::printLaporan');
-$routes->get('dashboard/admin/laporan/export/excel', '\Modules\DashboardAdmin\Controllers\ReportController::exportExcel');
-$routes->get('dashboard/admin/profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
-$routes->get('dashboard/user/profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
-$routes->post('dashboard/user/profil/update', '\Modules\DashboardUser\Controllers\ProfileController::update');
+    // Pembayaran
+    $routes->get('pembayaran', '\Modules\DashboardAdmin\Controllers\PaymentController::index');
+
+    // Pelanggan CRUD
+    $routes->get('pelanggan', '\Modules\DashboardAdmin\Controllers\CustomerController::index');
+    $routes->post('pelanggan/store', '\Modules\DashboardAdmin\Controllers\CustomerController::store');
+    $routes->post('pelanggan/(:num)/update', '\Modules\DashboardAdmin\Controllers\CustomerController::update/$1');
+    $routes->post('pelanggan/(:num)/delete', '\Modules\DashboardAdmin\Controllers\CustomerController::delete/$1');
+
+    // Laporan
+    $routes->get('laporan', '\Modules\DashboardAdmin\Controllers\ReportController::index');
+    $routes->get('laporan/print', '\Modules\DashboardAdmin\Controllers\ReportController::printLaporan');
+    $routes->get('laporan/export/excel', '\Modules\DashboardAdmin\Controllers\ReportController::exportExcel');
+
+    // Profil Admin
+    $routes->get('profil', '\Modules\DashboardAdmin\Controllers\ProfileController::index');
+});
+
+// Dashboard User Group
+$routes->group('dashboard/user', ['filter' => ['auth', 'user']], function($routes) {
+    $routes->get('/', '\Modules\DashboardUser\Controllers\DashboardController::index');
+    
+    // Reservasi User
+    $routes->get('reservasi', '\Modules\DashboardUser\Controllers\ReservationController::index');
+    $routes->post('reservasi/store', '\Modules\DashboardUser\Controllers\ReservationController::store');
+
+    // Profil User
+    $routes->get('profil', '\Modules\DashboardUser\Controllers\ProfileController::index');
+    $routes->post('profil/update', '\Modules\DashboardUser\Controllers\ProfileController::update');
+});

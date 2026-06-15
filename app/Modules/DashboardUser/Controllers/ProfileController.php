@@ -8,14 +8,6 @@ class ProfileController extends BaseController
 {
     public function index()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') === 'admin') {
-            return redirect()->to('/dashboard/admin');
-        }
-
         $userId = session()->get('user_id');
         $db = \Config\Database::connect();
         $user = $db->table('users')->where('id', $userId)->get()->getRowArray();
@@ -27,14 +19,6 @@ class ProfileController extends BaseController
 
     public function update()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') === 'admin') {
-            return redirect()->to('/dashboard/admin');
-        }
-
         $userId = session()->get('user_id');
         $db = \Config\Database::connect();
         

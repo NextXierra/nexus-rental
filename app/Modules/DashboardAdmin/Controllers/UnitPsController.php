@@ -9,14 +9,6 @@ class UnitPsController extends BaseController
 {
     public function index()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $unitModel = new UnitPsModel();
 
         return view('Modules\DashboardAdmin\Views\unit_ps', [
@@ -26,14 +18,6 @@ class UnitPsController extends BaseController
 
     public function store()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $rules = [
             'nama_unit'     => 'required|max_length[50]',
             'tipe'          => 'required|in_list[PS4,PS5]',
@@ -58,14 +42,6 @@ class UnitPsController extends BaseController
 
     public function update($id)
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $rules = [
             'nama_unit'     => 'required|max_length[50]',
             'tipe'          => 'required|in_list[PS4,PS5]',
@@ -90,14 +66,6 @@ class UnitPsController extends BaseController
 
     public function delete($id)
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $unitModel = new UnitPsModel();
         $unitModel->delete($id);
 

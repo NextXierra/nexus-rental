@@ -11,18 +11,9 @@ class ReservationController extends BaseController
 {
     public function index()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') === 'admin') {
-            return redirect()->to('/dashboard/admin');
-        }
-
         $userId = session()->get('user_id');
         $db = \Config\Database::connect();
 
-        
         $reservasiList = $db->table('reservasi')
             ->select('reservasi.*, unit_ps.nama_unit, pembayaran.metode as metode_bayar, pembayaran.status as status_bayar')
             ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
@@ -46,14 +37,6 @@ class ReservationController extends BaseController
 
     public function store()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') === 'admin') {
-            return redirect()->to('/dashboard/admin');
-        }
-
         $rules = [
             'unit_id'          => 'required|integer',
             'tanggal_mulai'    => 'required|valid_date[Y-m-d]',
@@ -85,7 +68,6 @@ class ReservationController extends BaseController
         $waktuMulai = strtotime($tanggal . ' ' . $jamHour . ':' . $jamMinute);
         $waktuMulaiFormatted = date('Y-m-d H:i:s', $waktuMulai);
 
-        
         if ($waktuMulai < time()) {
             return redirect()->back()->withInput()->with('error', 'Waktu mulai booking tidak boleh di masa lampau.');
         }
@@ -95,7 +77,6 @@ class ReservationController extends BaseController
 
         $db = \Config\Database::connect();
 
-        
         $overlap = $db->table('reservasi')
             ->where('unit_id', $unitId)
             ->where('status', 'aktif')
@@ -107,13 +88,11 @@ class ReservationController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Unit PS tersebut sudah disewa pada jam tersebut.');
         }
 
-        
         $userId = session()->get('user_id');
         $existingPelanggan = $db->table('pelanggan')->where('user_id', $userId)->get()->getRowArray();
         if ($existingPelanggan) {
             $pelangganId = $existingPelanggan['id'];
         } else {
-            
             $userRow = $db->table('users')->where('id', $userId)->get()->getRowArray();
             $db->table('pelanggan')->insert([
                 'user_id' => $userId,

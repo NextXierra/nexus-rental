@@ -9,14 +9,6 @@ class CustomerController extends BaseController
 {
     public function index()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $db = \Config\Database::connect();
         
         // Fetch pelanggan with left join to users to get their linked account email
@@ -40,14 +32,6 @@ class CustomerController extends BaseController
 
     public function store()
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $rules = [
             'nama'    => 'required|max_length[100]',
             'no_hp'   => 'permit_empty|max_length[20]',
@@ -73,14 +57,6 @@ class CustomerController extends BaseController
 
     public function update($id)
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $rules = [
             'nama'    => 'required|max_length[100]',
             'no_hp'   => 'permit_empty|max_length[20]',
@@ -106,14 +82,6 @@ class CustomerController extends BaseController
 
     public function delete($id)
     {
-        if (! session()->get('logged_in')) {
-            return redirect()->to('/login');
-        }
-
-        if (session()->get('role') !== 'admin') {
-            return redirect()->to('/dashboard/user');
-        }
-
         $pelangganModel = new PelangganModel();
         $pelangganModel->delete($id);
 
