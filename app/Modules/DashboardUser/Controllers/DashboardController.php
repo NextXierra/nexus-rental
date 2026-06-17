@@ -48,11 +48,26 @@ class DashboardController extends BaseController
                 ->get()->getResultArray();
         }
 
-        $availableUnitsList = $db->table('unit_ps')
-            ->where('status', 'tersedia')
+        $now = date('Y-m-d H:i:s');
+        $activeBookedUnitIds = $db->table('reservasi')
+            ->select('unit_id')
+            ->where('status', 'aktif')
+            ->where('waktu_mulai <=', $now)
+            ->where('waktu_selesai >=', $now)
+            ->get()->getResultArray();
+        $bookedIds = array_column($activeBookedUnitIds, 'unit_id');
+
+        $units = $db->table('unit_ps')
+            ->whereIn('status', ['tersedia', 'disewa'])
             ->orderBy('tipe', 'ASC')
             ->orderBy('nama_unit', 'ASC')
             ->get()->getResultArray();
+
+        $availableUnitsList = [];
+        foreach ($units as $unit) {
+            $unit['is_booked'] = in_array($unit['id'], $bookedIds) || ($unit['status'] === 'disewa');
+            $availableUnitsList[] = $unit;
+        }
 
         return view('Modules\DashboardUser\Views\dashboard', [
             'totalReservations'       => $totalReservations,

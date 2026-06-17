@@ -20,9 +20,22 @@ class DashboardController extends BaseController
             ->where('status', 'aktif')
             ->countAllResults();
 
-        $availableUnits = $db->table('unit_ps')
-            ->where('status', 'tersedia')
-            ->countAllResults();
+        $now = date('Y-m-d H:i:s');
+        $activeBookedUnitIds = $db->table('reservasi')
+            ->select('unit_id')
+            ->where('status', 'aktif')
+            ->where('waktu_mulai <=', $now)
+            ->where('waktu_selesai >=', $now)
+            ->get()->getResultArray();
+        $bookedIds = array_column($activeBookedUnitIds, 'unit_id');
+
+        $builder = $db->table('unit_ps')
+            ->where('status', 'tersedia');
+        if (!empty($bookedIds)) {
+            $builder->whereNotIn('id', $bookedIds);
+        }
+
+        $availableUnits = $builder->countAllResults();
         $totalUnits = $db->table('unit_ps')
             ->countAllResults();
 

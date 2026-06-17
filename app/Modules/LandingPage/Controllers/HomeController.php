@@ -44,25 +44,27 @@ class HomeController extends BaseController
             ->orderBy('nama_unit', 'ASC')
             ->get()->getResultArray();
 
+        $now = date('Y-m-d H:i:s');
         $availability = [];
         foreach ($units as $unit) {
-            $status = ($unit['status'] === 'disewa') ? 'booked' : 'available';
-            $time = '';
+            $activeRes = $db->table('reservasi')
+                ->where('unit_id', $unit['id'])
+                ->where('status', 'aktif')
+                ->where('waktu_mulai <=', $now)
+                ->where('waktu_selesai >=', $now)
+                ->orderBy('waktu_selesai', 'DESC')
+                ->get()->getRowArray();
 
-            if ($unit['status'] === 'disewa') {
-                $now = date('Y-m-d H:i:s');
-                $activeRes = $db->table('reservasi')
-                    ->where('unit_id', $unit['id'])
-                    ->where('status', 'aktif')
-                    ->where('waktu_mulai <=', $now)
-                    ->where('waktu_selesai >=', $now)
-                    ->orderBy('waktu_selesai', 'DESC')
-                    ->get()->getRowArray();
-
-                if ($activeRes) {
-                    $time = 'Selesai: ' . date('H:i', strtotime($activeRes['waktu_selesai']));
-                } else {
+            if ($activeRes) {
+                $status = 'booked';
+                $time = 'Selesai: ' . date('H:i', strtotime($activeRes['waktu_selesai']));
+            } else {
+                if ($unit['status'] === 'disewa') {
+                    $status = 'booked';
                     $time = 'Sewa Aktif';
+                } else {
+                    $status = 'available';
+                    $time = '';
                 }
             }
 

@@ -50,7 +50,11 @@
                             <div>
                                 <div class="d-flex justify-content-between align-items-start mb-2">
                                     <span class="badge" style="background-color: var(--turquoise); color: var(--primary); border: 1px solid var(--primary); font-family: var(--font-body); font-size: 11px;"><?= esc($unit['tipe']) ?></span>
-                                    <span class="status-pill tersedia" style="font-size: 9px; padding: 2px 6px;">READY</span>
+                                    <?php if ($unit['is_booked']): ?>
+                                        <span class="status-pill disewa" style="font-size: 9px; padding: 2px 6px;">DISEWA</span>
+                                    <?php else: ?>
+                                        <span class="status-pill tersedia" style="font-size: 9px; padding: 2px 6px;">READY</span>
+                                    <?php endif; ?>
                                 </div>
                                 <h3 class="my-2" style="font-family: var(--font-headline); font-size: 2.2rem; font-weight: bold; margin-top: 8px;"><?= esc($unit['nama_unit']) ?></h3>
                                 <p class="text-muted mb-2" style="font-size: 13px; font-family: var(--font-body);">Nikmati pengalaman gaming premium dengan tarif hemat.</p>

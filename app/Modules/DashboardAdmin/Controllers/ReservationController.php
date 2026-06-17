@@ -273,6 +273,21 @@ class ReservationController extends BaseController
         $waktuSelesaiFormatted = date('Y-m-d H:i:s', $waktuMulai + ($durasi * 3600));
 
         $db = \Config\Database::connect();
+
+        $unitModel = new UnitModel();
+        $unit = $unitModel->find($unitId);
+        if ($unit && $unit['status'] === 'disewa') {
+            $nowTime = time();
+            $reqStart = strtotime($waktuMulaiFormatted);
+            $reqEnd = strtotime($waktuSelesaiFormatted);
+            if ($reqStart <= $nowTime && $reqEnd >= $nowTime) {
+                return $this->response->setJSON([
+                    'available' => false, 
+                    'message' => 'Unit PS sedang disewa saat ini.'
+                ]);
+            }
+        }
+
         $overlap = $db->table('reservasi')
             ->where('unit_id', $unitId)
             ->where('status', 'aktif')
@@ -329,6 +344,14 @@ class ReservationController extends BaseController
         $resultUnits = [];
         foreach ($units as $unit) {
             $isBooked = in_array($unit['id'], $bookedUnitIds);
+            if (!$isBooked && $unit['status'] === 'disewa') {
+                $nowTime = time();
+                $reqStart = strtotime($waktuMulaiFormatted);
+                $reqEnd = strtotime($waktuSelesaiFormatted);
+                if ($reqStart <= $nowTime && $reqEnd >= $nowTime) {
+                    $isBooked = true;
+                }
+            }
             $resultUnits[] = [
                 'id'            => $unit['id'],
                 'nama_unit'     => $unit['nama_unit'],

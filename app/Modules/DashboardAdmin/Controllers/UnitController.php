@@ -10,9 +10,27 @@ class UnitController extends BaseController
     public function index()
     {
         $unitModel = new UnitModel();
+        $units = $unitModel->orderBy('tipe', 'ASC')->orderBy('nama_unit', 'ASC')->paginate(10, 'units');
+
+        $db = \Config\Database::connect();
+        $now = date('Y-m-d H:i:s');
+        
+        $activeBookedUnitIds = $db->table('reservasi')
+            ->select('unit_id')
+            ->where('status', 'aktif')
+            ->where('waktu_mulai <=', $now)
+            ->where('waktu_selesai >=', $now)
+            ->get()->getResultArray();
+        $bookedIds = array_column($activeBookedUnitIds, 'unit_id');
+
+        foreach ($units as &$unit) {
+            if (in_array($unit['id'], $bookedIds)) {
+                $unit['status'] = 'disewa';
+            }
+        }
 
         return view('Modules\DashboardAdmin\Views\unit', [
-            'units' => $unitModel->orderBy('tipe', 'ASC')->orderBy('nama_unit', 'ASC')->paginate(10, 'units'),
+            'units' => $units,
             'pager' => $unitModel->pager
         ]);
     }
