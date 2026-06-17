@@ -17,7 +17,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Doodle background pattern */
 body::before {
   content: '';
   position: absolute;
@@ -52,7 +51,6 @@ a {
   padding: 0 var(--gutter); 
 }
 
-/* Nav Bar - Brutalist Header */
 .main-nav { 
   position: fixed; 
   top: 0; 
@@ -174,7 +172,6 @@ a {
   text-decoration-style: wavy;
 }
 
-/* Hero Section */
 .hero { 
   position: relative; 
   height: 100vh; 
@@ -232,7 +229,6 @@ a {
   box-shadow: 2px 2px 0 0 rgba(0,0,0,1);
 }
 
-/* Section styling */
 .section { 
   min-height: 100vh; 
   scroll-margin-top: 86px; 
@@ -284,7 +280,6 @@ h2::after {
   margin-bottom: 64px; 
 }
 
-/* Facility Card - Doodle style */
 .facility-card { 
   height: 256px; 
   border: var(--border-rough); 
@@ -346,7 +341,6 @@ h2::after {
   line-height: 1.5; 
 }
 
-/* Availability Card */
 .availability-card { 
   border: var(--border-rough); 
   border-radius: 6px 10px 4px 12px / 12px 6px 10px 4px;
@@ -400,7 +394,6 @@ h2::after {
   letter-spacing: .02em; 
 }
 
-/* Games Grid */
 .games-heading { 
   max-width: 1024px; 
   margin: 0 auto 64px; 
@@ -457,7 +450,6 @@ h2::after {
   color: var(--on-primary); 
 }
 
-/* Forms & Feedback */
 .contact-wrap { 
   max-width: 896px; 
   margin: 0 auto; 

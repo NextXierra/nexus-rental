@@ -6,7 +6,7 @@
     <title><?= $this->renderSection('title') ? $this->renderSection('title') : 'Dashboard User - Nexus Rental' ?></title>
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/dashboard.css?v=6">
+    <link rel="stylesheet" href="/assets/css/dashboard-user.css?v=6">
     <?= $this->renderSection('styles') ?>
 </head>
 <body class="dashboard-body user-dashboard">

@@ -3,7 +3,7 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use Modules\Login\Models\UserModel;
+use Modules\Auth\Models\UserModel;
 
 class UserSeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
             [
                 'nama'     => 'Pelanggan',
                 'email'    => 'pelanggan@nexusrental.com',
-                'password' => 'pelanggan', // Password akan di-hash oleh model
+                'password' => 'pelanggan',
                 'no_hp'    => '08xx-xxxx-xxxx',
                 'role'     => 'pelanggan'
             ],

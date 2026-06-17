@@ -68,12 +68,11 @@
     </div>
     <?php if (isset($pager)): ?>
         <div class="d-flex justify-content-center pt-3 pb-3">
-            <?= $pager->links('customers', 'brutal') ?>
+            <?= $pager->links('customers', 'pager') ?>
         </div>
     <?php endif; ?>
 </div>
 
-<!-- Modal Tambah Pelanggan -->
 <div class="modal fade" id="createCustomerModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="/dashboard/admin/pelanggan/store" method="post" class="modal-content dashboard-modal">
@@ -111,7 +110,6 @@
     </div>
 </div>
 
-<!-- Modal Edit Pelanggan -->
 <?php foreach ($customers as $customer): ?>
     <div class="modal fade" id="editCustomerModal<?= esc($customer['id']) ?>" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -151,7 +149,6 @@
     </div>
 <?php endforeach; ?>
 
-<!-- Modal Konfirmasi Hapus -->
 <div class="modal fade" id="confirmActionModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content dashboard-modal">

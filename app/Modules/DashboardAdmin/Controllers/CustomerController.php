@@ -3,16 +3,15 @@
 namespace Modules\DashboardAdmin\Controllers;
 
 use App\Controllers\BaseController;
-use Modules\DashboardAdmin\Models\PelangganModel;
+use Modules\DashboardAdmin\Models\CustomerModel;
 
 class CustomerController extends BaseController
 {
     public function index()
     {
-        $pelangganModel = new PelangganModel();
+        $customerModel = new CustomerModel();
         
-        // Use select and join with users email, then paginate 10 items
-        $customers = $pelangganModel
+        $customers = $customerModel
             ->select('pelanggan.*, users.email')
             ->join('users', 'pelanggan.user_id = users.id', 'left')
             ->orderBy('pelanggan.nama', 'ASC')
@@ -27,7 +26,7 @@ class CustomerController extends BaseController
         return view('Modules\DashboardAdmin\Views\customer', [
             'customers' => $customers,
             'users'     => $users,
-            'pager'     => $pelangganModel->pager,
+            'pager'     => $customerModel->pager,
         ]);
     }
 
@@ -46,8 +45,8 @@ class CustomerController extends BaseController
         $userId = $this->request->getPost('user_id');
         $userId = $userId === '' ? null : (int)$userId;
 
-        $pelangganModel = new PelangganModel();
-        $pelangganModel->insert([
+        $customerModel = new CustomerModel();
+        $customerModel->insert([
             'nama'    => $this->request->getPost('nama'),
             'no_hp'   => $this->request->getPost('no_hp'),
             'user_id' => $userId,
@@ -71,8 +70,8 @@ class CustomerController extends BaseController
         $userId = $this->request->getPost('user_id');
         $userId = $userId === '' ? null : (int)$userId;
 
-        $pelangganModel = new PelangganModel();
-        $pelangganModel->update($id, [
+        $customerModel = new CustomerModel();
+        $customerModel->update($id, [
             'nama'    => $this->request->getPost('nama'),
             'no_hp'   => $this->request->getPost('no_hp'),
             'user_id' => $userId,
@@ -83,8 +82,8 @@ class CustomerController extends BaseController
 
     public function delete($id)
     {
-        $pelangganModel = new PelangganModel();
-        $pelangganModel->delete($id);
+        $customerModel = new CustomerModel();
+        $customerModel->delete($id);
 
         return redirect()->to('/dashboard/admin/pelanggan')->with('success', 'Pelanggan berhasil dihapus.');
     }

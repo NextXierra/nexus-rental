@@ -70,7 +70,7 @@
     </div>
     <?php if (isset($pager)): ?>
         <div class="d-flex justify-content-center pt-3 pb-3">
-            <?= $pager->links('reservations_user', 'brutal') ?>
+            <?= $pager->links('reservations_user', 'pager') ?>
         </div>
     <?php endif; ?>
 </div>
@@ -84,7 +84,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
-                <!-- Live AJAX Overlap Alert -->
                 <div class="alert alert-danger d-none" id="modal_overlap_alert"></div>
 
                 <div class="form-row">

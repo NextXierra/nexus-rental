@@ -83,7 +83,6 @@ class ProfileController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Gagal memperbarui profil.');
         }
 
-        // Update session
         session()->set('nama', $updateData['nama']);
 
         return redirect()->to('/dashboard/user/profil')->with('success', 'Profil berhasil diperbarui!');

@@ -4,7 +4,7 @@ namespace Modules\DashboardUser\Controllers;
 
 use App\Controllers\BaseController;
 use Modules\DashboardAdmin\Models\ReservationModel;
-use Modules\DashboardAdmin\Models\UnitPsModel;
+use Modules\DashboardAdmin\Models\UnitModel;
 use Modules\DashboardAdmin\Models\PaymentModel;
 
 class ReservationController extends BaseController
@@ -23,7 +23,7 @@ class ReservationController extends BaseController
             ->orderBy('reservasi.created_at', 'DESC')
             ->paginate(10, 'reservations_user');
 
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         
         $unitList = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
         $selectedUnitId = $this->request->getGet('unit_id');
@@ -52,15 +52,15 @@ class ReservationController extends BaseController
         }
 
         $unitId = $this->request->getPost('unit_id');
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $unit = $unitModel->find($unitId);
 
         if (! $unit) {
-            return redirect()->back()->withInput()->with('error', 'Unit PS tidak ditemukan.');
+            return redirect()->back()->withInput()->with('error', 'Unit tidak ditemukan.');
         }
 
         if ($unit['status'] === 'maintenance') {
-            return redirect()->back()->withInput()->with('error', 'Unit PS sedang dalam perawatan (maintenance).');
+            return redirect()->back()->withInput()->with('error', 'Unit sedang dalam perawatan (maintenance).');
         }
 
         $tanggal = $this->request->getPost('tanggal_mulai');
@@ -86,7 +86,7 @@ class ReservationController extends BaseController
             ->get()->getRowArray();
 
         if ($overlap) {
-            return redirect()->back()->withInput()->with('error', 'Unit PS tersebut sudah disewa pada jam tersebut.');
+            return redirect()->back()->withInput()->with('error', 'Unit tersebut sudah disewa pada jam tersebut.');
         }
 
         $userId = session()->get('user_id');

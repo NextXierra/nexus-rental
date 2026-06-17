@@ -8,7 +8,6 @@ body.dashboard-body {
     font-family: var(--font-body);
 }
 
-/* Sidebar with hand-drawn notepad style */
 .dashboard-shell {
     min-height: 100vh;
     display: flex;
@@ -89,7 +88,6 @@ body.dashboard-body {
     background-color: var(--background);
 }
 
-/* Header bar */
 .dashboard-topnav {
     min-height: 72px;
     display: flex;
@@ -212,7 +210,6 @@ body.dashboard-body {
     font-size: 14px;
 }
 
-/* Modals */
 .dashboard-modal {
     border: var(--border-rough);
     background-color: var(--surface-container-lowest);
@@ -258,7 +255,6 @@ body.dashboard-body {
     background-color: var(--surface-container-lowest);
 }
 
-/* Header boxes */
 .topbar {
     min-height: 92px;
     margin-bottom: 32px;
@@ -332,12 +328,7 @@ body.dashboard-body {
     transform: rotate(-0.5deg);
 }
 
-.user-hero {
-    background:
-        linear-gradient(135deg, rgba(232, 137, 10, 0.08), rgba(253, 248, 248, 0.05)),
-        url("/images/herobanner.png") no-repeat right center / 320px;
-    border-color: var(--primary);
-}
+
 
 .dashboard-kicker {
     margin: 0 0 12px;
@@ -367,7 +358,6 @@ body.dashboard-body {
     line-height: 1.6;
 }
 
-/* Buttons */
 .dashboard-button {
     border: var(--border-rough);
     border-radius: 4px;
@@ -411,7 +401,6 @@ body.dashboard-body {
     color: var(--primary);
 }
 
-/* Cards & Bento Grid */
 .dashboard-card,
 .dashboard-panel {
     border: var(--border-rough);
@@ -492,13 +481,11 @@ body.dashboard-body {
     text-transform: uppercase;
 }
 
-/* Tables */
 .dashboard-table {
     color: var(--primary);
     font-family: var(--font-body);
 }
 
-/* Brutal Pagination Styles */
 .brutal-pagination-container {
     box-shadow: 3px 3px 0 0 rgba(0,0,0,1);
     border: var(--border-rough);
@@ -556,7 +543,6 @@ body.dashboard-body {
     background-color: var(--surface-container-low);
 }
 
-/* Status markers / swipes */
 .payment-pill,
 .status-pill {
     display: inline-flex;
@@ -599,7 +585,6 @@ body.dashboard-body {
     color: var(--on-primary);
 }
 
-/* Unit Cards */
 .unit-card,
 .available-card {
     min-height: 220px;

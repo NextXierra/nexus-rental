@@ -1,11 +1,11 @@
 <?= $this->extend('layouts/admin') ?>
 
-<?= $this->section('title') ?>Unit PS - Nexus Rental<?= $this->endSection() ?>
+<?= $this->section('title') ?>Unit - Nexus Rental<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
 <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
     <div>
-        <h1 class="dashboard-page-title">Unit PS</h1>
+        <h1 class="dashboard-page-title">Unit</h1>
         <p class="dashboard-page-subtitle">Kelola data Playstation rental.</p>
     </div>
     <button class="dashboard-button" type="button" data-toggle="modal" data-target="#createUnitModal">
@@ -47,7 +47,7 @@
                             <td><span class="status-pill <?= esc($unit['status']) ?>"><?= esc($unit['status']) ?></span></td>
                             <td class="text-right">
                                 <button class="btn btn-sm btn-outline-warning" type="button" data-toggle="modal" data-target="#editUnitModal<?= esc($unit['id']) ?>">Edit</button>
-                                <form id="delete-form-<?= esc($unit['id']) ?>" action="/dashboard/admin/unit-ps/<?= esc($unit['id']) ?>/delete" method="post" class="d-none">
+                                <form id="delete-form-<?= esc($unit['id']) ?>" action="/dashboard/admin/unit/<?= esc($unit['id']) ?>/delete" method="post" class="d-none">
                                     <?= csrf_field() ?>
                                 </form>
                                 <button class="btn btn-sm btn-outline-danger trigger-confirm" type="button" data-message="Apakah Anda yakin ingin menghapus unit PS ini?" data-form-id="delete-form-<?= esc($unit['id']) ?>">Hapus</button>
@@ -64,14 +64,14 @@
     </div>
     <?php if (isset($pager)): ?>
         <div class="d-flex justify-content-center pt-3 pb-3">
-            <?= $pager->links('units', 'brutal') ?>
+            <?= $pager->links('units', 'pager') ?>
         </div>
     <?php endif; ?>
 </div>
 
 <div class="modal fade" id="createUnitModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <form action="/dashboard/admin/unit-ps/store" method="post" class="modal-content dashboard-modal">
+        <form action="/dashboard/admin/unit/store" method="post" class="modal-content dashboard-modal">
             <?= csrf_field() ?>
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Unit PS</h5>
@@ -113,7 +113,7 @@
 <?php foreach ($units as $unit): ?>
     <div class="modal fade" id="editUnitModal<?= esc($unit['id']) ?>" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form action="/dashboard/admin/unit-ps/<?= esc($unit['id']) ?>/update" method="post" class="modal-content dashboard-modal">
+            <form action="/dashboard/admin/unit/<?= esc($unit['id']) ?>/update" method="post" class="modal-content dashboard-modal">
                 <?= csrf_field() ?>
                 <div class="modal-header">
                     <h5 class="modal-title">Edit Unit PS</h5>

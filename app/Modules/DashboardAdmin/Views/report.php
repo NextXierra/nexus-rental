@@ -18,7 +18,6 @@
     </div>
 </div>
 
-<!-- Form Filter Laporan -->
 <div class="dashboard-panel mb-4">
     <div class="panel-heading">
         <h2>Filter Laporan</h2>
@@ -67,7 +66,6 @@
     </div>
 </div>
 
-<!-- Summary Cards -->
 <div class="row mb-4">
     <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
         <div class="dashboard-card metric-card">
@@ -99,7 +97,6 @@
     </div>
 </div>
 
-<!-- Detail Table -->
 <div class="dashboard-panel">
     <div class="panel-heading">
         <h2>Rincian Transaksi Pendapatan</h2>
@@ -167,7 +164,6 @@ $(document).ready(function() {
 
     $('input[name="filter"]').change(toggleFilters);
     
-    // Set active class properly based on selected input on page load
     var currentFilter = "<?= esc($filter) ?>";
     $('input[name="filter"][value="' + currentFilter + '"]').parent().addClass('active').siblings().removeClass('active');
     

@@ -3,15 +3,15 @@
 namespace Modules\DashboardAdmin\Controllers;
 
 use App\Controllers\BaseController;
-use Modules\DashboardAdmin\Models\UnitPsModel;
+use Modules\DashboardAdmin\Models\UnitModel;
 
-class UnitPsController extends BaseController
+class UnitController extends BaseController
 {
     public function index()
     {
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
 
-        return view('Modules\DashboardAdmin\Views\unit_ps', [
+        return view('Modules\DashboardAdmin\Views\unit', [
             'units' => $unitModel->orderBy('tipe', 'ASC')->orderBy('nama_unit', 'ASC')->paginate(10, 'units'),
             'pager' => $unitModel->pager
         ]);
@@ -30,7 +30,7 @@ class UnitPsController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $unitModel->insert([
             'nama_unit'     => $this->request->getPost('nama_unit'),
             'tipe'          => $this->request->getPost('tipe'),
@@ -38,7 +38,7 @@ class UnitPsController extends BaseController
             'status'        => $this->request->getPost('status'),
         ]);
 
-        return redirect()->to('/dashboard/admin/unit-ps')->with('success', 'Unit PS berhasil ditambahkan.');
+        return redirect()->to('/dashboard/admin/unit')->with('success', 'Unit berhasil ditambahkan.');
     }
 
     public function update($id)
@@ -54,7 +54,7 @@ class UnitPsController extends BaseController
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $unitModel->update($id, [
             'nama_unit'     => $this->request->getPost('nama_unit'),
             'tipe'          => $this->request->getPost('tipe'),
@@ -62,14 +62,14 @@ class UnitPsController extends BaseController
             'status'        => $this->request->getPost('status'),
         ]);
 
-        return redirect()->to('/dashboard/admin/unit-ps')->with('success', 'Unit PS berhasil diperbarui.');
+        return redirect()->to('/dashboard/admin/unit')->with('success', 'Unit berhasil diperbarui.');
     }
 
     public function delete($id)
     {
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $unitModel->delete($id);
 
-        return redirect()->to('/dashboard/admin/unit-ps')->with('success', 'Unit PS berhasil dihapus.');
+        return redirect()->to('/dashboard/admin/unit')->with('success', 'Unit berhasil dihapus.');
     }
 }

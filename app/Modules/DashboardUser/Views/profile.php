@@ -27,7 +27,6 @@
 <?php endif; ?>
 
 <div class="row">
-    <!-- Profile Info Card -->
     <div class="col-lg-4 mb-4">
         <div class="dashboard-panel text-center p-4" style="background-color: var(--surface-container-low);">
             <div class="d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px; border: var(--border-rough); border-radius: 999px; background-color: var(--turquoise); box-shadow: var(--shadow-block);">
@@ -54,7 +53,6 @@
             </div>
         </div>
 
-        <!-- Quick Tips / Support Panel -->
         <div class="dashboard-panel mt-4">
             <div class="panel-heading">
                 <h2>Panduan & Bantuan</h2>
@@ -79,7 +77,6 @@
         </div>
     </div>
 
-    <!-- Edit Profile Form Panel -->
     <div class="col-lg-8 mb-4">
         <form action="/dashboard/user/profil/update" method="post" class="dashboard-panel mb-0">
             <?= csrf_field() ?>

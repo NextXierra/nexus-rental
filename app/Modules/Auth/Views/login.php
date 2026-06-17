@@ -4,16 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Nexus Rental</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?= base_url('vendor/bootstrap/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/auth.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/login.css') ?>">
 </head>
 <body class="auth-body">
 
 <div class="container">
     <div class="login-wrapper row mx-auto">
-        <!-- Form Section -->
         <div class="col-md-6 form-section">
             <a href="<?= base_url('/') ?>" class="close-btn"><i class="fa fa-times"></i></a>
             
@@ -86,14 +84,12 @@
             </div>
         </div>
         
-        <!-- Image Section -->
         <div class="col-md-6 d-none d-md-block image-section" style="background-image: url('<?= base_url("images/" . $randomGame) ?>');">
             <div class="image-overlay"></div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
 <script src="<?= base_url('vendor/jquery/jquery.slim.min.js') ?>"></script>
 <script src="<?= base_url('vendor/popper/popper.min.js') ?>"></script>
 <script src="<?= base_url('vendor/bootstrap/js/bootstrap.min.js') ?>"></script>

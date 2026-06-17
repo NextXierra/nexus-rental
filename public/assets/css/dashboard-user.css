@@ -1,0 +1,8 @@
+@import url('dashboard-base.css');
+
+.user-hero {
+    background:
+        linear-gradient(135deg, rgba(232, 137, 10, 0.08), rgba(253, 248, 248, 0.05)),
+        url("/images/herobanner.png") no-repeat right center / 320px;
+    border-color: var(--primary);
+}

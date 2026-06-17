@@ -62,12 +62,11 @@
     </div>
     <?php if (isset($pager)): ?>
         <div class="d-flex justify-content-center pt-3 pb-3">
-            <?= $pager->links('games', 'brutal') ?>
+            <?= $pager->links('games', 'pager') ?>
         </div>
     <?php endif; ?>
 </div>
 
-<!-- Modal Tambah Game -->
 <div class="modal fade" id="createGameModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <form action="/dashboard/admin/games/store" method="post" enctype="multipart/form-data" class="modal-content dashboard-modal">
@@ -94,7 +93,6 @@
     </div>
 </div>
 
-<!-- Modal Edit Game -->
 <?php foreach ($games as $game): ?>
     <div class="modal fade" id="editGameModal<?= esc($game['id']) ?>" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -123,7 +121,6 @@
     </div>
 <?php endforeach; ?>
 
-<!-- Modal Konfirmasi Hapus -->
 <div class="modal fade" id="confirmActionModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content dashboard-modal">

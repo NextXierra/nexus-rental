@@ -57,13 +57,13 @@ class ReportController extends BaseController
             $label = date('d M Y', strtotime($tanggal));
         } elseif ($filter === 'mingguan') {
             $date = new \DateTime($minggu);
-            $dayOfWeek = (int) $date->format('N'); // 1 (Monday) to 7 (Sunday)
-            $date->modify('-' . ($dayOfWeek - 1) . ' days'); // set to Monday
+            $dayOfWeek = (int) $date->format('N');
+            $date->modify('-' . ($dayOfWeek - 1) . ' days');
             $start = $date->format('Y-m-d 00:00:00');
-            $date->modify('+6 days'); // set to Sunday
+            $date->modify('+6 days');
             $end = $date->format('Y-m-d 23:59:59');
             $label = date('d M Y', strtotime($start)) . ' s/d ' . date('d M Y', strtotime($end));
-        } else { // bulanan
+        } else {
             $start = $bulan . '-01 00:00:00';
             $end = date('Y-m-t 23:59:59', strtotime($start));
             $label = date('F Y', strtotime($start));

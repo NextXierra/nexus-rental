@@ -2,9 +2,6 @@
 
 use CodeIgniter\Pager\PagerRenderer;
 
-/**
- * @var PagerRenderer $pager
- */
 $pager->setSurroundCount(1);
 ?>
 

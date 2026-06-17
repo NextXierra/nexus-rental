@@ -4,21 +4,21 @@ use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
 $routes->get('/', '\Modules\LandingPage\Controllers\HomeController::index');
-$routes->get('login', '\Modules\Login\Controllers\LoginController::index');
-$routes->post('login/process', '\Modules\Login\Controllers\LoginController::processLogin');
-$routes->get('register', '\Modules\Login\Controllers\LoginController::register');
-$routes->post('register/process', '\Modules\Login\Controllers\LoginController::processRegister');
-$routes->get('logout', '\Modules\Login\Controllers\LoginController::logout');
+$routes->get('login', '\Modules\Auth\Controllers\AuthController::index');
+$routes->post('login/process', '\Modules\Auth\Controllers\AuthController::processLogin');
+$routes->get('register', '\Modules\Auth\Controllers\AuthController::register');
+$routes->post('register/process', '\Modules\Auth\Controllers\AuthController::processRegister');
+$routes->get('logout', '\Modules\Auth\Controllers\AuthController::logout');
 
 // Dashboard Admin Group
 $routes->group('dashboard/admin', ['filter' => ['auth', 'admin']], function($routes) {
     $routes->get('/', '\Modules\DashboardAdmin\Controllers\DashboardController::index');
     
-    // Unit PS CRUD
-    $routes->get('unit-ps', '\Modules\DashboardAdmin\Controllers\UnitPsController::index');
-    $routes->post('unit-ps/store', '\Modules\DashboardAdmin\Controllers\UnitPsController::store');
-    $routes->post('unit-ps/(:num)/update', '\Modules\DashboardAdmin\Controllers\UnitPsController::update/$1');
-    $routes->post('unit-ps/(:num)/delete', '\Modules\DashboardAdmin\Controllers\UnitPsController::delete/$1');
+    // Unit CRUD
+    $routes->get('unit', '\Modules\DashboardAdmin\Controllers\UnitController::index');
+    $routes->post('unit/store', '\Modules\DashboardAdmin\Controllers\UnitController::store');
+    $routes->post('unit/(:num)/update', '\Modules\DashboardAdmin\Controllers\UnitController::update/$1');
+    $routes->post('unit/(:num)/delete', '\Modules\DashboardAdmin\Controllers\UnitController::delete/$1');
 
     // Games CRUD
     $routes->get('games', '\Modules\DashboardAdmin\Controllers\GameController::index');

@@ -6,7 +6,7 @@
     <title><?= $this->renderSection('title') ? $this->renderSection('title') : 'Dashboard Admin - Nexus Rental' ?></title>
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/dashboard.css?v=6">
+    <link rel="stylesheet" href="/assets/css/dashboard-admin.css?v=6">
     <?= $this->renderSection('styles') ?>
 </head>
 <body class="dashboard-body">
@@ -19,7 +19,7 @@
             $segment = $uri->getSegment(3); // dashboard/admin/segment
             ?>
             <a href="/dashboard/admin" class="<?= empty($segment) ? 'active' : '' ?>"><i class="fa fa-home"></i> Home Dashboard</a>
-            <a href="/dashboard/admin/unit-ps" class="<?= ($segment === 'unit-ps') ? 'active' : '' ?>"><i class="fa fa-gamepad"></i> Unit PS</a>
+            <a href="/dashboard/admin/unit" class="<?= ($segment === 'unit') ? 'active' : '' ?>"><i class="fa fa-gamepad"></i> Unit</a>
             <a href="/dashboard/admin/games" class="<?= ($segment === 'games') ? 'active' : '' ?>"><i class="fa fa-th-large"></i> Games</a>
             <a href="/dashboard/admin/reservasi" class="<?= ($segment === 'reservasi') ? 'active' : '' ?>"><i class="fa fa-calendar-check-o"></i> Reservasi</a>
             <a href="/dashboard/admin/pelanggan" class="<?= ($segment === 'pelanggan') ? 'active' : '' ?>"><i class="fa fa-users"></i> Pelanggan</a>

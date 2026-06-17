@@ -29,7 +29,6 @@
     </div>
 <?php endif; ?>
 
-<!-- Tabel Permintaan Reservasi -->
 <div class="dashboard-panel mb-4">
     <div class="panel-heading d-flex align-items-center justify-content-between py-3 px-4">
         <h2 class="mb-0" style="font-size: 16px;">Permintaan Reservasi</h2>
@@ -141,7 +140,7 @@
     </div>
     <?php if (isset($pager)): ?>
         <div class="d-flex justify-content-center pt-3 pb-3">
-            <?= $pager->links('reservations', 'brutal') ?>
+            <?= $pager->links('reservations', 'pager') ?>
         </div>
     <?php endif; ?>
 </div>
@@ -167,7 +166,6 @@
                     </div>
                 <?php endif; ?>
 
-                <!-- Live AJAX Overlap Alert -->
                 <div class="alert alert-danger d-none" id="modal_overlap_alert"></div>
 
                 <div class="form-group">
@@ -178,7 +176,6 @@
                     </select>
                 </div>
 
-                <!-- Block User Terdaftar (Member) -->
                 <div class="form-group" id="block_user">
                     <label>Pilih Member</label>
                     <select name="user_id" class="form-control">
@@ -189,7 +186,6 @@
                     </select>
                 </div>
 
-                <!-- Block Pelanggan Biasa -->
                 <div class="d-none" id="block_pelanggan">
                     <div class="form-group">
                         <label>Nama Pelanggan</label>

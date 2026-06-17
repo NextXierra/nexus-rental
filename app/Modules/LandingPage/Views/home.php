@@ -6,7 +6,7 @@
     <title>Nexus Rental</title>
     <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/landingpage.css?v=9">
+    <link rel="stylesheet" href="/assets/css/landing-page.css?v=9">
 </head>
 <body>
 <div class="page-shell">
@@ -158,6 +158,6 @@
 <script src="/vendor/jquery/jquery.slim.min.js"></script>
 <script src="/vendor/popper/popper.min.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="/assets/js/landingpage.js?v=6"></script>
+<script src="/assets/js/landing-page.js?v=6"></script>
 </body>
 </html>

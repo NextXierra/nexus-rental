@@ -4,7 +4,7 @@ namespace Modules\DashboardAdmin\Controllers;
 
 use App\Controllers\BaseController;
 use Modules\DashboardAdmin\Models\ReservationModel;
-use Modules\DashboardAdmin\Models\UnitPsModel;
+use Modules\DashboardAdmin\Models\UnitModel;
 use Modules\DashboardAdmin\Models\PaymentModel;
 
 class ReservationController extends BaseController
@@ -13,18 +13,14 @@ class ReservationController extends BaseController
     {
         $reservationModel = new ReservationModel();
         
-        // Paginate only non-pending reservations.
-        // We will query pending separately but we might want pending to be paginated too?
-        // Usually pending is few. Let's make normal reservations paginated to 10 items.
-        
         $pendingReservations = $reservationModel
             ->select('reservasi.*, pelanggan.nama as nama_pelanggan, unit_ps.nama_unit')
             ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
             ->join('unit_ps', 'reservasi.unit_id = unit_ps.id')
             ->where('reservasi.status', 'pending')
             ->orderBy('reservasi.created_at', 'DESC')
-            ->findAll(); // Pending list is usually short, so keep it direct or limit
-
+            ->findAll();
+ 
         $reservations = $reservationModel
             ->select('reservasi.*, pelanggan.nama as nama_pelanggan, unit_ps.nama_unit')
             ->join('pelanggan', 'reservasi.pelanggan_id = pelanggan.id')
@@ -32,11 +28,11 @@ class ReservationController extends BaseController
             ->where('reservasi.status !=', 'pending')
             ->orderBy('reservasi.created_at', 'DESC')
             ->paginate(10, 'reservations');
-
+ 
         $db = \Config\Database::connect();
         $pelangganList = $db->table('pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
         $userList = $db->table('users')->where('role', 'pelanggan')->orderBy('nama', 'ASC')->get()->getResultArray();
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         
         $unitList = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
         $allUnits = $unitModel->orderBy('nama_unit', 'ASC')->findAll();
@@ -114,7 +110,7 @@ class ReservationController extends BaseController
         }
 
         $unitId = $this->request->getPost('unit_id');
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $unit = $unitModel->find($unitId);
 
         if (! $unit) {
@@ -210,7 +206,7 @@ class ReservationController extends BaseController
 
         $reservasiModel->update($id, ['status' => 'selesai']);
 
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $unitModel->update($reservasi['unit_id'], ['status' => 'tersedia']);
 
         $db->transComplete();
@@ -240,7 +236,7 @@ class ReservationController extends BaseController
 
         $reservasiModel->update($id, ['status' => 'dibatalkan']);
 
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $unitModel->update($reservasi['unit_id'], ['status' => 'tersedia']);
 
         $db->transComplete();
@@ -319,7 +315,7 @@ class ReservationController extends BaseController
 
         $db = \Config\Database::connect();
         
-        $unitModel = new UnitPsModel();
+        $unitModel = new UnitModel();
         $units = $unitModel->where('status !=', 'maintenance')->orderBy('nama_unit', 'ASC')->findAll();
 
         $activeReservations = $db->table('reservasi')
@@ -380,7 +376,7 @@ class ReservationController extends BaseController
 
         $waktuMulai = strtotime($reservasi['waktu_mulai']);
         if ($waktuMulai <= time()) {
-            $unitModel = new UnitPsModel();
+            $unitModel = new UnitModel();
             $unitModel->update($reservasi['unit_id'], ['status' => 'disewa']);
         }
 

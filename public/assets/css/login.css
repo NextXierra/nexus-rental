@@ -13,7 +13,6 @@ body.auth-body {
     overflow-x: hidden;
 }
 
-/* Doodle background pattern */
 body.auth-body::before {
     content: '';
     position: absolute;
@@ -115,7 +114,6 @@ body.auth-body::before {
     box-shadow: none;
 }
 
-/* Primary actions */
 .btn-primary, .btn-success {
     background-color: var(--burnt-orange);
     border: var(--border-rough);
@@ -187,7 +185,6 @@ body.auth-body::before {
 .divider::before { margin-right: .5em; }
 .divider::after { margin-left: .5em; }
 
-/* Social buttons */
 a.social-btn {
     border: var(--border-rough);
     border-radius: 4px;

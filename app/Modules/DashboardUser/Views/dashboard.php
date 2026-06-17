@@ -3,7 +3,6 @@
 <?= $this->section('title') ?>Dashboard User - Nexus Rental<?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<!-- Welcome Header (User Hero) -->
 <div class="dashboard-header user-hero mb-4">
     <p class="dashboard-kicker">Selamat Datang!</p>
     <h1>Hai, <?= esc(session()->get('nama') ?? 'Kawan') ?>!</h1>
@@ -11,9 +10,7 @@
     <a href="/dashboard/user/reservasi?book=1" class="dashboard-button mt-3"><i class="fa fa-plus-circle"></i> Booking Sekarang</a>
 </div>
 
-<!-- Metric Cards (Bento Grid) -->
 <div class="row mb-4">
-    <!-- Card 1: Total Reservasi Saya -->
     <div class="col-sm-6 col-lg-4 mb-3">
         <div class="dashboard-card metric-card">
             <span>Total Booking Saya</span>
@@ -21,7 +18,6 @@
             <p><i class="fa fa-history text-muted"></i> Riwayat sewa keseluruhan</p>
         </div>
     </div>
-    <!-- Card 2: Reservasi Aktif -->
     <div class="col-sm-6 col-lg-4 mb-3">
         <div class="dashboard-card metric-card">
             <span>Booking Aktif / Pending</span>
@@ -29,7 +25,6 @@
             <p><i class="fa fa-refresh text-warning"></i>/ menunggu</p>
         </div>
     </div>
-    <!-- Card 3: Total Transaksi Lunas -->
     <div class="col-sm-6 col-lg-4 mb-3">
         <div class="dashboard-card metric-card">
             <span>Total Pembayaran Lunas</span>
@@ -40,7 +35,6 @@
 </div>
 
 <div class="row">
-    <!-- Left Side: Catalog of Available Units -->
     <div class="col-lg-7 mb-4">
         <div class="dashboard-panel mb-0" style="border-bottom: none;">
             <div class="panel-heading">
@@ -84,7 +78,6 @@
         </div>
     </div>
 
-    <!-- Right Side: Recent Bookings -->
     <div class="col-lg-5 mb-4">
         <div class="dashboard-panel">
             <div class="panel-heading">
